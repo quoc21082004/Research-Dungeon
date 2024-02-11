@@ -5,10 +5,11 @@ using UnityEngine.UI;
 using PlayFab;
 using PlayFab.ClientModels;
 using System;
+using UnityEngine.SceneManagement;
 public class LoginPlayfab : MonoBehaviour
 {
-    int a = 1;
     [SerializeField] TextMeshProUGUI loginTitle_txt;
+    [SerializeField] GameObject startMenuPanel;
     [SerializeField] TextMeshProUGUI message_txt;
     [Header("       Login")]
     [SerializeField] GameObject loginprefab;
@@ -23,21 +24,23 @@ public class LoginPlayfab : MonoBehaviour
 
     private void OnEnable()
     {
-        loginTitle_txt.gameObject.SetActive(false);
+        startMenuPanel.gameObject.SetActive(true);
+        loginTitle_txt.text = string.Empty;
+        message_txt.text = string.Empty;
     }
     public void OnLoginPage()
     {
         loginTitle_txt.text = "Login";
         loginprefab.gameObject.SetActive(true);
         registerprefab.gameObject.SetActive(false);
-        loginTitle_txt.gameObject.SetActive(true);
+        startMenuPanel.gameObject.SetActive(false);
     }
     public void OnRegisterPage()
     {
         loginTitle_txt.text = "Register";
         registerprefab.gameObject.SetActive(true);
         loginprefab.gameObject.SetActive(false);
-        loginTitle_txt.gameObject.SetActive(true);
+        startMenuPanel.gameObject.SetActive(false);
     }
     public void OnRecoverPage()
     {
@@ -56,12 +59,33 @@ public class LoginPlayfab : MonoBehaviour
     }
     private void OnRegisterSucces(RegisterPlayFabUserResult result)
     {
-        //message_txt.text = "New Acount is Created";
+        message_txt.text = "New Acount is Created";
         OnLoginPage();
+    }
+    public void LoginUser()
+    {
+        var request = new LoginWithPlayFabRequest
+        {
+            Username = loginUserInput.text,
+            Password = loginPasswordInput.text,
+        };
+        PlayFabClientAPI.LoginWithPlayFab(request, OnLoginSucces, OnError);
+    }
+    private void OnLoginSucces(LoginResult result)
+    {
+        message_txt.text = string.Empty;
+        loginprefab.gameObject.SetActive(false);
+        SceneManager.LoadScene("Base 1");
     }
     private void OnError(PlayFabError error)
     {
-        //message_txt.text = error.ErrorMessage;
+        message_txt.text = error.ErrorMessage;
         Debug.Log(error.GenerateErrorReport());
+    }
+    public void OnClick()
+    {
+        startMenuPanel.gameObject.SetActive(true);
+        loginTitle_txt.text = string.Empty;
+        message_txt.text = string.Empty;
     }
 }
