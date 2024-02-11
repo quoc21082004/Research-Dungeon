@@ -3,17 +3,22 @@ using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using PlayFab;
+using PlayFab.ClientModels;
+using System;
 public class LoginPlayfab : MonoBehaviour
 {
+    int a = 1;
     [SerializeField] TextMeshProUGUI loginTitle_txt;
+    [SerializeField] TextMeshProUGUI message_txt;
     [Header("       Login")]
     [SerializeField] GameObject loginprefab;
-    [SerializeField] TMP_InputField loginInput;
+    [SerializeField] TMP_InputField loginUserInput;
     [SerializeField] TMP_InputField loginPasswordInput;
 
     [Header("       Register")]
     [SerializeField] GameObject registerprefab;
-    [SerializeField] TMP_InputField registerInput;
+    [SerializeField] TMP_InputField registerUserInput;
+    [SerializeField] TMP_InputField registerEmailInput;
     [SerializeField] TMP_InputField registerPasswordInput;
 
     private void OnEnable()
@@ -40,6 +45,23 @@ public class LoginPlayfab : MonoBehaviour
     }
     public void RegisterUser()
     {
-        var request = new Reg
+        var request = new RegisterPlayFabUserRequest
+        {
+            DisplayName = registerUserInput.text,
+            Email = registerEmailInput.text,
+            Password = registerPasswordInput.text,
+            RequireBothUsernameAndEmail = false,
+        };
+        PlayFabClientAPI.RegisterPlayFabUser(request, OnRegisterSucces, OnError);
+    }
+    private void OnRegisterSucces(RegisterPlayFabUserResult result)
+    {
+        //message_txt.text = "New Acount is Created";
+        OnLoginPage();
+    }
+    private void OnError(PlayFabError error)
+    {
+        //message_txt.text = error.ErrorMessage;
+        Debug.Log(error.GenerateErrorReport());
     }
 }
