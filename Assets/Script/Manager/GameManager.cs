@@ -8,7 +8,7 @@ public class GameManager : Singleton<GameManager>
     [HideInInspector] public int level;
     private void Update()
     {
-        #region Map
+        /*#region Map
         if (!FullMapManager.isMapOpen)
         {
             if (Input.GetKeyDown(KeyCode.M) && !PauseMenu.isGamePause)
@@ -36,6 +36,7 @@ public class GameManager : Singleton<GameManager>
                 ShopManager.instance.CloseShop();
         }
         #endregion
+        */
     }
     private void OnEnable()
     {
