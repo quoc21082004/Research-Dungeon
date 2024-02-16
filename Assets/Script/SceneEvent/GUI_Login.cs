@@ -5,11 +5,11 @@ using UnityEngine.InputSystem;
 using UnityEngine.UI;
 public class GUI_Login : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI error_txt;
-    [SerializeField] TMP_InputField loginEmailField;
-    [SerializeField] TMP_InputField loginPassWordField;
-    [SerializeField] Button startbtn;
-    [SerializeField] Button quitbtn;
+    [SerializeField] public TextMeshProUGUI error_txt;
+    [SerializeField] public TMP_InputField loginEmailField;
+    [SerializeField] public TMP_InputField loginPassWordField;
+    [SerializeField] public Button start_btn;
+    [SerializeField] public Button quit_btn;
 
     private void OnEnable()
     {
@@ -26,12 +26,12 @@ public class GUI_Login : MonoBehaviour
     private void OnEnterInput(InputAction.CallbackContext context)
     {
         Debug.Log("Enter");
-        //startbtn.onClick?.Invoke();
+        start_btn.onClick?.Invoke();
     }
     private void OnESCInput(InputAction.CallbackContext context)
     {
         Debug.Log("Exit");
-        //quitbtn.onClick?.Invoke();
+        quit_btn.onClick?.Invoke();
     }
     public void SetErrorText(string _errorText)
     {
