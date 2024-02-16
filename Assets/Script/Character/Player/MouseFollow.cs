@@ -14,7 +14,7 @@ public class MouseFollow : MonoBehaviour
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         Vector2 direction = transform.position - mousePosition;
         transform.right = -direction;
-        if (Player.isFace)
+        if (PlayerController.isFace)
             transform.localScale = new Vector3(1, -1, 1);
         else
             transform.localScale = new Vector3(1, 1, 1);

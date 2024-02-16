@@ -7,7 +7,7 @@ using TMPro;
 public class statusStats : MonoBehaviour
 {
     [Header("STATUS")]
-    public Player player;
+    public PlayerController player;
     float currenthp, maxhp, percentage_hp;
     [SerializeField] private Image fill_hp;
     [SerializeField] private TextMeshProUGUI hp_text;
@@ -23,7 +23,7 @@ public class statusStats : MonoBehaviour
         if (PartyController.player == null)
             return;
         else
-            player = PartyController.player.GetComponent<Player>();
+            player = PartyController.player.GetComponent<PlayerController>();
 
         ReadStats();
         fillImage();

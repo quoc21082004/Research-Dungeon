@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class PlayerHurt : MonoBehaviour
 {
-    Player player;
+    PlayerController player;
     [SerializeField] GameObject gameOverprefab;
     bool isHealthRegen, isManaRegen;
 
@@ -15,7 +15,7 @@ public class PlayerHurt : MonoBehaviour
     
     private void Awake()
     {
-        player = GameObject.Find("Player").GetComponent<Player>();
+        player = GameObject.Find("Player").GetComponent<PlayerController>();
     }
     #region Take Damage & Dead
     public void TakeDamage(Transform hit, float amount)

@@ -6,7 +6,7 @@ using PlayFab;
 using PlayFab.ClientModels;
 using System;
 using UnityEngine.SceneManagement;
-public class LoginPlayfab : MonoBehaviour
+public class LoginPlayfab : Singleton<LoginPlayfab>
 {
     [SerializeField] TextMeshProUGUI loginTitle_txt;
     [SerializeField] GameObject startMenuPanel;
@@ -26,6 +26,20 @@ public class LoginPlayfab : MonoBehaviour
     [SerializeField] GameObject recoverprefab;
     [SerializeField] TMP_InputField recoverUserInput;
 
+    [Header("       Info Account")]
+    public readonly string playfabID = "EFB1C";
+    public readonly string Key_Name = "";
+    public readonly string Key_Gmail = "";
+    public readonly string Key_PW = "";
+
+    // event login
+    public event Action OnLoginSuccesEvent;
+    public event Action OnRegisterSuccesEvent;
+
+    protected override void Awake()
+    {
+        base.Awake();
+    }
     private void OnEnable()
     {
         startMenuPanel.gameObject.SetActive(true);
@@ -39,6 +53,8 @@ public class LoginPlayfab : MonoBehaviour
         registerprefab.gameObject.SetActive(false);
         recoverprefab.gameObject.SetActive(false);
         startMenuPanel.gameObject.SetActive(false);
+        loginEmailInput.text = "";
+        loginPasswordInput.text = "";
     }
     public void OnRegisterPage()
     {
@@ -47,6 +63,9 @@ public class LoginPlayfab : MonoBehaviour
         loginprefab.gameObject.SetActive(false);
         recoverprefab.gameObject.SetActive(false);
         startMenuPanel.gameObject.SetActive(false);
+        registerEmailInput.text = "";
+        registerPasswordInput.text = "";
+        registerUserInput.text = "";
     }
     public void OnRecoverPage()
     {
@@ -55,6 +74,7 @@ public class LoginPlayfab : MonoBehaviour
         registerprefab.gameObject.SetActive(false);
         loginprefab.gameObject.SetActive(false);
         startMenuPanel.gameObject.SetActive(false);
+        recoverUserInput.text = "";
     }
     public void RegisterUser()
     {
@@ -63,14 +83,18 @@ public class LoginPlayfab : MonoBehaviour
             Username = registerUserInput.text,
             Email = registerEmailInput.text,
             Password = registerPasswordInput.text,
+            TitleId = playfabID,
             RequireBothUsernameAndEmail = false,
         };
-        PlayFabClientAPI.RegisterPlayFabUser(request, OnRegisterSucces, OnError);
-    }
-    private void OnRegisterSucces(RegisterPlayFabUserResult result)
-    {
-        message_txt.text = "New Acount is Created";
-        OnLoginPage();
+        PlayFabClientAPI.RegisterPlayFabUser(request,
+            registerSucces =>
+            {
+                message_txt.text = "New Acount is Created";
+                PlayerPrefs.SetString(Key_Name, registerUserInput.ToString());
+                OnLoginPage();
+                OnRegisterSuccesEvent?.Invoke();
+            },
+            OnError);
     }
     public void LoginUser()
     {
@@ -78,8 +102,23 @@ public class LoginPlayfab : MonoBehaviour
         {
             Email = loginEmailInput.text,
             Password = loginPasswordInput.text,
+            TitleId = playfabID,
         };
-        PlayFabClientAPI.LoginWithEmailAddress(request, OnLoginSucces, OnError);
+        PlayFabClientAPI.LoginWithEmailAddress(request,
+            resuilt =>
+            {
+                SaveAccount();
+                OnLoginSucces(resuilt);
+                OnLoginSuccesEvent?.Invoke();
+                gameObject.SetActive(false);
+            },
+            OnError);
+    }
+    private void SaveAccount()
+    {
+        PlayerPrefs.SetString(Key_Name, registerUserInput.text.ToString());
+        PlayerPrefs.SetString(Key_Gmail, loginEmailInput.text.ToString());
+        PlayerPrefs.SetString(Key_PW, loginPasswordInput.text.ToString());
     }
     private void OnLoginSucces(LoginResult result)
     {
@@ -92,7 +131,7 @@ public class LoginPlayfab : MonoBehaviour
         var request = new SendAccountRecoveryEmailRequest
         {
             Email = recoverUserInput.text,
-            TitleId = "EFB1C",
+            TitleId = playfabID,
         };
         PlayFabClientAPI.SendAccountRecoveryEmail(request, OnRecoverSucces, OnRecoveryError);
     }
@@ -104,6 +143,12 @@ public class LoginPlayfab : MonoBehaviour
     private void OnRecoveryError(PlayFabError error)
     {
         message_txt.text = "No Email Found";
+    }
+    public void LoadAccount()
+    {
+        if (!PlayerPrefs.HasKey(Key_Gmail)) // not same account
+            return;
+
     }
     private void OnError(PlayFabError error)
     {

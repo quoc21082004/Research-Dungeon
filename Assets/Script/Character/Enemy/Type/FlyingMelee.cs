@@ -30,7 +30,7 @@ public class FlyingMelee : EnemyMelee
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (collision.gameObject.TryGetComponent<Player>(out Player player))
+            if (collision.gameObject.TryGetComponent<PlayerController>(out PlayerController player))
             {
                 player.GetComponent<PlayerHurt>().TakeDamage(null, 2);
             }
@@ -40,7 +40,7 @@ public class FlyingMelee : EnemyMelee
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (collision.gameObject.TryGetComponent<Player>(out Player player))
+            if (collision.gameObject.TryGetComponent<PlayerController>(out PlayerController player))
                 if (isAttack)
                     if (!isDMG)
                     {

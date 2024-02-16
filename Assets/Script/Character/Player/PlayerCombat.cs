@@ -4,20 +4,65 @@ using UnityEngine;
 
 public class PlayerCombat : ActiveAbility 
 {
-    Player player;
+    PlayerController player;
     public static Transform MuzzlePoint;
     public GameObject fireballprefab;
     bool isAttack = false;
-    public static MouseFollow mouseFollow;
+    public static GUI_Input mouseFollow;
     public float rangeOfAim;
     Collider2D[] findEnemy;
     public Transform aimPos, muzzleFind;
     private void Awake()
     {
         MuzzlePoint = GameObject.FindGameObjectWithTag("Muzzle").GetComponent<Transform>();
-        player = GameObject.Find("Player").GetComponent<Player>();
-        mouseFollow = GetComponentInChildren<MouseFollow>();
+        player = GameObject.Find("Player").GetComponent<PlayerController>();
+        mouseFollow = GetComponentInChildren<GUI_Input>();
     }
+    private void OnEnable()
+    {
+        
+    }
+    private void OnDisable()
+    {
+        
+    }
+    private void Update()
+    {
+        if (ItemHotKeyManager.instance == null)
+            return;
+        else
+        {
+            bool[] hotkeyInputs = new bool[2]
+            {
+                Input.GetKeyDown(KeyCode.X),
+                Input.GetKeyDown(KeyCode.C),
+            };
+            for (int i = 0; i < ItemHotKeyManager.instance.NumOfHotKeyItem; i++)
+                if (hotkeyInputs[i] && !ItemHotKeyManager.instance.IsHotKeyCoolDown(i)) // cool down = false (run)
+                    ItemHotKeyManager.instance.UseHotKey(i);
+        }
+
+        if (SpellHotKeyManager.instance == null)
+            return;
+        else
+        {
+            bool[] hotkeySpell = new bool[4]
+            {
+                Input.GetKeyDown(KeyCode.Alpha1),
+                Input.GetKeyDown(KeyCode.Alpha2),
+                Input.GetKeyDown(KeyCode.Alpha3),
+                Input.GetKeyDown(KeyCode.Alpha4),
+            };
+            for (int i = 0; i < SpellHotKeyManager.instance.NumOfHotKeySpell; i++)
+                if (hotkeySpell[i] && !SpellHotKeyManager.instance.IsHotKeyCoolDown(i))
+                    SpellHotKeyManager.instance.UseHotKey(i);
+        }
+    }
+    private void UseItemX(int index)
+    {
+
+    }
+    #region hideTag
     public void FindEnemy()
     {
         findEnemy = Physics2D.OverlapCircleAll(transform.position, rangeOfAim, LayerMaskHelper.layerMaskEnemy);
@@ -50,4 +95,5 @@ public class PlayerCombat : ActiveAbility
         yield return new WaitForSeconds(time);
         isAttack = false;
     }
+    #endregion
 }

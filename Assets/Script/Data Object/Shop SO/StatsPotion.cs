@@ -12,23 +12,23 @@ public class StatsPotion : Consumable
         switch(statsType)
         {
             case StatsType.HP:
-                PartyController.player.gameObject.GetComponent<Player>().playerdata.basicStats.health += statsBoots;
+                PartyController.player.gameObject.GetComponent<PlayerController>().playerdata.basicStats.health += statsBoots;
                 break;
             case StatsType.MP:
-                PartyController.player.gameObject.GetComponent<Player>().playerdata.basicStats.mana += statsBoots;
+                PartyController.player.gameObject.GetComponent<PlayerController>().playerdata.basicStats.mana += statsBoots;
                 break;
             case StatsType.ATK:
-                PartyController.player.gameObject.GetComponent<Player>().playerdata.basicAttack.wandDamage += statsBoots;
+                PartyController.player.gameObject.GetComponent<PlayerController>().playerdata.basicAttack.wandDamage += statsBoots;
                 break;
             case StatsType.DEF:
-                PartyController.player.gameObject.GetComponent<Player>().playerdata.otherStats.damageReduction += (int)statsBoots;
+                PartyController.player.gameObject.GetComponent<PlayerController>().playerdata.otherStats.damageReduction += (int)statsBoots;
                 break;
             case StatsType.CRIT:
-                PartyController.player.gameObject.GetComponent<Player>().playerdata.basicAttack.critChance += statsBoots;
+                PartyController.player.gameObject.GetComponent<PlayerController>().playerdata.basicAttack.critChance += statsBoots;
                 break;
             case StatsType.CRITDMG:
-                PartyController.player.gameObject.GetComponent<Player>().playerdata.basicAttack.maxCritDamage += statsBoots;
-                PartyController.player.gameObject.GetComponent<Player>().playerdata.basicAttack.minCritDamage += statsBoots;
+                PartyController.player.gameObject.GetComponent<PlayerController>().playerdata.basicAttack.maxCritDamage += statsBoots;
+                PartyController.player.gameObject.GetComponent<PlayerController>().playerdata.basicAttack.minCritDamage += statsBoots;
                 break;
             default:
                 break;

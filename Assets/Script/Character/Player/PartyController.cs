@@ -5,19 +5,19 @@ using UnityEngine;
 
 public class PartyController : Singleton<PartyController>
 {
-    public static Player player;
+    public static PlayerController player;
     public static Inventory inventoryG;
-    public static Player playerController;
+    public static PlayerController playerController;
     private void Update()
     {
         if (player == null)
-            player = transform.GetChild(0).gameObject.GetComponent<Player>();
+            player = transform.GetChild(0).gameObject.GetComponent<PlayerController>();
 
         if (inventoryG == null)
             inventoryG = new Inventory { Gold = player.playerdata.levelUp.gold };
         player.playerdata.levelUp.gold = inventoryG.Gold;
 
-        if (ItemHotKeyManager.instance == null)
+        /*if (ItemHotKeyManager.instance == null)
             return;
         else
         {
@@ -46,6 +46,7 @@ public class PartyController : Singleton<PartyController>
                 if (hotkeySpell[i] && !SpellHotKeyManager.instance.IsHotKeyCoolDown(i))
                     SpellHotKeyManager.instance.UseHotKey(i);
         }
+        */
     }
     public void Respawn(int lostRateExp,int lostRateGold)
     {

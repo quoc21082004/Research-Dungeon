@@ -1,8 +1,9 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Player : MonoBehaviour
+public class PlayerController : MonoBehaviour
 {
     SpriteRenderer mySR;
     Rigidbody2D myrigid;
@@ -14,12 +15,13 @@ public class Player : MonoBehaviour
     [HideInInspector] public float maxhealth, maxmana, health, mana, speed;
     [HideInInspector] public bool isAlve = true;
     public PlayerSO playerdata;
-    float move_x, move_y, startSpeed;
+    float startSpeed;
     public static bool isFace, canAction;
     public float dashSpeed, dashCD;
     bool isDash;
     Collider2D[] pickup;
     [HideInInspector] public float rangePickup = 1.2f;
+    Vector2 moveInput;
     private void Awake()
     {
         startSpeed = speed;
@@ -31,6 +33,7 @@ public class Player : MonoBehaviour
         playercombat = GetComponent<PlayerCombat>();
         mytrail = GetComponentInChildren<TrailRenderer>();
     }
+
     private void Start()
     {
         canAction = true;
@@ -63,17 +66,15 @@ public class Player : MonoBehaviour
     #region move & flip
     private void Move()
     {
-        move_x = Input.GetAxis("Horizontal");
-        move_y = Input.GetAxis("Vertical");
-        Vector2 newvelocity = new Vector2(move_x, move_y).normalized;
-        if ((move_x != 0 || move_y != 0) && canAction) 
+        moveInput = InputManager.playerInput.Player.Move.ReadValue<Vector2>();
+        if ((moveInput.x != 0 | moveInput.y != 0) && canAction) 
         {
-            myanim.SetFloat("MoveX", move_x);
-            myanim.SetFloat("MoveY", move_y);
+            myanim.SetFloat("MoveX", moveInput.x);
+            myanim.SetFloat("MoveY", moveInput.y);
             myanim.SetBool("Walking", true);
-            myrigid.velocity = (newvelocity * speed * Time.deltaTime);
+            myrigid.velocity = (moveInput * speed * Time.deltaTime);
         }
-        else if ((move_x == 0 && move_y == 0)) 
+        else if (moveInput.x == 0 && moveInput.y == 0) 
         {
             myanim.SetBool("Walking", false);
             myrigid.velocity = Vector2.zero;
@@ -95,14 +96,13 @@ public class Player : MonoBehaviour
         }
 
     }
+    #endregion
     public void SetPosition(Vector3 cords, Vector2 direction)
     {
-        Vector2 currentMove = new Vector2(move_x, move_y);
+        Vector2 currentMove = new Vector2(moveInput.x, moveInput.y);
         this.transform.position = cords;
         currentMove = direction;
     }
-    #endregion
-
     #region Dash
     private void Dash()
     {
