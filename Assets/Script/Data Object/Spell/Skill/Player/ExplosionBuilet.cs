@@ -14,7 +14,7 @@ public class ExplosionBuilet : MonoBehaviour, ISpell
     }
     protected virtual void HitTarget()
     {
-        //gameObject.SetActive(false);
+
     }
     public void KickOff(ActiveAbility ability, Vector2 direction, Quaternion rot)
     {
@@ -23,7 +23,7 @@ public class ExplosionBuilet : MonoBehaviour, ISpell
         mousePos = Camera.main.ScreenToWorldPoint(mousePos);
         Vector3 dir = PartyController.player.transform.position - mousePos;
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 180f;
-        transform.position = PlayerCombat.MuzzlePoint.transform.position;
+        transform.position = PlayerCombat.muzzlePoint.transform.position;
         transform.rotation = Quaternion.Euler(0, 0, angle);
         AudioManager.instance.PlaySfx("Fireball");
         StartCoroutine(LifeCheckCourtine());

@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -7,38 +8,7 @@ public class GameManager : Singleton<GameManager>
 {
     [HideInInspector] public float exp, exptolevel;
     [HideInInspector] public int level;
-    private void Update()
-    {
-        /*#region Map
-        if (!FullMapManager.isMapOpen)
-        {
-            if (Input.GetKeyDown(KeyCode.M) && !PauseMenu.isGamePause)
-            {
-                FullMapManager.instance.OpenMap();
-            }
-        }
-        else if (FullMapManager.isMapOpen)
-        {
-            if (Input.GetKeyDown(KeyCode.M) && PauseMenu.isGamePause)
-            {
-                FullMapManager.instance.CloseMap();
-            }
-        }
-        #endregion
-        #region Shop 
-        if (!ShopManager.isShopOpen)
-        {
-            if (Input.GetKeyDown(KeyCode.U) && !PauseMenu.isGamePause)
-                ShopManager.instance.OpenShop();
-        }
-        else if (ShopManager.isShopOpen)
-        {
-            if (Input.GetKeyDown(KeyCode.U) && PauseMenu.isGamePause)
-                ShopManager.instance.CloseShop();
-        }
-        #endregion
-        */
-    }
+    public PlayerSO playerdata;
     private void OnEnable()
     {
         exp = PlayerPrefs.GetFloat("Exp");
@@ -63,8 +33,5 @@ public class GameManager : Singleton<GameManager>
         level = PlayerPrefs.GetInt("level");
         PlayerPrefs.Save();
     }
-    public void RespawnAfterDie(float lostexp)
-    {
-        exp -= (int)((exp * lostexp) / 100); 
-    }
+    public void RespawnAfterDie(float lostexp) => exp -= (int)((exp * lostexp) / 100); 
 }

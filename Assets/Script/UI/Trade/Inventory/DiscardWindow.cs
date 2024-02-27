@@ -8,26 +8,23 @@ public class DiscardWindow : AmtConfirmWindow
     protected override void OnEnable()
     {
         base.OnEnable();
+        plus_btn.onClick.AddListener(PlusButton);
+        minus_btn.onClick.AddListener(MinusButton);
     }
-    private void Start()
+    protected override void OnDisable()
     {
-        plus_btn.onClick.AddListener(() =>
-        {
-            PlusButton();
-        });
-
-        minus_btn.onClick.AddListener(() =>
-        {
-            MinusButton();
-        });
+        base.OnDisable();
+        plus_btn.onClick.RemoveListener(PlusButton);
+        minus_btn.onClick.RemoveListener(MinusButton);
     }
     private void PlusButton()
     {
-        if (selectAmt < InventoryUI.selectedItem.currentAmt) 
+        if ((int)selectAmt < InventoryUI.selectedItem.currentAmt) 
         {
             AudioManager.instance.PlaySfx("Click");
             selectAmt++;
-            amt_txt.text = selectAmt.ToString();
+            amt_txt.text = "" + (int)selectAmt;
+            SliderQuantityChange(selectAmt);
         }
     }
     private void MinusButton()
@@ -36,8 +33,15 @@ public class DiscardWindow : AmtConfirmWindow
         {
             AudioManager.instance.PlaySfx("Click");
             selectAmt--;
-            amt_txt.text = "" + selectAmt;
+            amt_txt.text = "" + (int)selectAmt;
+            SliderQuantityChange(selectAmt);
         }
+    }
+    protected override void SliderQuantityChange(float _value)
+    {
+        selectAmt = _value;
+        quantitySlider.maxValue = InventoryUI.selectedItem.currentAmt;
+        amt_txt.text = "" + (int)selectAmt;
     }
     public override void ConfirmAmt()
     {
@@ -46,11 +50,11 @@ public class DiscardWindow : AmtConfirmWindow
         confirmPanel.gameObject.SetActive(true);
         confirmAction_txt.text = string.Format("Discarding\n"
                                 + "{0} x{1} \n"
-                                + "Confirm ?", InventoryUI.selectedItem.name, selectAmt);
+                                + "Confirm ?", InventoryUI.selectedItem.name, (int)selectAmt);
     }
     public override void ConfirmAction()
     {
-        InventoryUI.selectedItem.RemoveFromInventory(selectAmt);
+        InventoryUI.selectedItem.RemoveFromInventory((int)selectAmt);
         AudioManager.instance.PlaySfx("Purchase");
         this.gameObject.SetActive(false);
     }

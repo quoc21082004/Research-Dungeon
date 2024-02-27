@@ -91,7 +91,7 @@ public class BossLazerSpell : MonoBehaviour, ISpell
     {
         if (collision.gameObject.TryGetComponent<PlayerHurt>(out PlayerHurt target))
         {
-            target.TakeDamage(null, activeAbility.skillInfo.baseDamage);
+            target.TakeDamage(activeAbility.skillInfo.baseDamage, false);
         }
     }
 }

@@ -2,8 +2,9 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Events;
 
-public class PlayerController : MonoBehaviour
+public class Player : MonoBehaviour
 {
     SpriteRenderer mySR;
     Rigidbody2D myrigid;
@@ -12,7 +13,7 @@ public class PlayerController : MonoBehaviour
     TrailRenderer mytrail;
     [HideInInspector] public PlayerHurt playerhurt;
     [HideInInspector] public PlayerCombat playercombat;
-    [HideInInspector] public float maxhealth, maxmana, health, mana, speed;
+    [HideInInspector] public float maxhealth, maxmana, health, damage, defense, mana, speed;
     [HideInInspector] public bool isAlve = true;
     public PlayerSO playerdata;
     float startSpeed;
@@ -22,6 +23,7 @@ public class PlayerController : MonoBehaviour
     Collider2D[] pickup;
     [HideInInspector] public float rangePickup = 1.2f;
     Vector2 moveInput;
+    public event Action OnDieEvent;
     private void Awake()
     {
         startSpeed = speed;
@@ -33,7 +35,6 @@ public class PlayerController : MonoBehaviour
         playercombat = GetComponent<PlayerCombat>();
         mytrail = GetComponentInChildren<TrailRenderer>();
     }
-
     private void Start()
     {
         canAction = true;
@@ -44,13 +45,14 @@ public class PlayerController : MonoBehaviour
     {
         maxhealth = playerdata.basicStats.health;
         maxmana = playerdata.basicStats.mana;
+        defense = playerdata.basicStats.defense;
+        damage = playerdata.basicAttack.wandDamage;
         speed = PlayerPrefs.GetFloat("speed") + (PlayerPrefs.GetFloat("speed") * PlayerPrefs.GetFloat("bounsSpeed")) / 100;
         if (isAlve && canAction)
         {
             PickUp();
             Dash();
             playerhurt.RegenRecover();
-            playercombat.CastFireBall();
             playercombat.FindEnemy();
         }
     }

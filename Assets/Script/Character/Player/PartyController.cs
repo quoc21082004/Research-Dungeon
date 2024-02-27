@@ -5,13 +5,12 @@ using UnityEngine;
 
 public class PartyController : Singleton<PartyController>
 {
-    public static PlayerController player;
+    public static Player player;
     public static Inventory inventoryG;
-    public static PlayerController playerController;
     private void Update()
     {
         if (player == null)
-            player = transform.GetChild(0).gameObject.GetComponent<PlayerController>();
+            player = transform.GetChild(0).gameObject.GetComponent<Player>();
 
         if (inventoryG == null)
             inventoryG = new Inventory { Gold = player.playerdata.levelUp.gold };
@@ -60,12 +59,6 @@ public class PartyController : Singleton<PartyController>
         player.health = Mathf.Max(player.health, player.maxhealth);
         player.mana += Mathf.Max(player.mana, player.maxmana);
     }
-    public static void AddGold(int amount)
-    {
-        inventoryG.Gold += amount;
-    }
-    public static void AddExperience(float amount)
-    {
-        GameManager.instance.AddExperience(amount);
-    }
+    public static void AddGold(int amount) => inventoryG.Gold += amount;
+    public static void AddExperience(float amount) => GameManager.instance.AddExperience(amount);
 }

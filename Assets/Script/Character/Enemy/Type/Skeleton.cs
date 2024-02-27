@@ -20,16 +20,14 @@ public class Skeleton : EnemyMelee
         yield return new WaitForSeconds(0.15f);
         myanim.SetTrigger("Attack");
         if (distance <= range)
-            player.gameObject.GetComponent<PlayerHurt>().TakeDamage(transform, damage);
+            player.gameObject.GetComponent<PlayerHurt>().TakeDamage(enemyhurt.CaculateDMG(damage), false);
         yield return new WaitForSeconds(1f);
         isAttack = false;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
         if (collision.gameObject.tag == "Player")
-        {
-            collision.gameObject.GetComponent<PlayerHurt>().TakeDamage(null, 2);
-        }
+            collision.gameObject.GetComponent<PlayerHurt>().TakeDamage(damage, false);
     }
     void OnDrawGizmos()
     {

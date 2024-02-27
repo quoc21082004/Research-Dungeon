@@ -169,6 +169,7 @@ Transform:
   - {fileID: 1468492756}
   - {fileID: 1653361285}
   - {fileID: 1783924746}
+  - {fileID: 2141692779}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &114712467
@@ -17906,6 +17907,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: Main Camera
       objectReference: {fileID: 0}
+    - target: {fileID: 6293801096580188307, guid: 5e00fe592012c6141aa965179e550840,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -18130,6 +18136,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: GameManager
+      objectReference: {fileID: 0}
+    - target: {fileID: 1683588582820038374, guid: b73c2ba187b9c834987b8d059bb62d43,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1683588582820038379, guid: b73c2ba187b9c834987b8d059bb62d43,
         type: 3}
@@ -18525,6 +18536,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Name
       value: Character_CTL
+      objectReference: {fileID: 0}
+    - target: {fileID: 9027466758502208913, guid: 39e1ff7602b31a74ea1fd50bb9c710ce,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9027466758502208926, guid: 39e1ff7602b31a74ea1fd50bb9c710ce,
         type: 3}
@@ -42967,6 +42983,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneLoad: Base 1
   transferTo: Town
+  sceneID: 1
 --- !u!61 &2114689703
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -43061,6 +43078,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sceneLoad: BossRoom
   transferTo: bossRoom
+  sceneID: 3
 --- !u!61 &2130900552
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -43180,6 +43198,37 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!1 &2141692778
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2141692779}
+  m_Layer: 0
+  m_Name: SpawnPoint
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2141692779
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141692778}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -3.4, y: -15.2, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 16178667}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1998136186871766504
 PrefabInstance:
   m_ObjectHideFlags: 0

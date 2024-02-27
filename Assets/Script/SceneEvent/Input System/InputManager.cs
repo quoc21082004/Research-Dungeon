@@ -13,10 +13,12 @@ public class InputManager : Singleton<InputManager>
     private void OnEnable()
     {
         playerInput.Enable();
+        playerInput.PlayerAbility.Enable();
     }
     private void OnDisable()
     {
         playerInput.Disable();
+        playerInput.PlayerAbility.Disable();
     }
     public static void EnableInput() => playerInput.Enable();
     public static void DisableInput() => playerInput.Disable();

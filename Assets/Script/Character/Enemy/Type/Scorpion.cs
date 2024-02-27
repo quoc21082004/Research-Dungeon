@@ -31,7 +31,7 @@ public class Scorpion : EnemyRange
         Direction();
         foreach (var item in builetPos)
         {
-            builetprefab.gameObject.GetComponent<EnemyBuilet>().realdamage = enemystat.damage;
+            builetprefab.gameObject.GetComponent<Damage>().realdamage = enemyhurt.CaculateDMG(damage) / 2.5f;
             GameObject clone = PoolManager.instance.Release(builetprefab, item.transform.position, item.transform.rotation);
             Rigidbody2D crb = clone.GetComponent<Rigidbody2D>();
             crb.AddForce(item.up * builetspeed, ForceMode2D.Impulse);

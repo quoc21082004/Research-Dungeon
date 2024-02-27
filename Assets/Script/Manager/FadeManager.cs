@@ -25,7 +25,6 @@ public class FadeManager : Singleton<FadeManager>
             fadeDone = true;
             return;
         }
-        SceneManager.LoadScene(levelToLoad);
         levelToLoad = "";
         myanim.SetTrigger("Fade_Out");
     }
@@ -34,10 +33,9 @@ public class FadeManager : Singleton<FadeManager>
         myanim.ResetTrigger("Fade_Out");
         fadeDone = true;
     }
-    public void OnFadeSceneChange(string levelScene)
+    public void OnFadeSceneChange()
     {
         fadeDone = false;
-        levelToLoad = levelScene;
         myanim.SetTrigger("Fade_In");
     }
 }

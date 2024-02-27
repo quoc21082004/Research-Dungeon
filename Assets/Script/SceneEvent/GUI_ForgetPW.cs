@@ -5,10 +5,10 @@ using TMPro;
 using UnityEngine.InputSystem;
 public class GUI_ForgetPW : MonoBehaviour
 {
-    [SerializeField] TextMeshProUGUI error_txt;
-    [SerializeField] TMP_InputField emailField;
-    [SerializeField] Button veficatatebtn;
-    [SerializeField] Button quitbtn;
+    [SerializeField] public TextMeshProUGUI error_txt;
+    [SerializeField] public TMP_InputField emailField;
+    [SerializeField] public Button veficatate_btn;
+    [SerializeField] public Button quit_btn;
 
     private void OnEnable()
     {
@@ -23,18 +23,18 @@ public class GUI_ForgetPW : MonoBehaviour
         GUI_Input.playerInput.UI.OpenMenu.performed -= OnEnterInput;
         GUI_Input.playerInput.UI.CloseMenu.performed -= OnESCInput;
     }
-    private void OnESCInput(InputAction.CallbackContext context)
-    {
-        veficatatebtn.onClick?.Invoke();
-    }
     private void OnEnterInput(InputAction.CallbackContext context)
     {
-        quitbtn.onClick?.Invoke();
+        veficatate_btn.onClick?.Invoke();
     }
-    private void SetErrorText(string _error)
+    private void OnESCInput(InputAction.CallbackContext context)
+    {
+        quit_btn.onClick?.Invoke();
+    }
+    public void SetErrorText(string _error)
     {
         error_txt.text = _error;
-        Invoke(nameof(SetDefaultTextError), 2.5f);
+        Invoke(nameof(SetDefaultTextError), 6f);
     }
     public void SetDefaultTextError() => error_txt.text = "";
     public void SetDefaultFieldText()

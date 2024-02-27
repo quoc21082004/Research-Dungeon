@@ -4,17 +4,23 @@ using UnityEngine;
 
 public class MouseFollow : MonoBehaviour
 {
+    Player player;
+    private void OnEnable()
+    {
+        player = GetComponentInParent<Player>();
+    }
     private void Update()
     {
-        FaceMouse();
+        if (player.isActiveAndEnabled)
+            FaceMouse();
     }
-    private void FaceMouse()
+    public void FaceMouse()
     {
         Vector3 mousePosition = Input.mousePosition;
         mousePosition = Camera.main.ScreenToWorldPoint(mousePosition);
         Vector2 direction = transform.position - mousePosition;
         transform.right = -direction;
-        if (PlayerController.isFace)
+        if (Player.isFace)
             transform.localScale = new Vector3(1, -1, 1);
         else
             transform.localScale = new Vector3(1, 1, 1);

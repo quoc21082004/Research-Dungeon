@@ -3,20 +3,30 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using System;
 public class SellWindow : AmtConfirmWindow
 {
     protected override void OnEnable()
     {
         base.OnEnable();
-        plus_btn.onClick.AddListener(() =>
+        plus_btn.onClick.AddListener(PlusBtn);
+        minus_btn.onClick.AddListener(MinusBtn);
+    }
+    protected override void OnDisable()
+    {
+        base.OnDisable();
+        plus_btn.onClick.RemoveListener(PlusBtn);
+        minus_btn.onClick.RemoveListener(MinusBtn);
+    }
+    void PlusBtn()
+    {
+        if (selectAmt < InventoryUI.selectedItem.currentAmt)
         {
-            PlusBtn();
-        });
-
-        minus_btn.onClick.AddListener(() =>
-        {
-            MinusBtn();
-        });
+            AudioManager.instance.PlaySfx("Click");
+            selectAmt++;
+            amt_txt.text = "" + (int)selectAmt;
+            SliderQuantityChange(selectAmt);
+        }
     }
     void MinusBtn()
     {
@@ -24,17 +34,15 @@ public class SellWindow : AmtConfirmWindow
         {
             AudioManager.instance.PlaySfx("Click");
             selectAmt--;
-            amt_txt.text = selectAmt.ToString();
+            amt_txt.text = "" + (int)selectAmt;
+            SliderQuantityChange(selectAmt);
         }
     }
-    void PlusBtn()
+    protected override void SliderQuantityChange(float _value)
     {
-        if (selectAmt < InventoryUI.selectedItem.currentAmt)   
-        {
-            AudioManager.instance.PlaySfx("Click");
-            selectAmt++;
-            amt_txt.text = selectAmt.ToString();
-        }
+        selectAmt = _value;
+        quantitySlider.maxValue = InventoryUI.selectedItem.currentAmt;
+        amt_txt.text = "" + (int)selectAmt;
     }
     public override void ConfirmAmt()
     {
@@ -46,11 +54,11 @@ public class SellWindow : AmtConfirmWindow
                                              + "for \n"
                                              + "{2}" + "  <sprite=3> \n"
                                              + "Confirm ?",
-                                             InventoryUI.selectedItem.name, selectAmt, InventoryUI.selectedItem.sellPrice * selectAmt);
+                                             InventoryUI.selectedItem.name, (int)selectAmt, InventoryUI.selectedItem.sellPrice * (int)selectAmt);
     }
     public override void ConfirmAction()
     {
-        InventoryUI.selectedItem.SellForGold(selectAmt);
+        InventoryUI.selectedItem.SellForGold((int)selectAmt);
         AudioManager.instance.PlaySfx("Purchase");
         gameObject.SetActive(false);
         confirmPanel.gameObject.SetActive(false);

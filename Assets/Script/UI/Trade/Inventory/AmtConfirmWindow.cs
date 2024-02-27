@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 public abstract class AmtConfirmWindow : MonoBehaviour
 {
-    public int selectAmt;
+    public float selectAmt;
     public GameObject amtPanel;
     public GameObject confirmPanel;
     public Button plus_btn, minus_btn;
@@ -13,14 +13,24 @@ public abstract class AmtConfirmWindow : MonoBehaviour
     public Button amtConfirm_btn;
     public Button amtCancel_btn;
     public TextMeshProUGUI confirmAction_txt;
-
+    public Slider quantitySlider;
     protected virtual void OnEnable()
     {
         amtPanel.gameObject.SetActive(true);
         confirmPanel.gameObject.SetActive(false);
+        amtConfirm_btn.onClick.AddListener(ConfirmAmt);
+        amtCancel_btn.onClick.AddListener(CancelAmt);
+        quantitySlider.onValueChanged.AddListener(SliderQuantityChange);
+    }
+    protected virtual void OnDisable()
+    {
+        amtConfirm_btn.onClick.RemoveListener(ConfirmAmt);
+        amtCancel_btn.onClick.RemoveListener(CancelAmt);
+        quantitySlider.onValueChanged.RemoveListener(SliderQuantityChange);
     }
     public abstract void ConfirmAmt();
-    public abstract void ConfirmAction();   
+    public abstract void ConfirmAction();
+    protected abstract void SliderQuantityChange(float f1);
     public void CancelAmt()
     {
         AudioManager.instance.PlaySfx("Click");

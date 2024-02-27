@@ -24,7 +24,7 @@ public class Bat : EnemyRange
     {
         foreach (var direct in builetPos)
         {
-            builetprefab.gameObject.GetComponent<EnemyBuilet>().realdamage = enemystat.damage;
+            builetprefab.gameObject.GetComponent<Damage>().realdamage = enemyhurt.CaculateDMG(damage) / 4f;
             clone = PoolManager.instance.Release(builetprefab, direct.position, direct.rotation);
             Rigidbody2D crb = clone.GetComponent<Rigidbody2D>();
             crb.AddForce(direct.up * builetspeed, ForceMode2D.Impulse);

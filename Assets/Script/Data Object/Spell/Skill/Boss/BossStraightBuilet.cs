@@ -28,7 +28,7 @@ public class BossStraightBuilet : MonoBehaviour, ISpell
     {
         if (collision.gameObject.TryGetComponent<PlayerHurt>(out PlayerHurt enemy))
         {
-            enemy.TakeDamage(null, activeAbility.skillInfo.baseDamage);
+            enemy.TakeDamage(activeAbility.skillInfo.baseDamage, false);
             gameObject.SetActive(false);
         }
     }

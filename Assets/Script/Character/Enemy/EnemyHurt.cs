@@ -1,10 +1,9 @@
-﻿using System;
-using System.Collections;
-using UnityEditor.Experimental.GraphView;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class EnemyHurt : MonoBehaviour
+public class EnemyHurt : Damagable
 {
     private Enemy enemy;
     [SerializeField] float thurst;
@@ -13,10 +12,9 @@ public class EnemyHurt : MonoBehaviour
     bool canUse = false;
     public delegate void OnEnemyEvent();
     public OnEnemyEvent onEnemyEvent;
-    private void Awake()
+    private void OnEnable()
     {
         enemy = GetComponent<Enemy>();
-        //lootspawner = GetComponent<LootSpawner>();
     }
     private void SetMoodEnemy()
     {
@@ -26,22 +24,11 @@ public class EnemyHurt : MonoBehaviour
             enemy.mood = EnemyMood.Medium;
         else if (enemy.health < ((enemy.maxhealth * 30) / 100) && enemy.health > ((enemy.maxhealth * 1) / 100))         // 30 < x < 1
             enemy.mood = EnemyMood.Advance;
-    }
-    public virtual void TakeDamage(float amount, bool isCrit)
-    {
-        OnStartCombat?.Invoke();
-        amount = Mathf.Min(amount, amount - enemy.defense);
-        enemy.health = Mathf.Clamp(enemy.health - amount, 0, enemy.maxhealth);
-        enemy.myanim.SetTrigger("Hit");
-        DamagePopManager.instance.CreateDamagePop(isCrit, amount, new Vector3(transform.position.x, transform.position.y + 0.75f, 0f), transform);
-        enemy.GetKnockBack(PartyController.player.transform, thurst, transform);
-        SetMoodEnemy();
-        if (enemy.mood == EnemyMood.Medium && !canUse) 
+        if (enemy.mood == EnemyMood.Medium && !canUse)
         {
             canUse = true;
             onEnemyEvent?.Invoke();
         }
-        StartCoroutine(Dead());
     }
     private void DropLootItem()
     {
@@ -49,16 +36,41 @@ public class EnemyHurt : MonoBehaviour
         PartyController.AddGold(enemy.enemystat.goldReward);
         GameManager.instance?.AddExperience(enemy.enemystat.expReward);
     }
-    public IEnumerator Dead()
+    public IEnumerator Die()
     {
         if (enemy.health <= 0)
         {
             enemy.isDead = true;
             DropLootItem();
             OnEndCombat?.Invoke();
+            enemy.OnDieEvent?.Invoke();
             enemy.mood = EnemyMood.End;
             yield return new WaitForSeconds(0.1f);
             gameObject.SetActive(false);
         }
+    }
+    public override void TakeDamage(float amount, bool isCrit)
+    {
+        OnStartCombat?.Invoke();
+        enemy.OnTakeDamageEvent?.Invoke();
+        var _valueDef = isCrit ? Random.Range(0, enemy.defense * 0.5f) : enemy.defense;
+        var _finalDmg = (int)Mathf.Max(0, amount - Mathf.Max(0, _valueDef));
+        enemy.health = Mathf.Clamp(enemy.health - _finalDmg, 0, enemy.maxhealth);
+        enemy.myanim.SetTrigger("Hit");
+        DamagePopManager.instance.CreateDamagePop(isCrit, _finalDmg, new Vector3(transform.position.x, transform.position.y + 0.75f, 0f), transform);
+        enemy.GetKnockBack(PartyController.player.transform, thurst, transform);
+        SetMoodEnemy();
+        StartCoroutine(Die());
+    }
+    public override float CaculateDMG(float amt)
+    {
+        var _enemyATK = enemy.damage;
+        var _minEnemyATK = enemy.player.defense + Random.Range(10, _enemyATK / 2);
+        var modifiedEnemyATK = Mathf.CeilToInt(_enemyATK * (amt / 100.0f));
+        return Mathf.Max(_minEnemyATK, modifiedEnemyATK);
+    }
+    public void HandlePlayerDie()
+    {
+        //gameObject.SetActive(false);
     }
 }

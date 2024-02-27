@@ -14,7 +14,7 @@ public class ShieldSpell : MonoBehaviour, ISpell
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent<EnemyBuilet>(out EnemyBuilet builet))  // destroy builet
+        if (collision.gameObject.TryGetComponent<Damage>(out Damage builet))  // destroy builet
         {
             GameObject cloneblock = PoolManager.instance.Release(AssetManager.instance.assetData.blockEffect, collision.transform.position, Quaternion.identity);
             cloneblock.transform.parent = transform;

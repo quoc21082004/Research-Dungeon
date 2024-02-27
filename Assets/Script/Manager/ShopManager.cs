@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
 public class ShopManager : Singleton<ShopManager>
@@ -10,9 +11,31 @@ public class ShopManager : Singleton<ShopManager>
     [SerializeField] GameObject SellUI;
 
     [SerializeField] Button buybtn, sellbtn;
-    public static bool isShopOpen = false;
-
-    public void OpenShop()
+     bool isShopOpen = false;
+    private void OnEnable()
+    {
+        var guiInput = GUI_Input.playerInput.UI;
+        guiInput.OpenShop.performed += OpenShop;
+    }
+    private void OnDisable()
+    {
+        var guiInput = GUI_Input.playerInput.UI;
+        guiInput.OpenShop.performed -= OpenShop;
+    }
+    private void OpenShop(InputAction.CallbackContext context)
+    {
+        if (!isShopOpen)
+        {
+            if (!PauseMenu.isGamePause)
+                ShopManager.instance.Shop();
+        }
+        else if (isShopOpen)
+        {
+            if (PauseMenu.isGamePause)
+                ShopManager.instance.CloseShop();
+        }
+    }
+    public void Shop()
     {
         isShopOpen = true;
         ShopMenuUI.SetActive(true);

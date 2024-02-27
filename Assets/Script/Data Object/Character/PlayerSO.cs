@@ -39,6 +39,7 @@ public class BasicStats
 {
     public float health;
     public float mana;
+    public float defense;
     public float movementSpeed;
     public float DashSpeed;
     public float healthRegen;

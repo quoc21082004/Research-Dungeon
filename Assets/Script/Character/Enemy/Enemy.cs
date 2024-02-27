@@ -8,8 +8,9 @@ using UnityEngine.UI;
 public abstract class Enemy : MonoBehaviour
 {
     public EnemySO enemystat;
-    protected GameObject player;
+    public Player player;
     Rigidbody2D myrigid;
+    [HideInInspector] public EnemyHurt enemyhurt;
     [HideInInspector] public SpriteRenderer mySR;
     [HideInInspector] public Animator myanim;
     [HideInInspector] public float maxhealth, health, damage, defense, level;
@@ -26,9 +27,14 @@ public abstract class Enemy : MonoBehaviour
     protected bool canUse;
     protected NavMeshAgent myagent;
     protected ActiveAbility ability;
+
+    [Space]
+    public UnityEvent OnTakeDamageEvent;
+    public UnityEvent OnDieEvent;
     protected abstract void CheckDistance();
     protected virtual void OnEnable()
     {
+        enemyhurt = GetComponent<EnemyHurt>();
         level = (int)Random.Range(GameManager.instance.level - 3, GameManager.instance.level + 3);
         maxhealth = enemystat.heath + (level * enemystat.growstats.healthGrow);
         health = maxhealth;
@@ -45,7 +51,7 @@ public abstract class Enemy : MonoBehaviour
         isAlert = enemystat.isAlert;
         isAttack = enemystat.isAttack;
         ability = GetComponent<ActiveAbility>();
-        player = GameObject.FindGameObjectWithTag("Player");
+        player = PartyController.player;
         myanim = GetComponent<Animator>();
         mySR = GetComponent<SpriteRenderer>();
         enemyUI = GetComponentInChildren<EnemyUI>();

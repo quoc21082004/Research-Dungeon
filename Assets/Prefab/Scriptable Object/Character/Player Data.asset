@@ -13,8 +13,9 @@ MonoBehaviour:
   m_Name: Player Data
   m_EditorClassIdentifier: 
   basicStats:
-    health: 9644.601
+    health: 1000
     mana: 1000
+    defense: 160
     movementSpeed: 130
     DashSpeed: 5
     healthRegen: 73.799995
@@ -33,7 +34,7 @@ MonoBehaviour:
     skillPoint: 65
     exp: 0
     expToLvl: 100
-    gold: 500
+    gold: 2919
   extraBuff:
     extraExp: 12
     percentDamage: 1

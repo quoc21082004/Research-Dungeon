@@ -25,18 +25,16 @@ public class GUI_Login : MonoBehaviour
     }
     private void OnEnterInput(InputAction.CallbackContext context)
     {
-        Debug.Log("Enter");
         start_btn.onClick?.Invoke();
     }
     private void OnESCInput(InputAction.CallbackContext context)
     {
-        Debug.Log("Exit");
         quit_btn.onClick?.Invoke();
     }
     public void SetErrorText(string _errorText)
     {
         error_txt.text = _errorText;
-        Invoke(nameof(SetDefaultErrorText), 2.5f);
+        Invoke(nameof(SetDefaultErrorText), 6f);
     }
     private void SetDefaultErrorText() => error_txt.text = "";
     private void SetDefaultLoginText()

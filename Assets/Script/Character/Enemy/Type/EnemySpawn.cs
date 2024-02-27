@@ -53,8 +53,5 @@ public class EnemySpawn : Enemy
         return checkSpawn;
     }
 
-    protected override void CheckDistance()
-    {
-        throw new NotImplementedException();
-    }
+    protected override void CheckDistance() { }
 }

@@ -57,7 +57,7 @@ public class SpikeSpell : MonoBehaviour, ISpell
         {
             if (collider.gameObject.TryGetComponent<PlayerHurt>(out PlayerHurt target))
             {
-                target.TakeDamage(null, ability.skillInfo.baseDamage);
+                target.TakeDamage(ability.skillInfo.baseDamage, false);
             }
         }
     }

@@ -55,7 +55,7 @@ public class ExplosionMelee : MonoBehaviour, ISpell
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent<PlayerHurt>(out var player))
-            player.TakeDamage(null, activeAbility.skillInfo.baseDamage);
+            player.TakeDamage(activeAbility.skillInfo.baseDamage, false);
     }
     private void OnDrawGizmos()
     {

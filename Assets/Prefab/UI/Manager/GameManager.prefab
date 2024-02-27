@@ -13,10 +13,12 @@ GameObject:
   - component: {fileID: 1683588582820038376}
   - component: {fileID: 1683588582820038375}
   - component: {fileID: 3130255409079469255}
-  - component: {fileID: 7511133017060583521}
-  - component: {fileID: 8732498991321839865}
   - component: {fileID: 2412996979733540060}
   - component: {fileID: 8251163774172536540}
+  - component: {fileID: 8732498991321839865}
+  - component: {fileID: 7511133017060583521}
+  - component: {fileID: 137566783256584906}
+  - component: {fileID: 3670842035632953928}
   m_Layer: 0
   m_Name: GameManager
   m_TagString: Untagged
@@ -57,6 +59,7 @@ MonoBehaviour:
   exp: 0
   exptolevel: 0
   level: 0
+  playerdata: {fileID: 0}
 --- !u!114 &1683588582820038376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -121,7 +124,7 @@ MonoBehaviour:
   coinLoots:
   - {fileID: 11400000, guid: 78016be64f9e681428c9486a9f7a957e, type: 2}
   genrange: 2
---- !u!114 &7511133017060583521
+--- !u!114 &2412996979733540060
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -130,12 +133,21 @@ MonoBehaviour:
   m_GameObject: {fileID: 1683588582820038374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
+  m_Script: {fileID: 11500000, guid: 3ae4bc8fb2c3a644da32c1857a504843, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_FirstSelected: {fileID: 0}
-  m_sendNavigationEvents: 1
-  m_DragThreshold: 10
+--- !u!114 &8251163774172536540
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683588582820038374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5309f18b51c52004c88dd3132d268c95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &8732498991321839865
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -177,7 +189,7 @@ MonoBehaviour:
   m_DeselectOnBackgroundClick: 1
   m_PointerBehavior: 0
   m_CursorLockBehavior: 0
---- !u!114 &2412996979733540060
+--- !u!114 &7511133017060583521
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -186,10 +198,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 1683588582820038374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3ae4bc8fb2c3a644da32c1857a504843, type: 3}
+  m_Script: {fileID: 11500000, guid: 76c392e42b5098c458856cdf6ecaaaa1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &8251163774172536540
+  m_FirstSelected: {fileID: 0}
+  m_sendNavigationEvents: 1
+  m_DragThreshold: 10
+--- !u!114 &137566783256584906
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -198,9 +213,31 @@ MonoBehaviour:
   m_GameObject: {fileID: 1683588582820038374}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 5309f18b51c52004c88dd3132d268c95, type: 3}
+  m_Script: {fileID: 11500000, guid: c0dfb5b4e86c1fa4c814daccefddda6e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  userID: 123
+  username: 
+  userEmail: 123
+  userPassword: 
+--- !u!114 &3670842035632953928
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683588582820038374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 31ac646946b8374439914a6da0abd36a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  OnLoadDataUserLoginSucces:
+    m_PersistentCalls:
+      m_Calls: []
+  OnLoadDataUserLoginFailed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &410848994531848932
 PrefabInstance:
   m_ObjectHideFlags: 0

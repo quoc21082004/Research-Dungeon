@@ -27,7 +27,7 @@ public class LittleRange : EnemyRange
     protected override IEnumerator attackDelay()
     {
         Direction();
-        builetprefab.gameObject.GetComponent<EnemyBuilet>().realdamage = enemystat.damage;
+        builetprefab.gameObject.GetComponent<Damage>().realdamage = enemyhurt.CaculateDMG(damage)/1.5f;
         GameObject clone = PoolManager.instance.Release(builetprefab, MuzzlePoint.position, MuzzlePoint.rotation);
         Rigidbody2D crb = clone.GetComponent<Rigidbody2D>();
         crb.AddForce(MuzzlePoint.up * builetspeed, ForceMode2D.Impulse);

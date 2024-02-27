@@ -4,12 +4,12 @@ using UnityEngine;
 
 public class CameraController : Singleton<CameraController>
 {
-    public PlayerController followTarget;
+    public Player followTarget;
     private Vector3 targetPos;
     public float moveSpeed;
     private void OnEnable()
     {
-        followTarget = FindObjectOfType<PlayerController>();
+        followTarget = FindObjectOfType<Player>();
     }
     private void FixedUpdate()
     {

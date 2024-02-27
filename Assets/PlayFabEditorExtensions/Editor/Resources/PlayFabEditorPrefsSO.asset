@@ -13,12 +13,12 @@ MonoBehaviour:
   m_Name: PlayFabEditorPrefsSO
   m_EditorClassIdentifier: 
   DevAccountEmail: quoc21082004@gmail.com
-  DevAccountToken: 74hb19nzj5u71x6my6pzrwrgp8f4zfsjyxww17iiitj1tsjcr6cihu5upmn3o55ikn1xfxc9a7buhnihws19mxxfoh5ctxp1mbh9gsd4pary9uf141mat3wjjyirwo97s7a9xuzcmetnmc7snn9isdoa99388r5ap91c1ua1mupjoikzgb7f9ze9zkkrdny81nhoot89
+  DevAccountToken: bzyj6x156wmj764x8ex7gzgfqendtp4q7n6hon9z7xhexgq437o8b4x561iqnkojb74sriue5fhgz15bej1hdo89k86w3z8rmzgdx1mcy6ixmybspu9nrwizwj3dbqiyxbfjrg9g691nrsy5ixguksa3e8n3ot5csercst548aaned1gnth3msjrozkzxpn9h5mxecmy
   AadAuthorization: 
   SelectedStudio: Playfab
   SdkPath: Assets/PlayFabSDK
   EdExPath: 
-  LocalCloudScriptPath: C:/Users/quoc2/Desktop/Research-Dungeon/Assets/PlayFabEditorExtensions/Editor/Resources/.CloudScript.js
+  LocalCloudScriptPath: 
   PanelIsShown: 0
-  curMainMenuIdx: 1
+  curMainMenuIdx: 0
   curSubMenuIdx: 0

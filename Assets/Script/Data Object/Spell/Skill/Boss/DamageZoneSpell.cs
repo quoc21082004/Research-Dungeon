@@ -51,7 +51,7 @@ public class DamageZoneSpell : MonoBehaviour, ISpell
         {
             if (collider.gameObject.TryGetComponent<PlayerHurt>(out PlayerHurt targets))
             {
-                targets.TakeDamage(null, ability.skillInfo.baseDamage);
+                targets.TakeDamage(ability.skillInfo.baseDamage, false);
                 GameObject clone = PoolManager.instance.Release(ropeprefab, targets.transform.position, Quaternion.identity);
                 if (clone != null)
                     RopeMana();
@@ -66,7 +66,7 @@ public class DamageZoneSpell : MonoBehaviour, ISpell
             return;
         foreach (var collider in colliders)
         {
-            if (collider.gameObject.TryGetComponent<PlayerController>(out PlayerController player))
+            if (collider.gameObject.TryGetComponent<Player>(out Player player))
             {
                 player.mana = Mathf.Min(player.maxmana, player.mana - reduceMana);
                 DamagePopManager.instance.CreateRecoverPop(ConsumableType.ManaPotion, -reduceMana, player.transform.position, player.transform);

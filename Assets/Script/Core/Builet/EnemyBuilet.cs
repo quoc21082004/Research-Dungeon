@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class EnemyBuilet : MonoBehaviour
+public class Damage : MonoBehaviour
 {
     private Rigidbody2D myrigid;
     [HideInInspector] public float realdamage;
@@ -14,8 +14,8 @@ public class EnemyBuilet : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player") || collision.gameObject.CompareTag("Wall")) 
         {
-            if (collision.gameObject.TryGetComponent<PlayerController>(out PlayerController player))
-                player.GetComponent<PlayerHurt>().TakeDamage(null, realdamage);
+            if (collision.gameObject.TryGetComponent<Player>(out Player player))
+                player.GetComponent<PlayerHurt>().TakeDamage(realdamage, false);
             gameObject.SetActive(false);
         }
     }

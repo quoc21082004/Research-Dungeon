@@ -30,9 +30,9 @@ public class FlyingMelee : EnemyMelee
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (collision.gameObject.TryGetComponent<PlayerController>(out PlayerController player))
+            if (collision.gameObject.TryGetComponent<Player>(out Player player))
             {
-                player.GetComponent<PlayerHurt>().TakeDamage(null, 2);
+                player.GetComponent<PlayerHurt>().TakeDamage(damage, false);
             }
         }
     }
@@ -40,12 +40,12 @@ public class FlyingMelee : EnemyMelee
     {
         if (collision.gameObject.tag == "Player")
         {
-            if (collision.gameObject.TryGetComponent<PlayerController>(out PlayerController player))
+            if (collision.gameObject.TryGetComponent<Player>(out Player player))
                 if (isAttack)
                     if (!isDMG)
                     {
                         isDMG = true;
-                        player.GetComponent<PlayerHurt>().TakeDamage(transform, damage);
+                        player.GetComponent<PlayerHurt>().TakeDamage(enemyhurt.CaculateDMG(damage), false);
                         StartCoroutine(dmgCD());
                     }
         }

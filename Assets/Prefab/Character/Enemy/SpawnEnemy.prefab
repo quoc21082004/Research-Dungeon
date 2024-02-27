@@ -291,7 +291,7 @@ NavMeshAgent:
   m_AutoBraking: 1
   m_AutoRepath: 1
   m_Height: 4
-  m_BaseOffset: 2
+  m_BaseOffset: 0
   m_WalkableMask: 0
   m_ObstacleAvoidanceType: 4
 --- !u!114 &2390544014920335480
@@ -326,6 +326,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemystat: {fileID: 11400000, guid: 23d72234f4572ef4f8427afd2755d108, type: 2}
+  player: {fileID: 0}
   mySR: {fileID: 0}
   myanim: {fileID: 0}
   maxhealth: 0
@@ -340,6 +341,13 @@ MonoBehaviour:
     type: 3}
   alertOffSet: {x: 0, y: 0.73, z: 0}
   knockTime: 0
+  OnTakeDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDieEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  ultiprefab: {fileID: 0}
   monsterList:
   - {fileID: 1012246549171505564, guid: 684ee23dece17414eabcff823f2efcf3, type: 3}
   - {fileID: 2014098098611580097, guid: e4851e15ed4abde4cabde991125f6b08, type: 3}

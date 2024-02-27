@@ -51,7 +51,7 @@ public class ExplosionRange : MonoBehaviour, ISpell
     {
         if (collision.gameObject.TryGetComponent<PlayerHurt>(out var player))
         {
-            player.TakeDamage(null, activeAbility.skillInfo.baseDamage);
+            player.TakeDamage(activeAbility.skillInfo.baseDamage, false);
         }
     }
 
