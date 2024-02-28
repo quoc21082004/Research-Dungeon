@@ -23,6 +23,7 @@ public class BuyWindow : AmtConfirmWindow
     {
         selectAmt = _value;
         quantitySlider.maxValue = (int)(PartyController.inventoryG.Gold / InventoryUI.selectedItem.buyPrice);
+        quantitySlider.value = selectAmt;
         amt_txt.text = "" + (int)selectAmt;
     }
     void Plusbtn()
@@ -31,7 +32,7 @@ public class BuyWindow : AmtConfirmWindow
         {
             AudioManager.instance.PlaySfx("Click");
             selectAmt++;
-            quantitySlider.value = selectAmt;
+            //quantitySlider.value = selectAmt;
             amt_txt.text = "" + (int)selectAmt;
             SliderQuantityChange(selectAmt);
         }
@@ -42,7 +43,7 @@ public class BuyWindow : AmtConfirmWindow
         {
             AudioManager.instance.PlaySfx("Click");
             selectAmt--;
-            quantitySlider.value = selectAmt;
+            //quantitySlider.value = selectAmt;
             amt_txt.text = "" + (int)selectAmt;
             SliderQuantityChange(selectAmt);
         }
