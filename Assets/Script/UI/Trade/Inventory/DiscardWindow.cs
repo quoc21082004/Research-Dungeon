@@ -41,6 +41,7 @@ public class DiscardWindow : AmtConfirmWindow
     {
         selectAmt = _value;
         quantitySlider.maxValue = InventoryUI.selectedItem.currentAmt;
+        quantitySlider.value = selectAmt;
         amt_txt.text = "" + (int)selectAmt;
     }
     public override void ConfirmAmt()
