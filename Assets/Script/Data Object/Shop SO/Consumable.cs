@@ -8,7 +8,6 @@ public abstract class Consumable : ItemSO
     public const float ManaPotionCD = 5f;
     public const float StatPotionCD = 0f;
     public ConsumableType consumableType;
-    public SpellBookType type;
     public static float GetConsumtableTypeCD(ConsumableType type)
     {
         switch(type)

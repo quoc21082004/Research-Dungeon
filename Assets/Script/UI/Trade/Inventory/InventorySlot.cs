@@ -10,12 +10,25 @@ public class InventorySlot : MonoBehaviour
     public Image icon;
     public TextMeshProUGUI stackItem_text;
     public ItemSO item;
+    public int GetItemValue;
 
-    public void AddItem(ItemSO newItemSO)
+    [SerializeField] public Image rarityFrame;
+    [SerializeField] private Sprite rarityFrameCommon;
+    [SerializeField] private Sprite rarityFrameRare;
+    [SerializeField] private Sprite rarityFrameEpic;
+    [SerializeField] private Sprite rarityFrameLegendary;
+
+    private void Update()
+    {
+       
+    }
+    public void AddItem(ItemSO newItemSO, int _value)
     {
         item = newItemSO;
         icon.sprite = item.icon;
         icon.enabled = true;
+        GetItemValue = _value;
+        SetRarityFrameSlot(newItemSO.Rarity);
         if (item.currentAmt > 1) // stack
         {
             stackItem_text.text = "" + item.currentAmt;
@@ -27,9 +40,22 @@ public class InventorySlot : MonoBehaviour
             return;
         }
     }
+    private void SetRarityFrameSlot(ItemRarity itemRarity)
+    {
+        rarityFrame.enabled = true;
+        rarityFrame.sprite = itemRarity switch      //  same way with ( Switch - Case )
+        {
+            ItemRarity.Common => rarityFrameCommon,
+            ItemRarity.Rare => rarityFrameRare,
+            ItemRarity.Epic => rarityFrameEpic,
+            ItemRarity.Legendary => rarityFrameLegendary,
+            _ => rarityFrame.sprite
+        };
+    }
     public void ClearSlot()
     {
         item = null;
+        rarityFrame.enabled = false;
         icon.sprite = null;
         icon.enabled = false;
         stackItem_text.text = "";

@@ -31,7 +31,7 @@ public class PauseMenu : Singleton<PauseMenu>
     public void Pause()
     {
         AudioManager.instance.PlaySfx("Click");
-        Time.timeScale = 0;
+        Time.timeScale = 1;
         isGamePause = true;
     }
     public void Resume()

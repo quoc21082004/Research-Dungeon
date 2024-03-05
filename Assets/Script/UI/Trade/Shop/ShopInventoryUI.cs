@@ -7,12 +7,12 @@ public class ShopInventoryUI : InventoryUI
     public List<ItemSO> shopItemList;
     protected override void UpdateUI()
     {
-        for (int i = 0; i < slots.Length; i++)
+        for (int i = 0; i < slots.Count; i++) 
         {
             if (i < shopItemList.Count)
             {
                 shopItemList.Sort((x1, x2) => x1.buyPrice.CompareTo(x2.buyPrice)); // sort price 
-                slots[i].AddItem(shopItemList[i]);
+                slots[i].AddItem(shopItemList[i], i);
             }
             else
                 slots[i].ClearSlot();

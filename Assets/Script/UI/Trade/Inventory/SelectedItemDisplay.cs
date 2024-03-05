@@ -21,7 +21,7 @@ public class SelectedItemDisplay : MonoBehaviour
         }
         else if (InventoryUI.selectedItem != null)
         {
-            itemTitle_txt.text = InventoryUI.selectedItem.name;
+            itemTitle_txt.text = InventoryUI.selectedItem.nameItem;
             itemDescription_txt.text = InventoryUI.selectedItem.itemDescription;
             itemFlavor_txt.text = InventoryUI.selectedItem.flavor;
         }

@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b4c379a815038b4485afecdc9177349, type: 3}
   m_Name: Lighting Circle
   m_EditorClassIdentifier: 
-  name: Lighting Circle
+  nameItem: Lighting Circle
   icon: {fileID: -625713112, guid: acd9da3fff2ff15498ef9316d886c158, type: 3}
-  itemNumber: 1
+  itemNumber: 3
   currentAmt: 1
   isStackable: 0
   itemDescription: Use to open new Skill
   flavor: Can use only 1 time
   buyPrice: 6500
   sellPrice: 3250
+  Rarity: 3
+  Type: 1
   consumableType: 3
-  type: 3
+  type: 0
   spell: {fileID: 11400000, guid: c6ecf10f2e4ee51479803ba52baedcb0, type: 2}

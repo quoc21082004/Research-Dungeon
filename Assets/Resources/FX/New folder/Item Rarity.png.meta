@@ -1,25 +1,7 @@
 fileFormatVersion: 2
-guid: 83ab9219d85388446acb595e0c1f418a
+guid: 2c281f44b742be04c83a19ab41831e3c
 TextureImporter:
-  internalIDToNameTable:
-  - first:
-      213: -4035746850229498089
-    second: Fire TotemSprite Sheet_0
-  - first:
-      213: 6912084256274302956
-    second: Fire TotemSprite Sheet_1
-  - first:
-      213: 848071076575857793
-    second: Fire TotemSprite Sheet_2
-  - first:
-      213: -8306282088390072537
-    second: Fire TotemSprite Sheet_3
-  - first:
-      213: 8044931951307140030
-    second: Fire TotemSprite Sheet_4
-  - first:
-      213: 5117429117409804114
-    second: Fire TotemSprite Sheet_5
+  internalIDToNameTable: []
   externalObjects: {}
   serializedVersion: 12
   mipmaps:
@@ -52,7 +34,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 0
+    filterMode: 1
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -83,14 +65,14 @@ TextureImporter:
   ignorePngGamma: 0
   applyGammaDecoding: 0
   swizzle: 50462976
-  cookieLightType: 1
+  cookieLightType: 0
   platformSettings:
   - serializedVersion: 3
     buildTarget: DefaultTexturePlatform
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -103,46 +85,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Windows Store Apps
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: Android
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
-    compressionQuality: 50
-    crunchedCompression: 0
-    allowsAlphaSplitting: 0
-    overridden: 0
-    ignorePlatformSupport: 0
-    androidETC2FallbackOverride: 0
-    forceMaximumCompressionQuality_BC6H_BC7: 0
-  - serializedVersion: 3
-    buildTarget: WebGL
-    maxTextureSize: 2048
-    resizeAlgorithm: 0
-    textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -155,7 +98,7 @@ TextureImporter:
     maxTextureSize: 2048
     resizeAlgorithm: 0
     textureFormat: -1
-    textureCompression: 0
+    textureCompression: 1
     compressionQuality: 50
     crunchedCompression: 0
     allowsAlphaSplitting: 0
@@ -167,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Fire TotemSprite Sheet_0
+      name: Item Rarity_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
-        height: 32
+        width: 179
+        height: 600
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -181,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 71f4bac3f952ef7c0800000000000000
-      internalID: -4035746850229498089
+      spriteID: 3a74382e4bc66c441bedf3cc86f8081a
+      internalID: 1472219334
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fire TotemSprite Sheet_1
+      name: Item Rarity_1
       rect:
         serializedVersion: 2
-        x: 32
+        x: 180
         y: 0
-        width: 32
-        height: 32
+        width: 179
+        height: 600
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -202,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ce7ccc06208acef50800000000000000
-      internalID: 6912084256274302956
+      spriteID: 7a51f75ef02651b4da39a3f550aa71ae
+      internalID: 842146224
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fire TotemSprite Sheet_2
+      name: Item Rarity_2
       rect:
         serializedVersion: 2
-        x: 64
+        x: 360
         y: 0
-        width: 32
-        height: 32
+        width: 179
+        height: 600
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -223,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 18c469f9624f4cb00800000000000000
-      internalID: 848071076575857793
+      spriteID: 730d9eb5423f4d147b4ad3f6f46da7a9
+      internalID: 1580576203
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fire TotemSprite Sheet_3
+      name: Item Rarity_3
       rect:
         serializedVersion: 2
-        x: 96
+        x: 540
         y: 0
-        width: 32
-        height: 32
+        width: 179
+        height: 600
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -244,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 727e15df2782abc80800000000000000
-      internalID: -8306282088390072537
+      spriteID: 043a3b9ed38d9e44d8fb05a7aefc9c22
+      internalID: 208497070
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: Fire TotemSprite Sheet_4
+      name: Item Rarity_4
       rect:
         serializedVersion: 2
-        x: 128
+        x: 720
         y: 0
-        width: 32
-        height: 32
+        width: 179
+        height: 600
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -265,29 +208,8 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ebb2adf5cf655af60800000000000000
-      internalID: 8044931951307140030
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: Fire TotemSprite Sheet_5
-      rect:
-        serializedVersion: 2
-        x: 160
-        y: 0
-        width: 32
-        height: 32
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 25fb3724ba2c40740800000000000000
-      internalID: 5117429117409804114
+      spriteID: 8a464e0c45793504f801777e6695b5bb
+      internalID: -902742623
       vertices: []
       indices: 
       edges: []
@@ -303,12 +225,11 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      Fire TotemSprite Sheet_0: -4035746850229498089
-      Fire TotemSprite Sheet_1: 6912084256274302956
-      Fire TotemSprite Sheet_2: 848071076575857793
-      Fire TotemSprite Sheet_3: -8306282088390072537
-      Fire TotemSprite Sheet_4: 8044931951307140030
-      Fire TotemSprite Sheet_5: 5117429117409804114
+      Item Rarity_0: 1472219334
+      Item Rarity_1: 842146224
+      Item Rarity_2: 1580576203
+      Item Rarity_3: 208497070
+      Item Rarity_4: -902742623
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

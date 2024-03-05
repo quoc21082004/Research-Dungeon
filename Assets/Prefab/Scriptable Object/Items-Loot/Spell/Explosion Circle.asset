@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b4c379a815038b4485afecdc9177349, type: 3}
   m_Name: Explosion Circle
   m_EditorClassIdentifier: 
-  name: Explosion Circle
+  nameItem: Explosion Circle
   icon: {fileID: -957859435, guid: adda5677579224a4c8fa33efdad1613d, type: 3}
-  itemNumber: 1
+  itemNumber: 2
   currentAmt: 1
   isStackable: 0
   itemDescription: Use to open new Skill
   flavor: Can use only 1 time
   buyPrice: 5000
   sellPrice: 2500
+  Rarity: 0
+  Type: 1
   consumableType: 3
   type: 0
   spell: {fileID: 11400000, guid: 6acdf88f2f7a85e4aabd200e43a70d08, type: 2}

@@ -39,13 +39,20 @@ public enum StatsType
     CRIT,
     CRITDMG,
 }
-public enum ItemRarity          // item tyoe
+public enum ItemRarity          // item type
 {
     Common,
-    Uncommon,
     Rare,
     Epic,
     Legendary,
+}
+public enum ItemType
+{
+    Consumable,
+    Ability,
+    Upgrade,
+    Quest,
+    Currency,
 }
 public enum TargetType
 {

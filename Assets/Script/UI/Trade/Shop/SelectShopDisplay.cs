@@ -20,7 +20,7 @@ public class SelectShopDisplay : SelectedItemDisplay
         }
         else if (InventoryUI.selectedItem != null)
         {
-            itemTitle_txt.text = "" + InventoryUI.selectedItem.name;
+            itemTitle_txt.text = "" + InventoryUI.selectedItem.nameItem;
             itemDescription_txt.text = "" + InventoryUI.selectedItem.itemDescription;
             if (PartyController.inventoryG.Gold >= InventoryUI.selectedItem.buyPrice)
                 itemPriceGold_txt.color = Color.white;

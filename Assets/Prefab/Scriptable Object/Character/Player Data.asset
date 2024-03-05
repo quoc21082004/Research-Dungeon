@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: Player Data
   m_EditorClassIdentifier: 
   basicStats:
-    health: 1000
+    health: 99999
     mana: 1000
     defense: 160
     movementSpeed: 130
@@ -21,7 +21,7 @@ MonoBehaviour:
     healthRegen: 73.799995
     manaRegen: 1
   basicAttack:
-    wandDamage: 346.00003
+    wandDamage: 600
     critChance: 66
     minCritDamage: 3.499999
     maxCritDamage: 6.2500014
@@ -34,7 +34,7 @@ MonoBehaviour:
     skillPoint: 65
     exp: 0
     expToLvl: 100
-    gold: 2919
+    gold: 132
   extraBuff:
     extraExp: 12
     percentDamage: 1

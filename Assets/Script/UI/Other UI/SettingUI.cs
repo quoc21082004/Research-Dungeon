@@ -6,6 +6,16 @@ public class SettingUI : MonoBehaviour
 {
     public GameObject music_btn, sfx_btn;
     public Slider musicSlider, sfxSlider;
+    private void OnEnable()
+    {
+        InputManager.playerInput.Disable();
+        GUI_Input.playerInput.UI.Disable();
+    }
+    private void OnDisable()
+    {
+        InputManager.playerInput.Enable();
+        GUI_Input.playerInput.UI.Enable();
+    }
     public void ToggleMusic()
     {
         AudioManager.instance.ToggleMusic();

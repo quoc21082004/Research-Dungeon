@@ -34,11 +34,15 @@ public class FullMapManager : Singleton<FullMapManager>
     {
         isMapOpen = true;
         mapUI.SetActive(true);
+        InputManager.playerInput.Disable();
+        GUI_Input.playerInput.UI.OpenShop.Disable();
         PauseMenu.instance.Pause();
     }
     public void CloseMap()
     {
         mapUI.SetActive(false);
+        InputManager.playerInput.Enable();
+        GUI_Input.playerInput.UI.OpenShop.Enable();
         StartCoroutine(ResumeNextFrame());
     }
     IEnumerator ResumeNextFrame()

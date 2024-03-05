@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0961e113ddebc1e4d9a9af2c4282f652, type: 3}
   m_Name: Health_Bottle(C)
   m_EditorClassIdentifier: 
-  name: Health Rank (C)
+  nameItem: Health Bottle C
   icon: {fileID: 5168887866551961611, guid: 59161756a60125e40a19a4dae9c9d189, type: 3}
   itemNumber: 4
   currentAmt: 1
@@ -21,7 +21,8 @@ MonoBehaviour:
   flavor: Use to recover mana
   buyPrice: 702
   sellPrice: 300
+  Rarity: 1
+  Type: 0
   consumableType: 0
-  type: 4
   minPercent: 10
   maxPercent: 20

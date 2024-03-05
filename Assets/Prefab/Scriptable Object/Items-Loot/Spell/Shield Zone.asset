@@ -12,15 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b4c379a815038b4485afecdc9177349, type: 3}
   m_Name: Shield Zone
   m_EditorClassIdentifier: 
-  name: Shield Zone
+  nameItem: Shield Zone
   icon: {fileID: 1539473624, guid: 2c0a5f713c260ac4fa4cd1a09b6fb887, type: 3}
-  itemNumber: 1
+  itemNumber: 5
   currentAmt: 1
   isStackable: 0
   itemDescription: Use to open new Skill
   flavor: Can use only 1 time
   buyPrice: 7000
   sellPrice: 4500
+  Rarity: 3
+  Type: 1
   consumableType: 3
-  type: 4
+  type: 0
   spell: {fileID: 11400000, guid: 609cf7060e7fe4045843e48e623ebe74, type: 2}

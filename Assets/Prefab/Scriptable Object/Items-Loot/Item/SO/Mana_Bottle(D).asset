@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0961e113ddebc1e4d9a9af2c4282f652, type: 3}
   m_Name: Mana_Bottle(D)
   m_EditorClassIdentifier: 
-  name: Mana Rank (D)
+  nameItem: Mana Bottle D
   icon: {fileID: -1738724421029491433, guid: 06c1215de0f4b8e4fa2f05b5d1eae647, type: 3}
   itemNumber: 8
   currentAmt: 1
@@ -21,7 +21,8 @@ MonoBehaviour:
   flavor: Use to recover mana
   buyPrice: 601
   sellPrice: 500
+  Rarity: 0
+  Type: 0
   consumableType: 1
-  type: 4
   minPercent: 5
   maxPercent: 10

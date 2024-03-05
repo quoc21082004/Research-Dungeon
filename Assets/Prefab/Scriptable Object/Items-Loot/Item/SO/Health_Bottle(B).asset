@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0961e113ddebc1e4d9a9af2c4282f652, type: 3}
   m_Name: Health_Bottle(B)
   m_EditorClassIdentifier: 
-  name: Health Rank (B)
+  nameItem: Health Bottle B
   icon: {fileID: 4924898748281556492, guid: 06c1215de0f4b8e4fa2f05b5d1eae647, type: 3}
   itemNumber: 3
   currentAmt: 1
@@ -21,7 +21,8 @@ MonoBehaviour:
   flavor: 'Use to recover health '
   buyPrice: 802
   sellPrice: 400
+  Rarity: 2
+  Type: 0
   consumableType: 0
-  type: 4
   minPercent: 25
   maxPercent: 35

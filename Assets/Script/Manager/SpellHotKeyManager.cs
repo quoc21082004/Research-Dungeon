@@ -16,6 +16,7 @@ public class SpellHotKeyManager : Singleton<SpellHotKeyManager> , IHotKey
     public Image castDelay_img;
     public GameObject skillbarDisplay;
     float delayTime;
+    bool isCast = false;
     private void Start()
     {
         if (hotkeySpell.Length == 0)
@@ -52,7 +53,6 @@ public class SpellHotKeyManager : Singleton<SpellHotKeyManager> , IHotKey
                     delayTime = 0;
             }
         }
-
     }
     public void SetHotKeySpell(int numKey, SpellBook spellItem)
     {
@@ -86,7 +86,7 @@ public class SpellHotKeyManager : Singleton<SpellHotKeyManager> , IHotKey
     }
     public void UseSpell(SpellBook spellbook)
     {
-        if (spellbook != null)
+        if (spellbook != null && !isCast)
             StartCoroutine(DelayCast(spellbook));
     }
     public void UpdateCoolDown()
@@ -115,6 +115,7 @@ public class SpellHotKeyManager : Singleton<SpellHotKeyManager> , IHotKey
     }
     IEnumerator DelayCast(SpellBook spellbook)
     {
+        isCast = true;
         skillbarDisplay.gameObject.SetActive(true);
         delayTime = 0;
         yield return new WaitForSeconds(spellbook.spell.baseCastDelay);
@@ -123,6 +124,7 @@ public class SpellHotKeyManager : Singleton<SpellHotKeyManager> , IHotKey
         isSpellCDcounter[type] = true;
         spellbookCDcounter[type] = SpellBook.GetSpellCooldown(type);
         skillbarDisplay.gameObject.SetActive(false);
+        isCast = false;
         UpdateHoyKeySpellIcon();
     }
 }

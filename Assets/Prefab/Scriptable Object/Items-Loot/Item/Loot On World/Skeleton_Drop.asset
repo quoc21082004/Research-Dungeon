@@ -14,4 +14,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   lootprefab: {fileID: 9215732492625398579, guid: 7cd40de9bd80f7641bff759dd0de865b,
     type: 3}
-  dropRate: 50
+  dropRate: 100

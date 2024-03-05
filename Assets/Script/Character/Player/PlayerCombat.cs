@@ -34,7 +34,6 @@ public class PlayerCombat : ActiveAbility
         abilityInput.Ability2.performed += UseAbility2;
         abilityInput.Ability3.performed += UseAbility3;
         abilityInput.Ability4.performed += UseAbility4;
-
     }
     private void UnRegisterEvent()
     {

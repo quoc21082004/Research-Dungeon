@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5644dceedde4d140ba53a978ffe509e, type: 3}
   m_Name: A_Bat Lics
   m_EditorClassIdentifier: 
-  name: Bat Lics
+  nameItem: Lic Bat
   icon: {fileID: -7360999234838257147, guid: 72deb44d3494f444fbf67d74be2a2abc, type: 3}
   itemNumber: 9
   currentAmt: 1
@@ -21,3 +21,5 @@ MonoBehaviour:
   flavor: Only Sell ! Can't Use
   buyPrice: 200
   sellPrice: 100
+  Rarity: 0
+  Type: 3

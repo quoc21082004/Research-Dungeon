@@ -253,6 +253,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6024039439013899729, guid: d7bb911770e8ffa45902f5f0447eb9ee,
         type: 3}
+      propertyPath: lootsPools.Array.size
+      value: 19
+      objectReference: {fileID: 0}
+    - target: {fileID: 6024039439013899729, guid: d7bb911770e8ffa45902f5f0447eb9ee,
+        type: 3}
       propertyPath: spellPools.Array.size
       value: 20
       objectReference: {fileID: 0}
@@ -273,6 +278,42 @@ PrefabInstance:
       propertyPath: vFXPools.Array.data[9].prefab
       value: 
       objectReference: {fileID: 2742698114775530948, guid: b19cee16690e03344899cd87e83470d6,
+        type: 3}
+    - target: {fileID: 6024039439013899729, guid: d7bb911770e8ffa45902f5f0447eb9ee,
+        type: 3}
+      propertyPath: lootsPools.Array.data[13].prefab
+      value: 
+      objectReference: {fileID: 9215732492625398579, guid: 061fe0917ca8419409bdc67a61bc2c3a,
+        type: 3}
+    - target: {fileID: 6024039439013899729, guid: d7bb911770e8ffa45902f5f0447eb9ee,
+        type: 3}
+      propertyPath: lootsPools.Array.data[14].prefab
+      value: 
+      objectReference: {fileID: 9215732492625398579, guid: 3bf18296ba9f4f84ca979ef8337345b6,
+        type: 3}
+    - target: {fileID: 6024039439013899729, guid: d7bb911770e8ffa45902f5f0447eb9ee,
+        type: 3}
+      propertyPath: lootsPools.Array.data[15].prefab
+      value: 
+      objectReference: {fileID: 9215732492625398579, guid: ba5594860488de7448ccf2a2c1c724f1,
+        type: 3}
+    - target: {fileID: 6024039439013899729, guid: d7bb911770e8ffa45902f5f0447eb9ee,
+        type: 3}
+      propertyPath: lootsPools.Array.data[16].prefab
+      value: 
+      objectReference: {fileID: 9215732492625398579, guid: 7cd40de9bd80f7641bff759dd0de865b,
+        type: 3}
+    - target: {fileID: 6024039439013899729, guid: d7bb911770e8ffa45902f5f0447eb9ee,
+        type: 3}
+      propertyPath: lootsPools.Array.data[17].prefab
+      value: 
+      objectReference: {fileID: 7798133546878976195, guid: e7424c0d4bfa86e4f898829788a7ccff,
+        type: 3}
+    - target: {fileID: 6024039439013899729, guid: d7bb911770e8ffa45902f5f0447eb9ee,
+        type: 3}
+      propertyPath: lootsPools.Array.data[18].prefab
+      value: 
+      objectReference: {fileID: 7798133546878976195, guid: d09920b7e0c42b545a7650a005d597ad,
         type: 3}
     - target: {fileID: 6024039439013899729, guid: d7bb911770e8ffa45902f5f0447eb9ee,
         type: 3}

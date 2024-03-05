@@ -5,6 +5,7 @@ using System;
 [CreateAssetMenu(fileName = "Shop Item", menuName = "Shop/Mobs Item")]
 public class ItemSO : ScriptableObject
 {
+    public string nameItem;
     public Sprite icon = null;
     public int itemNumber;
     public int currentAmt = 1;
@@ -13,6 +14,8 @@ public class ItemSO : ScriptableObject
     [TextArea(0, 2)] public string flavor;
     public int buyPrice;
     public int sellPrice;
+    public ItemRarity Rarity;
+    public ItemType Type;
     public virtual void Use()
     {
 

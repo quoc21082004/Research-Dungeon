@@ -27,6 +27,7 @@ public abstract class AmtConfirmWindow : MonoBehaviour
         amtConfirm_btn.onClick.RemoveListener(ConfirmAmt);
         amtCancel_btn.onClick.RemoveListener(CancelAmt);
         quantitySlider.onValueChanged.RemoveListener(SliderQuantityChange);
+        quantitySlider.value = quantitySlider.minValue;
     }
     public abstract void ConfirmAmt();
     public abstract void ConfirmAction();

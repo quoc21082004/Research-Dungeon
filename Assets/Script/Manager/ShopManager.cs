@@ -39,12 +39,16 @@ public class ShopManager : Singleton<ShopManager>
     {
         isShopOpen = true;
         ShopMenuUI.SetActive(true);
+        GUI_Input.playerInput.UI.OpenMap.Disable();
+        InputManager.playerInput.Disable();
         PauseMenu.instance.Pause();
     }
     public void CloseShop()
     {
         isShopOpen = false;
         ShopMenuUI.SetActive(false);
+        InputManager.playerInput.Enable();
+        GUI_Input.playerInput.UI.OpenMap.Enable();
         PauseMenu.instance.Resume();
     }
     public void ShowBuyUI()

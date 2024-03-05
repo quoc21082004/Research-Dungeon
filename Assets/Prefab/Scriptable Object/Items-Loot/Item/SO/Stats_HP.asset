@@ -12,16 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67f0d002f2af6419b2b3f206440596, type: 3}
   m_Name: Stats_HP
   m_EditorClassIdentifier: 
-  name: Health Stats
+  nameItem: Stats HP
   icon: {fileID: -1808174821709965779, guid: 06c1215de0f4b8e4fa2f05b5d1eae647, type: 3}
-  itemNumber: 1
+  itemNumber: 9
   currentAmt: 1
   isStackable: 1
-  itemDescription: Gain bonus health
-  flavor: Can Use
+  itemDescription: 'Increase 150 hp '
+  flavor: 
   buyPrice: 2000
-  sellPrice: 600
+  sellPrice: 1000
+  Rarity: 1
+  Type: 0
   consumableType: 2
-  type: 4
+  minPercent: 0
+  maxPercent: 0
   statsType: 0
   statsBoots: 150

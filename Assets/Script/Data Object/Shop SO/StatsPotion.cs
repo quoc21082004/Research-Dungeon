@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "Shop Item", menuName = "Shop/Potion Stat")]
-public class StatsPotion : Consumable
+public class StatsPotion : Potion
 {
     public StatsType statsType;
     public float statsBoots;

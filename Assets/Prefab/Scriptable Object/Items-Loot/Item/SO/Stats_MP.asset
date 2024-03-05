@@ -12,16 +12,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea67f0d002f2af6419b2b3f206440596, type: 3}
   m_Name: Stats_MP
   m_EditorClassIdentifier: 
-  name: Mana Stats
-  icon: {fileID: 6846048004002876534, guid: 59161756a60125e40a19a4dae9c9d189, type: 3}
-  itemNumber: 2
+  nameItem: Stats MP
+  icon: {fileID: -9021585165060721990, guid: 59161756a60125e40a19a4dae9c9d189, type: 3}
+  itemNumber: 10
   currentAmt: 1
   isStackable: 1
-  itemDescription: Use to gain bonus mana
-  flavor: Just use
+  itemDescription: 'Increase 150 hp '
+  flavor: 
   buyPrice: 2000
-  sellPrice: 600
+  sellPrice: 1000
+  Rarity: 2
+  Type: 0
   consumableType: 2
-  type: 4
-  statsType: 0
-  statsBoots: 50
+  minPercent: 0
+  maxPercent: 0
+  statsType: 1
+  statsBoots: 100

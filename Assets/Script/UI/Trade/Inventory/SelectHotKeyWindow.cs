@@ -26,7 +26,7 @@ public class SelectHotKeyWindow : MonoBehaviour
         for (int i = 0; i < slotsItem.Length; i++)
         {
             if (ItemHotKeyManager.instance.hotkeyItems[i] != null)  // have item in hotkey
-                slotsItem[i].AddItem(ItemHotKeyManager.instance.hotkeyItems[i]);
+                slotsItem[i].AddItem(ItemHotKeyManager.instance.hotkeyItems[i], i);
             else if (ItemHotKeyManager.instance.hotkeyItems[i] == null) // nothing
             {
                 slotsItem[i].ClearSlot();
@@ -36,7 +36,7 @@ public class SelectHotKeyWindow : MonoBehaviour
         for (int i = 0; i < slotsSpell.Length; i++)
         {
             if (SpellHotKeyManager.instance.hotkeySpell[i] != null)
-                slotsSpell[i].AddItem(SpellHotKeyManager.instance.hotkeySpell[i]);
+                slotsSpell[i].AddItem(SpellHotKeyManager.instance.hotkeySpell[i], i);
             else
             {
                 slotsSpell[i].ClearSlot();

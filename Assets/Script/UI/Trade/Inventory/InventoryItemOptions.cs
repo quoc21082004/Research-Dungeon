@@ -28,7 +28,7 @@ public class InventoryItemOptions : ItemOptions
         }
         else if (InventoryUI.selectedItem != null) 
         {
-            Usebtn.interactable = InventoryUI.selectedItem.GetType().Equals(typeof(Potion));
+            Usebtn.interactable = InventoryUI.selectedItem.GetType().IsSubclassOf(typeof(Potion));
             Learnbtn.interactable = InventoryUI.selectedItem.GetType().Equals(typeof(SpellBook));
             Hotkeybtn.interactable = InventoryUI.selectedItem.GetType().IsSubclassOf(typeof(Consumable));
             Discardbtn.interactable = true;

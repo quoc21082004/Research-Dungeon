@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b4c379a815038b4485afecdc9177349, type: 3}
   m_Name: Explosion Builet
   m_EditorClassIdentifier: 
-  name: Explosion Builet
+  nameItem: Explosion Builet
   icon: {fileID: 1162703340, guid: acd9da3fff2ff15498ef9316d886c158, type: 3}
   itemNumber: 1
   currentAmt: 1
@@ -21,6 +21,8 @@ MonoBehaviour:
   flavor: Can use only 1 time
   buyPrice: 5500
   sellPrice: 2750
+  Rarity: 1
+  Type: 1
   consumableType: 3
   type: 1
   spell: {fileID: 11400000, guid: fb92370cea46c4b4dbb4d53f6712b26d, type: 2}

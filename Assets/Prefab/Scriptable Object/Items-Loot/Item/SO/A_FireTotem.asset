@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5644dceedde4d140ba53a978ffe509e, type: 3}
   m_Name: A_FireTotem
   m_EditorClassIdentifier: 
-  name: Wood Red
+  nameItem: 
   icon: {fileID: 6751781010683169555, guid: 72deb44d3494f444fbf67d74be2a2abc, type: 3}
   itemNumber: 11
   currentAmt: 1
@@ -21,3 +21,5 @@ MonoBehaviour:
   flavor: Collect item
   buyPrice: 400
   sellPrice: 300
+  Rarity: 0
+  Type: 3

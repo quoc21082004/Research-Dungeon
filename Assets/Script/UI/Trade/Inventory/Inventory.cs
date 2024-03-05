@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using System;
 [System.Serializable]
 public class Inventory 
@@ -14,9 +15,9 @@ public class Inventory
     {
         if (items.Count >= space)
             return false;
-        if (item.isStackable && items.Find(x => x.name.Equals(item.name)) != null) 
+        if (item.isStackable && items.Find(x => x.nameItem.Equals(item.nameItem)) != null) 
         {
-            ItemSO itemInInventory = items.Find(x => x.name.Equals(item.name));
+            ItemSO itemInInventory = items.Find(x => x.nameItem.Equals(item.nameItem));
             itemInInventory.currentAmt += item.currentAmt;
         }
         else

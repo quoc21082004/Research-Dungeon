@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a5644dceedde4d140ba53a978ffe509e, type: 3}
   m_Name: A_FlyingMelee
   m_EditorClassIdentifier: 
-  name: Blood Flying
+  nameItem: Flying Wing
   icon: {fileID: 138519801558253516, guid: 72deb44d3494f444fbf67d74be2a2abc, type: 3}
   itemNumber: 12
   currentAmt: 1
@@ -21,3 +21,5 @@ MonoBehaviour:
   flavor: Just Sell
   buyPrice: 500
   sellPrice: 400
+  Rarity: 0
+  Type: 3
