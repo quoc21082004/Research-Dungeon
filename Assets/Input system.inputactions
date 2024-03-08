@@ -260,6 +260,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OpenQuest",
+                    "type": "Button",
+                    "id": "7cafaa19-6559-41d2-b938-31716f2d8e5b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -304,6 +313,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "OpenShop",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "b3e7d924-85f6-43a1-a820-80668d833e86",
+                    "path": "<Keyboard>/p",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenQuest",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

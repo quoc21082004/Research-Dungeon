@@ -5,11 +5,13 @@ using UnityEngine;
 [System.Serializable]
 public class ItemReward
 {
-    [SerializeField] private ItemSO item;
-    [SerializeField, Tooltip("Value of Reweward")] private int value;
-    [SerializeField, Tooltip("Random Value")] private bool isRandom;
-    [SerializeField] private Vector2 valueRandom;
+    [SerializeField] public int CoinReward;
+    [SerializeField] public ItemSO item;
+    [SerializeField, Tooltip("Value of Reweward")] public int value;
+    [SerializeField, Tooltip("Random Value")] public bool isRandom;
+    [SerializeField] public Vector2 valueRandom;
 
     public int GetValueRandom() => isRandom ? (int)Random.Range(valueRandom.x, valueRandom.y) : value;
+    public int GetCoinReward() => isRandom ? (int)Random.Range(valueRandom.x, valueRandom.y) * CoinReward : CoinReward;
 
 }

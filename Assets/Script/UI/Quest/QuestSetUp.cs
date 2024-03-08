@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 [System.Serializable]
 public class Task
 {
-    [SerializeField] private bool isCompleted;
-    [SerializeField] private bool isLocked;
-    [SerializeField] private bool isReceived;
+    [SerializeField] public bool isCompleted;
+    [SerializeField] public bool isLocked;
+    [SerializeField] public bool isReceived;
     Task() { }
     Task(bool _isComplete, bool _isLocked, bool _isReceived)
     {
@@ -14,29 +15,22 @@ public class Task
         isLocked = _isLocked;
         isReceived = _isReceived;
     }
-    public bool IsCompleted() => isCompleted;
-    public bool IsLocked() => isLocked;
-    public bool IsReceived() => isReceived;
-    public void SetTaskComplete(bool _value) => isCompleted = _value;
-    public void SetTaskLocked(bool _value) => isLocked = _value;
-    public void SetTaskReceived(bool _value) => isReceived = _value;
 }
 [System.Serializable]
 public class TaskRequirement
 {
-    [SerializeField] private ItemSO requireItem; // require item for task
-    [SerializeField] private int value;
-    public ItemSO GetItem() => requireItem;
-    public void SetItem(ItemSO _value) => requireItem = _value;
-    public int GetValue() => value;
-    public void SetValue(int _value) => value = _value;
+    [SerializeField] public ItemSO requireItem; // require item for task
+
+    [SerializeField] public int amount;
+    public ItemSO GetItemSO() => requireItem;
+    public int GetValue() => amount;
 }
 [CreateAssetMenu(fileName = "Quest", menuName = "QuestSO")] 
 public class QuestSetUp : ScriptableObject
 {
-    [SerializeField] private Task taskQuest;
-    [SerializeField] private string titleQuest;
-    [SerializeField] private string descriptionQuest;
-    [SerializeField] private TaskRequirement requireQuest;
-    [SerializeField] private List<ItemReward> rewardQuest;
+    public Task taskQuest;
+    public string titleQuest;
+    public string descriptionQuest;
+    public TaskRequirement requireQuest;
+    public List<ItemReward> rewardQuest;
 }
