@@ -32,8 +32,8 @@ public class EnemyHurt : Damagable
     }
     private void DropLootItem()
     {
-        DropManager.instance.SpawnLoot(enemy.enemystat.Type, transform.position);
-        PartyController.AddGold(enemy.enemystat.goldReward);
+        RewardManager.instance.SpawnLoot(enemy.enemystat.Type, transform.position);
+        PartyController.IncreaseCoin(enemy.enemystat.goldReward);
         GameManager.instance?.AddExperience(enemy.enemystat.expReward);
     }
     public IEnumerator Die()

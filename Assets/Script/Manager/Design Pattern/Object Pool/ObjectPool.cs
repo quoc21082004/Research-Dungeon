@@ -41,6 +41,13 @@ public class ObjectPool
         preparedObject.SetActive(true);
         return preparedObject;
     }
+    public GameObject PreparedObject(Transform parent)
+    {
+        GameObject preparedObject = AvailableObject();
+        preparedObject.SetActive(true);
+        preparedObject.transform.parent = parent.transform;
+        return preparedObject;
+    }
     public GameObject PreparedObject(Vector3 position)
     {
         GameObject preparedObject = AvailableObject();

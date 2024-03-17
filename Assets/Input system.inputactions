@@ -269,6 +269,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "CloseQuest",
+                    "type": "Button",
+                    "id": "0baf6e57-ef2f-415a-8d4d-bd1dcab78076",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -324,6 +333,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "OpenQuest",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "2a12d812-004b-4f0b-889e-e7699d9c80d6",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseQuest",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

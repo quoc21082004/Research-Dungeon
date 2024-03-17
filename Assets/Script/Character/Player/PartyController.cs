@@ -5,6 +5,7 @@ using UnityEngine;
 
 public class PartyController : Singleton<PartyController>
 {
+    public static event Action<int> onCoinChanged;
     public static Player player;
     public static Inventory inventoryG;
     private void Update()
@@ -13,8 +14,8 @@ public class PartyController : Singleton<PartyController>
             player = transform.GetChild(0).gameObject.GetComponent<Player>();
 
         if (inventoryG == null)
-            inventoryG = new Inventory { Gold = player.playerdata.levelUp.gold };
-        player.playerdata.levelUp.gold = inventoryG.Gold;
+            inventoryG = new Inventory { Gold = player.playerdata.otherStats.gold };
+        player.playerdata.otherStats.gold = inventoryG.Gold;
 
         /*if (ItemHotKeyManager.instance == null)
             return;
@@ -59,6 +60,11 @@ public class PartyController : Singleton<PartyController>
         player.health = Mathf.Max(player.health, player.maxhealth);
         player.mana += Mathf.Max(player.mana, player.maxmana);
     }
-    public static void AddGold(int amount) => inventoryG.Gold += amount;
+    public static void IncreaseCoin(int amount)
+    {
+        inventoryG.Gold = Mathf.Clamp(inventoryG.Gold + amount, 0, Int32.MaxValue);
+        SendCoinEvent();
+    }
+    public static void SendCoinEvent() => onCoinChanged?.Invoke(inventoryG.Gold);
     public static void AddExperience(float amount) => GameManager.instance.AddExperience(amount);
 }

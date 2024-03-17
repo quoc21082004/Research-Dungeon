@@ -14,10 +14,10 @@ public class ItemLoots : LootItem
         {
             ItemSO clone = Instantiate(item);
             clone.currentAmt = quantity;
-            wasPickUp = PartyController.inventoryG.AddItem(clone);
+            wasPickUp = PartyController.inventoryG.AddItem(clone, quantity);
         }
-        else if (quantity == 0)  
-            wasPickUp = PartyController.inventoryG.AddItem(item);
+        else if (quantity == 0)
+            wasPickUp = PartyController.inventoryG.AddItem(item, quantity);
 
     }
 }

@@ -99,7 +99,7 @@ public class PlayerCombat : ActiveAbility
             SpellHotKeyManager.instance.UseHotKey(3);
     }
 
-    #region hideTag
+    #region LF Enemy
     public void FindEnemy()
     {
         findEnemy = Physics2D.OverlapCircleAll(transform.position, rangeOfAim, LayerMaskHelper.layerMaskEnemy);

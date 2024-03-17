@@ -17,7 +17,7 @@ public class Task
     }
 }
 [System.Serializable]
-public class TaskRequirement
+public class TaskRequirement  
 {
     [SerializeField] public ItemSO requireItem; // require item for task
 
@@ -33,4 +33,5 @@ public class QuestSetUp : ScriptableObject
     public string descriptionQuest;
     public TaskRequirement requireQuest;
     public List<ItemReward> rewardQuest;
+    public int coinReward;
 }

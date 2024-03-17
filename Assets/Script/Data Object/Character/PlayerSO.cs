@@ -5,13 +5,14 @@ using UnityEngine;
 [CreateAssetMenu]
 public class PlayerSO : ScriptableObject 
 {
+    public int MAX_LEVEL = 99;
     public BasicStats basicStats;
     [Space]
     public BasicAttack basicAttack;
     [Space]
     public OtherStats otherStats;
     [Space]
-    public LevelUp levelUp;
+    public UpgradeLevelData upgradeLevel;
     [Space]
     public ExtraBuff extraBuff;
     [Space]
@@ -33,6 +34,8 @@ public class BasicAttack
 public class OtherStats
 {
     public float damageReduction;
+    public int skillPoint;
+    public int gold;
 }
 [System.Serializable]
 public class BasicStats
@@ -46,13 +49,11 @@ public class BasicStats
     public float manaRegen;
 }
 [System.Serializable]
-public class LevelUp
+public class UpgradeLevelData
 {
     public int level;
-    public int skillPoint;
     public float exp;
     public float expToLvl;
-    public int gold;
 }
 [System.Serializable]
 public class Upgrade

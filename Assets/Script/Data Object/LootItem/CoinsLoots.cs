@@ -12,7 +12,7 @@ public class CoinsLoots : LootItem
     }
     protected override void PickUp()
     {
-        PartyController.AddGold((int)rand);
+        PartyController.IncreaseCoin((int)rand);
         base.PickUp();
     }
 

@@ -36,6 +36,7 @@ public class FullMapManager : Singleton<FullMapManager>
         mapUI.SetActive(true);
         InputManager.playerInput.Disable();
         GUI_Input.playerInput.UI.OpenShop.Disable();
+        GUI_Input.playerInput.UI.OpenQuest.Disable();
         PauseMenu.instance.Pause();
     }
     public void CloseMap()
@@ -43,6 +44,7 @@ public class FullMapManager : Singleton<FullMapManager>
         mapUI.SetActive(false);
         InputManager.playerInput.Enable();
         GUI_Input.playerInput.UI.OpenShop.Enable();
+        GUI_Input.playerInput.UI.OpenQuest.Enable();
         StartCoroutine(ResumeNextFrame());
     }
     IEnumerator ResumeNextFrame()

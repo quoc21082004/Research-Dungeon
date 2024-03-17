@@ -291,6 +291,15 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CloseQuest"",
+                    ""type"": ""Button"",
+                    ""id"": ""0baf6e57-ef2f-415a-8d4d-bd1dcab78076"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -346,6 +355,17 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""OpenQuest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""2a12d812-004b-4f0b-889e-e7699d9c80d6"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseQuest"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -434,6 +454,7 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
         m_UI_OpenMap = m_UI.FindAction("OpenMap", throwIfNotFound: true);
         m_UI_OpenShop = m_UI.FindAction("OpenShop", throwIfNotFound: true);
         m_UI_OpenQuest = m_UI.FindAction("OpenQuest", throwIfNotFound: true);
+        m_UI_CloseQuest = m_UI.FindAction("CloseQuest", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -640,6 +661,7 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_OpenMap;
     private readonly InputAction m_UI_OpenShop;
     private readonly InputAction m_UI_OpenQuest;
+    private readonly InputAction m_UI_CloseQuest;
     public struct UIActions
     {
         private @Inputsystem m_Wrapper;
@@ -649,6 +671,7 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
         public InputAction @OpenMap => m_Wrapper.m_UI_OpenMap;
         public InputAction @OpenShop => m_Wrapper.m_UI_OpenShop;
         public InputAction @OpenQuest => m_Wrapper.m_UI_OpenQuest;
+        public InputAction @CloseQuest => m_Wrapper.m_UI_CloseQuest;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -673,6 +696,9 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
             @OpenQuest.started += instance.OnOpenQuest;
             @OpenQuest.performed += instance.OnOpenQuest;
             @OpenQuest.canceled += instance.OnOpenQuest;
+            @CloseQuest.started += instance.OnCloseQuest;
+            @CloseQuest.performed += instance.OnCloseQuest;
+            @CloseQuest.canceled += instance.OnCloseQuest;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -692,6 +718,9 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
             @OpenQuest.started -= instance.OnOpenQuest;
             @OpenQuest.performed -= instance.OnOpenQuest;
             @OpenQuest.canceled -= instance.OnOpenQuest;
+            @CloseQuest.started -= instance.OnCloseQuest;
+            @CloseQuest.performed -= instance.OnCloseQuest;
+            @CloseQuest.canceled -= instance.OnCloseQuest;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -775,5 +804,6 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
         void OnOpenMap(InputAction.CallbackContext context);
         void OnOpenShop(InputAction.CallbackContext context);
         void OnOpenQuest(InputAction.CallbackContext context);
+        void OnCloseQuest(InputAction.CallbackContext context);
     }
 }

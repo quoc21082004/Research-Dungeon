@@ -11,14 +11,15 @@ public class Inventory
     public int space = 24;
     public int Gold;
     public List<ItemSO> items = new List<ItemSO>();
-    public bool AddItem(ItemSO item)
+    public bool AddItem(ItemSO item, int amount)
     {
         if (items.Count >= space)
             return false;
         if (item.isStackable && items.Find(x => x.nameItem.Equals(item.nameItem)) != null) 
         {
-            ItemSO itemInInventory = items.Find(x => x.nameItem.Equals(item.nameItem));
-            itemInInventory.currentAmt += item.currentAmt;
+            ItemSO itemInInventory = items.Find(x => x.nameItem.Equals(item.nameItem)); //             //itemInInventory.currentAmt += item.currentAmt;
+            if (itemInInventory != null)
+                itemInInventory.currentAmt += amount;
         }
         else
         {
@@ -29,7 +30,6 @@ public class Inventory
             onItemChangedCallBack.Invoke();
         return true;
     }
-
     public void Remove(ItemSO itemSO, int amt)
     {
         /*for (int i = 0; i < items.Count; i++)                         // way 2
@@ -39,7 +39,7 @@ public class Inventory
                 itemInInventory = items[i];
             }
         }*/
-        ItemSO itemInInventory = items.Find(x => x.Equals(itemSO)); // way 1
+        ItemSO itemInInventory = items.Find(x => x.itemNumber == itemSO.itemNumber); //Equals(itemSO)); // way 1
         itemInInventory.currentAmt -= amt;
         if (itemInInventory.currentAmt <= 0)
         {
@@ -71,10 +71,10 @@ public class Inventory
     }
     public int GetItemAmt(ItemSO item)
     {
-        if (items.Find(x => x == item) == null)
+        if (items.Find(x => x.itemNumber == item.itemNumber) == null)
             return 0;
-        else if (items.Find(x => x == item) != null)
-            return items.Find(x => x == item).currentAmt;
+        else if (items.Find(x => x.itemNumber == item.itemNumber) != null)
+            return items.Find(x => x.itemNumber == item.itemNumber).currentAmt;
         return 0;
     }
     public ItemSO GetItem(int itemnumber)

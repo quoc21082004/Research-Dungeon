@@ -8,7 +8,7 @@ using TMPro;
 using UnityEngine.InputSystem;
 using UnityEngine.Video;
 using PlayFab.EconomyModels;
-public class GUI_Quest : MonoBehaviour
+public class GUI_Quest : Singleton<GUI_Quest>
 {
     [SerializeField] private GameObject questPanel;
     [SerializeField] private Animator noticeQuestanim;
@@ -25,12 +25,14 @@ public class GUI_Quest : MonoBehaviour
 
     [SerializeField] public InventorySlot slotsprefab;
 
-    [SerializeField] protected List<InventorySlot> itemReward;
+    [SerializeField] private InventorySlot itemrequire;
+    [SerializeField] private List<InventorySlot> itemReward;
+    [SerializeField] TextMeshProUGUI coinReward_txt;
+
     [SerializeField] private Transform contentItem;
-    [SerializeField] private InventorySlot itemRequire;
     [SerializeField] private Transform contentItemRequire;
 
-    [SerializeField] private List<QuestSetUp> quests;
+    [SerializeField] private List<QuestSetUp> quests => QuestManager.instance.questList;
 
     [SerializeField] private QuestBox questBoxprefab;
     [SerializeField] private List<QuestBox> questBox;
@@ -41,7 +43,16 @@ public class GUI_Quest : MonoBehaviour
     private bool isAccept;
     private bool isReport;
     int indexItemNumber;
-
+    private void Start()
+    {
+        foreach (var _questbox in questBox)
+            _questbox.OnQuestSelectEvent -= OnSelectQuest;
+    }
+    private void OnDestroy()
+    {
+        foreach (var _questbox in questBox)
+            _questbox.OnQuestSelectEvent -= OnSelectQuest;
+    }
     private void OnEnable()
     {
         Init();
@@ -51,29 +62,20 @@ public class GUI_Quest : MonoBehaviour
     {
         UnRegisterEvent();
     }
-    private void Start()
-    {
-        questBox.ForEach(_questbox => _questbox.OnQuestSelectEvent += OnSelectQuest);
-    }
-    private void OnDestroy()
-    {
-        questBox.ForEach(_questbox => _questbox.OnQuestSelectEvent -= OnSelectQuest);
-    }
     private void Init()
     {
         questTitle_txt.text = "";
         questDescription_txt.text = "";
+        coinReward_txt.text = "";
         canOpenPanel = true;
         questPanel.gameObject.SetActive(false);
-        itemRequire.gameObject.SetActive(false);
     }
     private void RegisterEvent()
     {
         var gui = GUI_Input.playerInput;
         gui.UI.OpenQuest.performed += OnPanelOpenEvent;
         gui.UI.CloseQuest.performed += OnPanelCloseEvent;
-        gui.Player.Disable();
-        gui.PlayerAbility.Disable();
+
         accept_btn.onClick.AddListener(OnClickAcceptQuest);
         cancel_btn.onClick.AddListener(OnClickCancelQuest);
         report_btn.onClick.AddListener(OnClickReportQuest);
@@ -82,44 +84,62 @@ public class GUI_Quest : MonoBehaviour
     {
         var gui = GUI_Input.playerInput;
         gui.UI.OpenQuest.performed -= OnPanelOpenEvent;
-        gui.UI.CloseQuest.performed -= OnPanelOpenEvent;
-        gui.Player.Enable();
-        gui.PlayerAbility.Enable();
+        gui.UI.CloseQuest.performed -= OnPanelCloseEvent;
+
         accept_btn.onClick.RemoveListener(OnClickAcceptQuest);
         cancel_btn.onClick.RemoveListener(OnClickCancelQuest);
         report_btn.onClick.RemoveListener(OnClickReportQuest);
     }
-    private void OnPanelOpenEvent(InputAction.CallbackContext context)
+    public void OnPanelOpenEvent(InputAction.CallbackContext context)
     {
         if (!canOpenPanel)
             return;
+        foreach (var _questbox in questBox)
+            _questbox.OnQuestSelectEvent += OnSelectQuest;
+        canOpenPanel = false;
         questPanel.gameObject.SetActive(true);
         GUI_Input.playerInput.UI.OpenShop.Disable();
         GUI_Input.playerInput.UI.OpenMap.Disable();
+        InputManager.playerInput.Disable();
         ShowQuest();
     }
-    private void OnPanelCloseEvent(InputAction.CallbackContext context)
+    public void OnPanelCloseEvent(InputAction.CallbackContext context)
     {
-
+        if (canOpenPanel)
+            return;
+        canOpenPanel = true;
+        questPanel.gameObject.SetActive(false);
+        InputManager.playerInput.Enable();
         GUI_Input.playerInput.UI.OpenShop.Enable();
         GUI_Input.playerInput.UI.OpenMap.Enable();
     }
+    public void PanelCloseX()
+    {
+        if (canOpenPanel)
+            return;
+        canOpenPanel = true;
+        questPanel.gameObject.SetActive(false);
+        InputManager.playerInput.Enable();
+        GUI_Input.playerInput.UI.OpenShop.Enable();
+        GUI_Input.playerInput.UI.OpenMap.Enable();
+    }
+
     #region            Handle Accept - Cancel - Report
 
     private void OnClickAcceptQuest()
     {
         isAccept = true;
-        OpenNoticeQuestPanel("Would you like to accept this quest?\nContinue?");
+        OpenNoticeQuestPanel("\n\nWould you like to accept this quest!\nContinue?");
     }
     private void OnClickReportQuest()
     {
         isReport = true;
-        OpenNoticeQuestPanel("Would you like to report this mission?\nTo Complete , you will lost item require to get reward\nContinue?");
+        OpenNoticeQuestPanel("\n\nWould you like to report this mission!\nTo Complete , you will lost item require to get reward\nContinue?");
     }
     private void OnClickCancelQuest()
     {
         isAccept = false;
-        OpenNoticeQuestPanel("Would you like to quit this mission?\nContinue?");
+        OpenNoticeQuestPanel("\n\nWould you like to quit this mission!\nContinue?");
     }
     public void OnClickConfirmBtn()
     {
@@ -127,8 +147,9 @@ public class GUI_Quest : MonoBehaviour
         {
             isReport = false;
             var taskRequirement = currentQuestBox.questSetUp.requireQuest;
-            PartyController.inventoryG.items[indexItemNumber].currentAmt -= taskRequirement.amount;
+            PartyController.inventoryG.Remove(taskRequirement.requireItem, taskRequirement.amount);
             QuestManager.instance.OnCompleteQuest(currentQuestBox.questSetUp);
+            OnSelectQuest(currentQuestBox);
         }
         else if (isAccept) // accept quest
         {
@@ -136,36 +157,48 @@ public class GUI_Quest : MonoBehaviour
             currentQuestBox.SetReceiveQuestBox(true);
             QuestManager.instance.OnStartQuest(currentQuestBox.questSetUp);
         }
-        else if (!isAccept) // not yet done quest
+        else  // cancel quest
         {
             currentQuestBox.SetReceiveQuestBox(false);
-            currentQuestBox.LockTask();
-            currentQuestBox.isLocked = true;
             QuestManager.instance.OnCancelQuest(currentQuestBox.questSetUp);
         }
         OnClickCancelBtn();
-        SetProgressQuest();     // 0   /  3
+        SetProgressQuest();    
         SetButton(currentQuestBox);
         CheckQuestReport(currentQuestBox);
-        SetNoticeText(currentQuestBox.questSetUp.taskQuest);
+        SetNoticeQuestText(currentQuestBox.questSetUp.taskQuest);
     }
-    private void OnClickCancelBtn()
+    public void OnClickCancelBtn()
     {
         isReport = false;
         noticeQuestanim.Play("NoticeQuest_Close");
     }
+    private void OpenNoticeQuestPanel(string _txt)
+    {
+        noticeQuestanim.Play("NoticeQuest_Open");
+        noticeQuest_txt.text = "" + _txt;
+    }
     public void OnSelectQuest(QuestBox _questbox)
     {
+        ShowQuest();
         currentQuestBox = _questbox;
         var _questSetUp = _questbox.questSetUp;
         questTitle_txt.text = _questSetUp.titleQuest;
         questDescription_txt.text = _questSetUp.descriptionQuest;
 
+        CheckCompleteColor(_questbox);
         SpawnItemReward(_questSetUp);
-        SetItemRequire(_questSetUp);
+        SpawnItemRequire(_questSetUp);
         SetButton(_questbox);
         CheckQuestReport(_questbox);
-        SetNoticeText(_questSetUp.taskQuest);
+        SetNoticeQuestText(_questSetUp.taskQuest);
+    }
+    void CheckCompleteColor(QuestBox _questbox)
+    {
+        if (_questbox.isComplete)
+            _questbox.accept_icon.color = Color.white;
+        else
+            _questbox.accept_icon.color = Color.red;
     }
     #endregion 
     private void ShowQuest()
@@ -173,16 +206,20 @@ public class GUI_Quest : MonoBehaviour
         questTitle_txt.text = "???";
         questDescription_txt.text = "???";
         questTaskNotice_txt.text = "";
-        itemRequire.gameObject.SetActive(false);
-        // create quest box
+        coinReward_txt.text = "";
+
+        questBox.ForEach(_questbox => _questbox.gameObject.SetActive(false));
+        itemReward.ForEach(_itemreward => _itemreward.gameObject.SetActive(false));
+        itemrequire.gameObject.SetActive(false);
+
         for (int i = 0; i < quests.Count; i++)
         {
-            PoolManager.instance.Release(questBoxprefab.gameObject, contentQuest.position);
+            var questbox = PoolManager.instance.Release(questBoxprefab.gameObject);
+            questbox.transform.SetParent(contentQuest);
         }
         questBox = contentQuest.GetComponentsInChildren<QuestBox>().ToList();
         int count = 0;
-        var boxquestActive = questBox.Where(_questbox => _questbox.gameObject.activeSelf).ToList();
-        foreach (var _questbox in boxquestActive)
+        foreach (var _questbox in questBox)
         {
             _questbox.SetUpQuestBox(quests[count]);
             CheckQuestReport(_questbox);
@@ -190,71 +227,65 @@ public class GUI_Quest : MonoBehaviour
         }
         SetProgressQuest();
     }
-    private void OpenNoticeQuestPanel(string _txt)
-    {
-        noticeQuestanim.Play("NoticeQuest_Open");
-        noticeQuest_txt.text = "" + _txt;
-    }
     private void SpawnItemReward(QuestSetUp _questSetUp)
     {
         var reward = _questSetUp.rewardQuest;
         for (int i = 0; i < reward.Count; i++)
         {
-            PoolManager.instance.Release(slotsprefab.gameObject, contentItem.position);
+            var slots = PoolManager.instance.Release(slotsprefab.gameObject);
+            slots.transform.SetParent(contentItem);
+            slots.GetComponentInChildren<Button>().enabled = false;
+            slots.GetComponentInChildren<InventorySlotBtn>().enabled = false;
+            slots.GetComponentInChildren<ClickItemOption>().enabled = false;
         }
         itemReward = contentItem.GetComponentsInChildren<InventorySlot>().ToList();
 
-        PoolManager.instance.Release(slotsprefab.gameObject, contentItemRequire.position);
-        itemRequire = contentItemRequire.GetComponentInChildren<InventorySlot>();
-      
         int count = 0;
         var _items = itemReward.Where(items => items.gameObject.activeSelf).ToList();
-
+        coinReward_txt.text = _questSetUp.coinReward.ToString() + " <sprite=3>";
         foreach (var rewardSlotItem in _items)
         {
             var itemSO = reward[count].item;
-            var itemValue = reward[count].GetValueRandom();     // count item
-
+            var itemValue = reward[count].value;     // count item
             rewardSlotItem.AddItem(itemSO, itemValue);
             rewardSlotItem.SetAmountText(itemValue.ToString());
             count++;
         }
     }
-    private void SetItemRequire(QuestSetUp _questSetUp)
+    private void SpawnItemRequire(QuestSetUp _questSetUp)
     {
-        itemRequire.gameObject.SetActive(true);
+        itemrequire.gameObject.SetActive(true);
+        itemrequire.GetComponentInChildren<InventorySlotBtn>().enabled = false;
+        itemrequire.GetComponentInChildren<ClickItemOption>().enabled = false;
+        itemrequire.GetComponentInChildren<Button>().enabled = false;
+
         var taskRequire = _questSetUp.requireQuest;
         var taskRequireItem = taskRequire.requireItem;
-        var hasItem = PartyController.inventoryG.items[taskRequireItem.itemNumber].currentAmt;
-        itemRequire.AddItem(taskRequireItem, taskRequire.amount);
-        itemRequire.SetAmountText("" + hasItem.ToString() + "/" + taskRequire.amount);
+        var taskRequireItemNumber = taskRequireItem.itemNumber;
+        int hasItem = PartyController.inventoryG.GetItemAmt(taskRequireItem);
+        if (hasItem < taskRequire.amount)
+            itemrequire.stackItem_text.color = Color.red;
+        else if (hasItem >= taskRequire.amount) 
+            itemrequire.stackItem_text.color = Color.white;
+        itemrequire.AddItem(taskRequireItem, taskRequire.amount);
+        itemrequire.SetAmountText("" + hasItem.ToString() + "/" + taskRequire.amount);
     }
     private void SetButton(QuestBox _questbox)
     {
         accept_btn.gameObject.SetActive(!_questbox.isReceived);
         report_btn.gameObject.SetActive(_questbox.isReceived);
-
-        var checkCommon = !_questbox.isLocked && !_questbox.isComplete;
+        bool checkCommon = !_questbox.isLocked && !_questbox.isComplete;
         accept_btn.interactable = checkCommon && !_questbox.isReceived && QuestManager.instance.currentQuest < QuestManager.instance.maxQuest;
         cancel_btn.interactable = checkCommon && _questbox.isReceived;
     }
     private void CheckQuestReport(QuestBox _questbox)
     {
-        var taskRequire = _questbox.questSetUp.requireQuest;        // _taskRequired.GetValue() <= _userData.HasItemValue(_taskRequired.GetNameCode());
-        ItemSO require_item = new ItemSO();
-        foreach (var searchitem in PartyController.inventoryG.items)
-        {
-            if (taskRequire.requireItem.itemNumber == searchitem.itemNumber)
-            {
-                indexItemNumber = searchitem.itemNumber;
-                require_item = searchitem;
-            }
-        }
-        var checkComplete = taskRequire.amount <= require_item.currentAmt;
+        var taskRequire = _questbox.questSetUp.requireQuest;      
+        int requireItemAmount = PartyController.inventoryG.GetItemAmt(taskRequire.requireItem);
+        var checkComplete = taskRequire.amount <= requireItemAmount;
         report_btn.interactable = checkComplete && !_questbox.questSetUp.taskQuest.isCompleted;
         _questbox.SetReportQuestBox(report_btn.interactable);
     }
     private void SetProgressQuest() => questInProgress_txt.text = "In Progress :" + QuestManager.instance.currentQuest + " / " + QuestManager.instance.maxQuest;
-    private void SetNoticeText(Task task) => questTaskNotice_txt.text = task.isCompleted ? "You have completed this task" : task.isLocked ? "Can't handle task today" : "";
-
+    private void SetNoticeQuestText(Task task) => questTaskNotice_txt.text = task.isCompleted ? "You have completed this mission" : task.isLocked ? "You can't handle this mission" : "";
 }

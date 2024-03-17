@@ -31,7 +31,7 @@ public abstract class AmtConfirmWindow : MonoBehaviour
     }
     public abstract void ConfirmAmt();
     public abstract void ConfirmAction();
-    protected abstract void SliderQuantityChange(float f1);
+    protected abstract void SliderQuantityChange(float _value);
     public void CancelAmt()
     {
         AudioManager.instance.PlaySfx("Click");

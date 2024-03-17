@@ -54,7 +54,7 @@ public class PlayerHurt : Damagable
     IEnumerator hpRegen()
     {
         isHealthRegen = true;
-        player.health += PartyController.player.playerdata.basicStats.healthRegen;
+        player.health = Mathf.Clamp(player.health + PartyController.player.playerdata.basicStats.health, 0, player.health);
         AssetManager.instance.assetData.SpawnRecoverEffect(ConsumableType.HealthPotion, transform.position, PartyController.player.transform);
         yield return new WaitForSeconds(2.5f);
         isHealthRegen = false;
@@ -62,7 +62,7 @@ public class PlayerHurt : Damagable
     IEnumerator mpRegen()
     {
         isManaRegen = true;
-        player.mana += PartyController.player.playerdata.basicStats.manaRegen;
+        player.mana = Mathf.Clamp(player.mana + PartyController.player.playerdata.basicStats.manaRegen, 0, player.maxmana);
         AssetManager.instance.assetData.SpawnRecoverEffect(ConsumableType.ManaPotion, transform.position, PartyController.player.transform);
         yield return new WaitForSeconds(2.5f);
         isManaRegen = false;
@@ -72,12 +72,12 @@ public class PlayerHurt : Damagable
     #region Recover From Potion
     public void PlayerRecoverHP(float hpPots)
     {
-        player.health = Mathf.Max(player.health, player.mana + hpPots);
+        player.health = Mathf.Clamp(player.health + hpPots, 0, player.maxhealth);
         DamagePopManager.instance.CreateRecoverPop(ConsumableType.HealthPotion, hpPots, new Vector2(transform.position.x, transform.position.y + 0.75f), PartyController.player.transform);
     }
     public void PlayerRecoverMP(float mpPots)
     {
-        player.mana = Mathf.Max(player.mana, player.mana + mpPots);
+        player.mana = Mathf.Clamp(player.mana + mpPots, 0, player.maxmana);
         DamagePopManager.instance.CreateRecoverPop(ConsumableType.ManaPotion, mpPots, new Vector2(transform.position.x, transform.position.y + 0.75f), PartyController.player.transform);
     }
     #endregion

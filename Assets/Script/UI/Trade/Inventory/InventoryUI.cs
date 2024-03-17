@@ -4,7 +4,6 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Runtime.InteropServices.WindowsRuntime;
 public class InventoryUI : MonoBehaviour
 {
     public Transform itemsParent;
@@ -16,11 +15,9 @@ public class InventoryUI : MonoBehaviour
     public AmtConfirmWindow amtConfirmWindow;
 
     public static ItemSO selectedItem;
-    //public static SpellBook
     protected Inventory inventory;
     protected List<InventorySlot> slots = new List<InventorySlot>();
     [SerializeField] InventorySlot slotprefab;
-    private readonly Dictionary<ItemSO, int> itemData = new Dictionary<ItemSO, int>();
     private void Awake()
     {
         inventory = PartyController.inventoryG;
@@ -43,7 +40,6 @@ public class InventoryUI : MonoBehaviour
             inventory = PartyController.inventoryG;
             inventory.onItemChangedCallBack += UpdateUI;
         }
-
         slots = itemsParent.GetComponentsInChildren<InventorySlot>().ToList();
 
         if (itemOptionsWindow != null)
@@ -71,12 +67,13 @@ public class InventoryUI : MonoBehaviour
         if (itemOptionsWindow != null)
             itemOptionsWindow.gameObject.SetActive(false);
         selectedItem = slot.item;
+        selectItemDisplay.transform.position = new Vector3(slot.transform.position.x - 125f, slot.transform.position.y , slot.transform.position.z);
         selectItemDisplay.UpdateUI();
     }
     public void AddGoldFree()
     {
         int random = Random.Range(500, 800);
-        PartyController.AddGold(random);
+        PartyController.IncreaseCoin(random);
         gold_text.text = "" + inventory.Gold;
         AudioManager.instance.PlaySfx("Purchase");
     }
@@ -96,7 +93,6 @@ public class InventoryUI : MonoBehaviour
             default:
                 break;
         }
-        itemData.Clear();
         /*foreach (var guiItem in guiSlot)
         {
             var itemSO = new ItemSO

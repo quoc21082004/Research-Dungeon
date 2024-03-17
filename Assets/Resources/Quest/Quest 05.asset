@@ -1,0 +1,45 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6d90941dd6e8044bab10e97de84be0e, type: 3}
+  m_Name: Quest 05
+  m_EditorClassIdentifier: 
+  taskQuest:
+    isCompleted: 0
+    isLocked: 0
+    isReceived: 0
+  titleQuest: Quest 06
+  descriptionQuest: Collect 3 Skeleton Bone
+  requireQuest:
+    requireItem: {fileID: 11400000, guid: 2361d8b39507f5e40bf3eff8e9ad1f6b, type: 2}
+    amount: 3
+  rewardQuest:
+  - item: {fileID: 11400000, guid: 4f0dfef1a0515ec4d91af63dac286af5, type: 2}
+    value: 1
+    isRandom: 0
+    valueRandom: {x: 0, y: 0}
+  - item: {fileID: 11400000, guid: 47d04cf2c084b2a4e98b5fb070701f29, type: 2}
+    value: 1
+    isRandom: 0
+    valueRandom: {x: 0, y: 0}
+  - item: {fileID: 11400000, guid: 53f86ade0080fc745b0e5832cd509a51, type: 2}
+    value: 1
+    isRandom: 0
+    valueRandom: {x: 0, y: 0}
+  - item: {fileID: 11400000, guid: b3dbae85a12c66d4ba42fe1dfc6c4c5c, type: 2}
+    value: 1
+    isRandom: 0
+    valueRandom: {x: 0, y: 0}
+  - item: {fileID: 11400000, guid: 685a29affd3e228428f9ad3494df20b1, type: 2}
+    value: 1
+    isRandom: 0
+    valueRandom: {x: 0, y: 0}
+  coinReward: 5000

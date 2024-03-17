@@ -13,7 +13,6 @@ public class SpellBook : Consumable
         if (ability == null)
             ability = PartyController.player.GetComponent<ActiveAbility>();
         CD = spell.baseCoolDown;
-        base.Use();
         switch(type)
         {
             case SpellBookType.ExplosionCircle:

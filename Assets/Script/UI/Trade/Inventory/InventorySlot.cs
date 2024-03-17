@@ -18,9 +18,9 @@ public class InventorySlot : MonoBehaviour
     [SerializeField] private Sprite rarityFrameEpic;
     [SerializeField] private Sprite rarityFrameLegendary;
 
-    private void Update()
+    private void Start()
     {
-       
+        transform.localScale = new Vector3(1f, 1f, 1f);
     }
     public void AddItem(ItemSO newItemSO, int _value)
     {
@@ -60,6 +60,7 @@ public class InventorySlot : MonoBehaviour
         icon.enabled = false;
         stackItem_text.text = "";
     }
+    public void SetAmountText(string _value) => stackItem_text.text = _value.ToString();
     public void SelectItem()
     {
         GetComponentInParent<InventoryUI>().SelectItem(this);

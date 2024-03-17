@@ -16,24 +16,18 @@ public class ItemSO : ScriptableObject
     public int sellPrice;
     public ItemRarity Rarity;
     public ItemType Type;
-    public virtual void Use()
-    {
-
-    }
+    public virtual void Use() { }
     public int GetAmtInInventory()
     {
         return PartyController.inventoryG.GetItemAmt(this);
     }
-    public void RemoveFromInventory(int amt)
-    {
-        PartyController.inventoryG.Remove(this, amt);
-    }
+    public void RemoveFromInventory(int amt) => PartyController.inventoryG.Remove(this, amt);
     public void BoughtForGold(int selectAmt)
     {
         PartyController.inventoryG.Gold -= selectAmt * buyPrice;
         ItemSO clone = Instantiate(this);
         clone.currentAmt = selectAmt;
-        PartyController.inventoryG.AddItem(clone);
+        PartyController.inventoryG.AddItem(clone, clone.currentAmt);
     }
     public void SellForGold(int selectamt)
     {
@@ -42,7 +36,7 @@ public class ItemSO : ScriptableObject
     }
     public void LearnForGold(int learncost)
     {
-        PartyController.AddGold(-learncost);
+        PartyController.IncreaseCoin(-learncost);
         PartyController.inventoryG.LoadInventory();
     }
 }

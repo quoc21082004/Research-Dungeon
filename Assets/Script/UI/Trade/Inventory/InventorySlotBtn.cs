@@ -15,7 +15,6 @@ public class InventorySlotBtn :MonoBehaviour ,ISelectHandler
             if (InventoryUI.selectedItem != null)
             {
                 itemOptionWindow.gameObject.SetActive(true);
-                itemOptionWindow.transform.position = transform.position + new Vector3(30f, 0);
                 itemOptionWindow.selectSlotbtn = GetComponent<Button>();
             }
         });

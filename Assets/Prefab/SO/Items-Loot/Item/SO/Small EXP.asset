@@ -1,0 +1,27 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6d20ca50a56e5ba4f9f31359768ac396, type: 3}
+  m_Name: Small EXP
+  m_EditorClassIdentifier: 
+  nameItem: Small EXP
+  icon: {fileID: 7997236479080048479, guid: 72deb44d3494f444fbf67d74be2a2abc, type: 3}
+  itemNumber: 30
+  currentAmt: 1
+  isStackable: 1
+  itemDescription: Use to increase exp
+  flavor: Co 4 la
+  buyPrice: 1700
+  sellPrice: 0
+  Rarity: 1
+  Type: 0
+  value: 1000
+  costUpgrade: 50

@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d6d90941dd6e8044bab10e97de84be0e, type: 3}
+  m_Name: Quest 04
+  m_EditorClassIdentifier: 
+  taskQuest:
+    isCompleted: 0
+    isLocked: 0
+    isReceived: 0
+  titleQuest: Quest 04
+  descriptionQuest: Collect 2 Scorporion
+  requireQuest:
+    requireItem: {fileID: 11400000, guid: 73185c993e19b984792eacee75c21492, type: 2}
+    amount: 2
+  rewardQuest:
+  - item: {fileID: 11400000, guid: d7876094a7900d0489a2898435ec8eca, type: 2}
+    value: 1
+    isRandom: 1
+    valueRandom: {x: 0, y: 4}
+  - item: {fileID: 11400000, guid: 76333a6e1d9b39742a6556dff5f88fa9, type: 2}
+    value: 1
+    isRandom: 1
+    valueRandom: {x: 0, y: 4}
+  coinReward: 4000

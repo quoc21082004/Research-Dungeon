@@ -77,7 +77,15 @@ public class PoolManager : Singleton<PoolManager>
         }
         return prefab2Pool[prefab].PreparedObject();
     }
-
+    public GameObject Release(GameObject prefab, Transform parent)
+    {
+        if (!prefab2Pool.ContainsKey(prefab))
+        {
+            Debug.LogError("Pool Manager could NOT find prefab: " + prefab.name);
+            return null;
+        }
+        return prefab2Pool[prefab].PreparedObject(parent);
+    }
     public  GameObject Release(GameObject prefab, Vector3 position)
     {
         if (!prefab2Pool.ContainsKey(prefab))

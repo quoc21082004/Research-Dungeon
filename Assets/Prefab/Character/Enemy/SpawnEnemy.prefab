@@ -118,7 +118,7 @@ Transform:
   m_GameObject: {fileID: 3383540492465960013}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.16, y: 11.57, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
@@ -327,6 +327,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemystat: {fileID: 11400000, guid: 23d72234f4572ef4f8427afd2755d108, type: 2}
   player: {fileID: 0}
+  enemyhurt: {fileID: 0}
   mySR: {fileID: 0}
   myanim: {fileID: 0}
   maxhealth: 0
@@ -347,7 +348,6 @@ MonoBehaviour:
   OnDieEvent:
     m_PersistentCalls:
       m_Calls: []
-  ultiprefab: {fileID: 0}
   monsterList:
   - {fileID: 1012246549171505564, guid: 684ee23dece17414eabcff823f2efcf3, type: 3}
   - {fileID: 2014098098611580097, guid: e4851e15ed4abde4cabde991125f6b08, type: 3}
