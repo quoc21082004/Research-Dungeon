@@ -19,9 +19,14 @@ public class ClickItemOption : MonoBehaviour, IPointerClickHandler
             || eventData.button == PointerEventData.InputButton.Left)) 
         {
             GetComponentInParent<InventorySlot>().SelectItem();
-            itemOptionWindow.gameObject.SetActive(true);
-            itemOptionWindow.transform.position = slotPos.transform.position + new Vector3(30f,0f,0f);
-            itemOptionWindow.selectSlotbtn = GetComponentInChildren<Button>();
+            if (InventoryUI.selectedItem != null)
+            {
+                itemOptionWindow.gameObject.SetActive(true);
+                itemOptionWindow.transform.position = slotPos.transform.position + new Vector3(30f, 0f, 0f);
+                itemOptionWindow.selectSlotbtn = GetComponentInChildren<Button>();
+            }
+            else
+                itemOptionWindow.gameObject.SetActive(false);
         }
     }
 }

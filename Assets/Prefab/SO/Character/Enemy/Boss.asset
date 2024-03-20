@@ -19,7 +19,7 @@ MonoBehaviour:
   alertRange: 80
   range: 40
   builetSpeed: 15
-  Type: 2
+  Type: 0
   isDead: 0
   isAlert: 0
   isAttack: 0

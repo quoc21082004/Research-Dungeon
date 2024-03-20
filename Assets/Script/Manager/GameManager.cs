@@ -8,8 +8,8 @@ public class GameManager : Singleton<GameManager>
 {
     [HideInInspector] public float exp, exptolevel;
     [HideInInspector] public int level;
-
-    private void Update()
+    public CharacterUpgradeSO upgradeSO;
+    private void OnEnable()
     {
         //var playerdata = PartyController.player.playerdata;
         exp = PlayerPrefs.GetFloat("Exp"); //playerdata.upgradeLevel.exp;//PlayerPrefs.GetFloat("Exp");

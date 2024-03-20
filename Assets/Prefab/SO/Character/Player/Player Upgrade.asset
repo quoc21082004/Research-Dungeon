@@ -1,0 +1,60 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d28198077b539b646ba8816981404288, type: 3}
+  m_Name: Player Upgrade
+  m_EditorClassIdentifier: 
+  Data:
+  - level: 1
+    exp: 0
+    expToLvl: 2160
+  - level: 2
+    exp: 0
+    expToLvl: 2592
+  - level: 3
+    exp: 0
+    expToLvl: 3110
+  - level: 4
+    exp: 0
+    expToLvl: 3732
+  - level: 5
+    exp: 0
+    expToLvl: 4478
+  - level: 6
+    exp: 0
+    expToLvl: 5374
+  - level: 7
+    exp: 0
+    expToLvl: 6448
+  - level: 8
+    exp: 0
+    expToLvl: 7737
+  - level: 9
+    exp: 0
+    expToLvl: 9284
+  - level: 10
+    exp: 0
+    expToLvl: 11141
+  - level: 11
+    exp: 0
+    expToLvl: 13369
+  - level: 12
+    exp: 0
+    expToLvl: 16042
+  - level: 13
+    exp: 0
+    expToLvl: 19250
+  - level: 14
+    exp: 0
+    expToLvl: 23100
+  - level: 15
+    exp: 0
+    expToLvl: 27720

@@ -21,6 +21,10 @@ public class InventorySlotBtn :MonoBehaviour ,ISelectHandler
     }
     public void OnSelect(BaseEventData eventData)
     {
-        GetComponentInParent<InventorySlot>().SelectItem();
+        //GetComponentInParent<InventorySlot>().SelectItem();   and plus button onclick at item button
+        GetComponentInParent<Button>().onClick.AddListener(() =>
+        {
+            GetComponentInParent<InventorySlot>().SelectItem();
+        });
     }
 }

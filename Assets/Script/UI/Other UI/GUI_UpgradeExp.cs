@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using TMPro;
 using System;
 using System.Net;
+using System.Linq;
 
 public class GUI_UpgradeExp : MonoBehaviour
 {
@@ -26,6 +27,10 @@ public class GUI_UpgradeExp : MonoBehaviour
     [SerializeField] TextMeshProUGUI mediumExpBuff_txt;
     [SerializeField] TextMeshProUGUI bigExpBuff_txt;
 
+    [SerializeField] InventorySlot itemprefab;
+
+    public List<ExperienceSO> upgrade;
+    private List<InventorySlot> itemUpgrade;
     [SerializeField] Transform itemParents;
     [SerializeField] Image gradientItem;
 
@@ -33,6 +38,7 @@ public class GUI_UpgradeExp : MonoBehaviour
     [SerializeField] Button decreaseAmountUse_btn;
     [SerializeField] Button upgrade_btn;
     [SerializeField] Button cancel_btn;
+    public CharacterUpgradeSO upgradeDataSO;
 
     private int increaseLevel;
     private int increaseExp;
@@ -42,21 +48,55 @@ public class GUI_UpgradeExp : MonoBehaviour
     private int increaseAtk => 5 * increaseLevel;
 
     private int currentCoin,totalCost, totalExp, amountUse, selectItem = 0;
-    private int smallExpAmt, mediumExpAmt, bigExpAmt, maxLvl, currentLvl, currentExp, maxExp = 0;
+    private int smallExpAmt, mediumExpAmt, bigExpAmt, maxLvl,currentLvl, currentExp, maxExp = 0;
     private bool canUpgrade => currentLvl < maxLvl;
     private void OnEnable()
     {
         InitValue();
         upgrade_btn.onClick.AddListener(OnClickUpgradeButton);
         cancel_btn.onClick.AddListener(OnClickCancelButton);
+
+        for (int i = 0; i < upgrade.Count; i++)
+        {
+            var spawnItemUpgrade = PoolManager.instance.Release(itemprefab.gameObject);
+            spawnItemUpgrade.transform.SetParent(itemParents);
+            spawnItemUpgrade.GetComponentInChildren<InventorySlotBtn>().enabled = false;
+            spawnItemUpgrade.GetComponentInChildren<ClickItemOption>().enabled = false;
+        }
+        itemUpgrade = itemParents.GetComponentsInChildren<InventorySlot>().ToList();
+        itemUpgrade.ForEach(s1 => s1.GetComponentInChildren<Button>().onClick.RemoveAllListeners());
+        int count = 0;
+        foreach (var _itemUpgrade in itemUpgrade)
+        {
+            var itemSO = upgrade[count];
+            var itemValue = PartyController.inventoryG.GetItemAmt(itemSO);
+            _itemUpgrade.AddItem(itemSO, itemValue);
+            _itemUpgrade.SetAmountText("");
+            count++;
+        }
+        itemUpgrade[0].GetComponentInChildren<Button>().onClick.AddListener(() =>
+        {
+            OnSelectItemButton(1);
+        });
+        itemUpgrade[1].GetComponentInChildren<Button>().onClick.AddListener(() =>
+        {
+            OnSelectItemButton(2);
+        });
+        itemUpgrade[2].GetComponentInChildren<Button>().onClick.AddListener(() =>
+        {
+            OnSelectItemButton(3);
+        });
     }
     private void OnDisable()
     {
         upgrade_btn.onClick.RemoveListener(OnClickUpgradeButton);
         cancel_btn.onClick.RemoveListener(OnClickCancelButton);
+        itemUpgrade.ForEach(s1 => s1.GetComponentInChildren<Button>().onClick.RemoveAllListeners());          
+        itemUpgrade.ForEach(_itemUpgrade => _itemUpgrade.gameObject.SetActive(false));
     }
     private void InitValue()
     {
+        var playerdata = PartyController.player.playerdata;
         increaseExp = 0;
         increaseLevel = 0;
         totalCost = 0;
@@ -64,7 +104,10 @@ public class GUI_UpgradeExp : MonoBehaviour
         selectItem = 0;
         increaseAmountUse_btn.interactable = false;
         decreaseAmountUse_btn.interactable = false;
-        gradientItem.gameObject.SetActive(false);
+
+        maxLvl = playerdata.MAX_LEVEL;
+        currentCoin = playerdata.otherStats.gold;
+        UpdateData();
     }
     private void UpdateData()
     {
@@ -77,6 +120,22 @@ public class GUI_UpgradeExp : MonoBehaviour
         SetExpText();
         CheckLevelMax();
     }
+    private void OnClickUpgradeButton()
+    {
+        SetStats();
+        InitValue();
+        SetCoinText();
+        UpdateData();
+    }
+    public void OnClickCancelButton()
+    {
+        if (amountUse > 0)
+        {
+            InitValue();
+            UpdateData();
+            return;
+        }
+    }
     public void OnIncreaseAmountButton(int _value)
     {
         amountUse += _value;
@@ -84,17 +143,17 @@ public class GUI_UpgradeExp : MonoBehaviour
         switch (selectItem)
         {
             case 1:
-                increaseAmountUse_btn.interactable = smallExpAmt >= amountUse && canUpgrade;
+                increaseAmountUse_btn.interactable = smallExpAmt > amountUse && canUpgrade;
                 totalCost = smallExpBuff.costUpgrade * amountUse;
                 increaseExp = smallExpBuff.value;
                 break;
             case 2:
-                increaseAmountUse_btn.interactable = mediumExpAmt >= amountUse && canUpgrade;
+                increaseAmountUse_btn.interactable = mediumExpAmt > amountUse && canUpgrade;
                 totalCost = mediumExpBuff.costUpgrade * amountUse;
                 increaseExp = mediumExpBuff.value;
                 break;
             case 3:
-                increaseAmountUse_btn.interactable = bigExpAmt >= amountUse && canUpgrade;
+                increaseAmountUse_btn.interactable = bigExpAmt > amountUse && canUpgrade;
                 totalCost = bigExpBuff.costUpgrade * amountUse;
                 increaseExp = bigExpBuff.value;
                 break;
@@ -113,20 +172,20 @@ public class GUI_UpgradeExp : MonoBehaviour
     public void OnDecreaseAmountButton(int _value)
     {
         amountUse -= _value;
-        switch(selectItem)
+        switch (selectItem)
         {
             case 1:
-                decreaseAmountUse_btn.interactable = amountUse >= smallExpAmt && canUpgrade;
+                decreaseAmountUse_btn.interactable = amountUse > 0 && canUpgrade; 
                 totalCost = smallExpBuff.costUpgrade * amountUse;
                 increaseExp = smallExpBuff.value;
                 break;
             case 2:
-                decreaseAmountUse_btn.interactable = amountUse >= mediumExpAmt && canUpgrade;
+                decreaseAmountUse_btn.interactable = amountUse > 0 && canUpgrade;
                 totalCost = mediumExpBuff.costUpgrade * amountUse;
                 increaseExp = mediumExpBuff.value;
                 break;
             case 3:
-                decreaseAmountUse_btn.interactable = amountUse >= bigExpAmt && canUpgrade;
+                decreaseAmountUse_btn.interactable = amountUse > 0 && canUpgrade;
                 totalCost = bigExpBuff.costUpgrade * amountUse;
                 increaseExp = bigExpBuff.value;
                 break;
@@ -143,21 +202,6 @@ public class GUI_UpgradeExp : MonoBehaviour
         SetExpText();
         SetUpgradeStateButton();
     }
-    private void OnClickUpgradeButton()
-    {
-        SetStats();
-        InitValue();
-        UpdateData();
-    }
-    public void OnClickCancelButton()
-    {
-        if (amountUse != 0)
-        {
-            InitValue();
-            UpdateData();
-            return;
-        }
-    }
     public void OnSelectItemButton(int _value)
     {
         InitValue();
@@ -165,9 +209,7 @@ public class GUI_UpgradeExp : MonoBehaviour
         OnIncreaseAmountButton(0);
         if (!canUpgrade)
             return;
-        gradientItem.transform.SetParent(itemParents.GetChild(_value - 1));
-        gradientItem.transform.localPosition = Vector3.zero;
-        gradientItem.gameObject.SetActive(true);
+        Debug.Log("select item :" + selectItem);
     }
     private void SetStats()
     {
@@ -185,8 +227,8 @@ public class GUI_UpgradeExp : MonoBehaviour
         playerSO.basicStats.health = curHp;
         playerSO.basicStats.mana = curMp;
         playerSO.basicStats.defense = curDef;
-
-        switch(selectItem)
+        GameManager.instance.LevelUp();
+        switch (selectItem)
         {
             case 1: // small exp
                 PartyController.inventoryG.Remove(smallExpBuff, amountUse);
@@ -206,7 +248,7 @@ public class GUI_UpgradeExp : MonoBehaviour
         var playerdata = PartyController.player.playerdata;
         currentLvl = playerdata.upgradeLevel.level;
         currentExp = (int)playerdata.upgradeLevel.exp;
-        maxExp = (int)playerdata.upgradeLevel.expToLvl;
+        maxExp = (int)upgradeDataSO.Data[currentLvl].expToLvl;
 
         mainExpSliderBar.maxValue = maxExp;
         mainExpSliderBar.minValue = 0;
@@ -226,19 +268,16 @@ public class GUI_UpgradeExp : MonoBehaviour
             backExpSliderBar.value = mainExpSliderBar.value;
             return;
         }
-        var hasCharacterExp = playerSO.upgradeLevel.exp;
+        var hasCharacterExp = upgradeDataSO.GetTotalEXP(currentLvl);
         var totalIncreaseExp = hasCharacterExp + currentExp + totalExp;
-
-
-        if (totalIncreaseExp >= playerSO.upgradeLevel.expToLvl)
+        if (totalIncreaseExp >= upgradeDataSO.Data[currentLvl].expToLvl) 
         {
-            GameManager.instance.LevelUp();
             increaseLevel++;
-            backExpSliderBar.maxValue = playerSO.upgradeLevel.expToLvl;
-            backExpSliderBar.value = (currentExp + totalExp )- playerSO.upgradeLevel.expToLvl;
+            backExpSliderBar.maxValue = upgradeDataSO.Data[currentLvl + 1].expToLvl;
+            backExpSliderBar.value = (currentExp + totalExp) - upgradeDataSO.Data[currentLvl].expToLvl;
         }
-        var remainingExp = totalIncreaseExp - playerSO.upgradeLevel.expToLvl;
-        mainExpSliderBar.value = currentExp + remainingExp;
+        var remainingExp = totalIncreaseExp - upgradeDataSO.Data[currentLvl].expToLvl;
+        backExpSliderBar.value = currentExp + remainingExp;
     }
     private void SetItemQuantity()
     {
@@ -256,7 +295,7 @@ public class GUI_UpgradeExp : MonoBehaviour
         currency_txt.color = currentCoin >= totalCost ? Color.white : Color.red;
         currency_txt.text = $"{currentCoin}/{totalCost}";
     }
-    private void SetAmountUseText() => itemQuantity_txt.text = $"{amountUse.ToString()}";
+    private void SetAmountUseText() => itemQuantity_txt.text = $"{amountUse}";
     private void SetLevelText()
     {
         var levelAfterUpgrade = "";
@@ -264,13 +303,16 @@ public class GUI_UpgradeExp : MonoBehaviour
             levelAfterUpgrade = increaseLevel == 0 ? "" : "+" + increaseLevel;
         else
             levelAfterUpgrade = "MAX";
-        charLevel_txt.text = $"Lv.{currentLvl}  + {levelAfterUpgrade}";
+        charLevel_txt.text = $"Lv.{currentLvl}   {levelAfterUpgrade}";
     }
     private void SetExpText()
     {
         var totalExpAfterUpgrade = "";
-        totalExpAfterUpgrade = totalExp == 0 ? "" : $"+{totalExp}";
-        charExp_txt.text = $"+ {totalExpAfterUpgrade}    {currentExp}/{maxExp}";
+        if (canUpgrade)
+            totalExpAfterUpgrade = totalExp == 0 ? "" : $"+ {totalExp}";
+        else
+            totalExpAfterUpgrade = "";
+        charExp_txt.text = $" {totalExpAfterUpgrade}    {currentExp}/{maxExp}";
     }
     private void CheckLevelMax()
     {

@@ -14,12 +14,16 @@ public class SelectShopDisplay : SelectedItemDisplay
     {
         if (InventoryUI.selectedItem == null)
         {
+            gameObject.SetActive(false);
+            item_img.sprite = null;
             itemTitle_txt.text = "";
             itemDescription_txt.text = "";
             itemPriceGold_txt.text = "";
         }
         else if (InventoryUI.selectedItem != null)
         {
+            gameObject.SetActive(true);
+            item_img.sprite = InventoryUI.selectedItem.icon;
             itemTitle_txt.text = "" + InventoryUI.selectedItem.nameItem;
             itemDescription_txt.text = "" + InventoryUI.selectedItem.itemDescription;
             if (PartyController.inventoryG.Gold >= InventoryUI.selectedItem.buyPrice)

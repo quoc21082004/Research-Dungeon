@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-[CreateAssetMenu]
+[CreateAssetMenu(fileName = "CharacterSO",menuName = "CharacterSO/Character")]
 public class PlayerSO : ScriptableObject 
 {
     public int MAX_LEVEL = 99;

@@ -456,10 +456,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a322a94f759fa74d81618aa9681ba79, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  item_img: {fileID: 0}
-  itemTitle_txt: {fileID: 0}
-  itemDescription_txt: {fileID: 0}
-  itemFlavor_txt: {fileID: 0}
+  item_img: {fileID: 7267650868878035624}
+  itemTitle_txt: {fileID: 318557942117795478}
+  itemDescription_txt: {fileID: 1346100865352841990}
+  itemFlavor_txt: {fileID: 6675819744745204204}
 --- !u!1 &6100514971154324296
 GameObject:
   m_ObjectHideFlags: 0

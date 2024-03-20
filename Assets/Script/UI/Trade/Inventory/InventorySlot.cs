@@ -61,8 +61,5 @@ public class InventorySlot : MonoBehaviour
         stackItem_text.text = "";
     }
     public void SetAmountText(string _value) => stackItem_text.text = _value.ToString();
-    public void SelectItem()
-    {
-        GetComponentInParent<InventoryUI>().SelectItem(this);
-    }
+    public void SelectItem() => GetComponentInParent<InventoryUI>().SelectItem(this);
 }

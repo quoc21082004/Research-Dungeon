@@ -12,10 +12,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f445f58b6a2e4794da5cd9024df34db0, type: 3}
   m_Name: Player Data
   m_EditorClassIdentifier: 
+  MAX_LEVEL: 99
   basicStats:
-    health: 99999
-    mana: 1000
-    defense: 160
+    health: 100649
+    mana: 1195
+    defense: 225
     movementSpeed: 130
     DashSpeed: 5
     healthRegen: 73.799995
@@ -29,12 +30,12 @@ MonoBehaviour:
     builetSpeed: 10
   otherStats:
     damageReduction: 5.2000017
-  levelUp:
+    skillPoint: 16
+    gold: 1559
+  upgradeLevel:
     level: 1
-    skillPoint: 65
-    exp: 0
-    expToLvl: 100
-    gold: 132
+    exp: 100
+    expToLvl: 2160
   extraBuff:
     extraExp: 12
     percentDamage: 1

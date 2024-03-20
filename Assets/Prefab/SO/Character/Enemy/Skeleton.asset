@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2ed2b0070e44b634187bec0e7cc79647, type: 3}
-  m_Name: Boar
+  m_Name: Skeleton
   m_EditorClassIdentifier: 
-  heath: 6000
-  damage: 100
-  defense: 0
-  attackTimer: 1.5
-  alertRange: 10
+  heath: 3000
+  damage: 500
+  defense: 12
+  attackTimer: 1
+  alertRange: 80
   range: 2
   builetSpeed: 0
-  Type: 1
+  Type: 0
   isDead: 0
   isAlert: 0
   isAttack: 0
-  goldReward: 800
-  expReward: 700
+  goldReward: 300
+  expReward: 300
   growstats:
-    healthGrow: 1200
-    damageGrow: 3
-    defenseGrow: 5
+    healthGrow: 100
+    damageGrow: 12
+    defenseGrow: 4

@@ -66,9 +66,10 @@ public class InventoryUI : MonoBehaviour
     {
         if (itemOptionsWindow != null)
             itemOptionsWindow.gameObject.SetActive(false);
-        selectedItem = slot.item;
-        selectItemDisplay.transform.position = new Vector3(slot.transform.position.x - 125f, slot.transform.position.y , slot.transform.position.z);
+        selectedItem = slot.item;       // 415
+        selectItemDisplay.transform.position = new Vector3(slot.transform.position.x - 172, slot.transform.position.y, slot.transform.position.z);
         selectItemDisplay.UpdateUI();
+
     }
     public void AddGoldFree()
     {
@@ -76,43 +77,6 @@ public class InventoryUI : MonoBehaviour
         PartyController.IncreaseCoin(random);
         gold_text.text = "" + inventory.Gold;
         AudioManager.instance.PlaySfx("Purchase");
-    }
-    public void OnSelectSortOption(int index)
-    {
-        switch (index)
-        {
-            case 1:
-                SortByNumber(inventory.items);      // sort account item
-                break;
-            case 2:
-                SortByRarity(inventory.items);      // sort rarity
-                break;
-            case 3:
-                SortByType(inventory.items);        // sort type
-                break;
-            default:
-                break;
-        }
-        /*foreach (var guiItem in guiSlot)
-        {
-            var itemSO = new ItemSO
-            {
-                nameItem = guiItem.item.nameItem,
-                icon = guiItem.item.icon,
-                itemNumber = guiItem.item.itemNumber,
-                currentAmt = guiItem.item.currentAmt,
-                isStackable = guiItem.item.isStackable,
-                itemDescription = guiItem.item.itemDescription,
-                flavor = guiItem.item.flavor,
-                buyPrice = guiItem.item.buyPrice,
-                sellPrice = guiItem.item.sellPrice,
-                Rarity = guiItem.item.Rarity,
-                Type = guiItem.item.Type,
-            };
-            itemData.Add(itemSO, guiItem.GetItemValue);
-        }
-        SortItem(itemData);*/
-        LoadOldSlot();
     }
     private void SortByNumber(List<ItemSO> itemSlots)
     {
@@ -125,44 +89,5 @@ public class InventoryUI : MonoBehaviour
                 slots[i].stackItem_text.text = "" + itemSlots[i].currentAmt;
             }
         }
-    }
-    private void SortByRarity(List<ItemSO> itemSlots)
-    {
-        itemSlots.Sort((s1, s2) => s2.Rarity.CompareTo(s1.Rarity));
-        for (int i = 0; i < slots.Count; i++)
-        {
-            if (slots[i].item != null)
-            {
-                slots[i].icon.sprite = itemSlots[i].icon;
-                slots[i].stackItem_text.text = "" + itemSlots[i].currentAmt;
-            }
-        }
-    }
-    private void SortByType(List<ItemSO> itemSlots)
-    {
-        itemSlots.Sort((s1, s2) => s2.Type.CompareTo(s1.Type));
-        for (int i = 0; i < slots.Count; i++)
-        {
-            if (slots[i].item != null)
-            {
-                slots[i].icon.sprite = itemSlots[i].icon;
-                slots[i].stackItem_text.text = "" + itemSlots[i].currentAmt;
-            }
-        }
-    }
-    private void SortItem(Dictionary<ItemSO, int> dataItem)
-    {
-        foreach (var guiItem in slots.Where(item => item.gameObject.activeSelf))
-        {
-            if (!dataItem.Any())
-                return;
-            var keyValuepair = dataItem.First();        // convert dictionary into keyvaluePair
-            guiItem.AddItem(keyValuepair.Key,keyValuepair.Value);
-            dataItem.Remove(keyValuepair.Key);
-        }
-    }
-    private void LoadOldSlot()
-    {
-        UpdateUI();
     }
 }

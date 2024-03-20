@@ -11,7 +11,6 @@ public class SellWindow : AmtConfirmWindow
         base.OnEnable();
         plus_btn.onClick.AddListener(PlusBtn);
         minus_btn.onClick.AddListener(MinusBtn);
-        minus_btn.interactable = selectAmt > 0;
     }
     protected override void OnDisable()
     {
@@ -25,7 +24,6 @@ public class SellWindow : AmtConfirmWindow
         {
             AudioManager.instance.PlaySfx("Click");
             selectAmt++;
-            minus_btn.interactable = selectAmt > 0;
             amt_txt.text = "" + (int)selectAmt;
             SliderQuantityChange(selectAmt);
         }

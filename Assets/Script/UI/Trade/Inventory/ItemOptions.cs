@@ -5,7 +5,6 @@ using UnityEngine.UI;
 public class ItemOptions : MonoBehaviour
 {
     public Button selectSlotbtn;
-
     public void OnBackButton()
     {
         gameObject.SetActive(false);

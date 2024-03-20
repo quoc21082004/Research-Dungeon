@@ -14,6 +14,8 @@ public class BuyItemOptions : ItemOptions
     }
     public void OnBuyButton()
     {
+        if (InventoryUI.selectedItem == null)
+            return;
         AudioManager.instance.PlaySfx("Click");
         if (PartyController.inventoryG.Gold < InventoryUI.selectedItem.buyPrice)
             Debug.Log("u don't have enough gold to buy");

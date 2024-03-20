@@ -12,7 +12,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed2b0070e44b634187bec0e7cc79647, type: 3}
   m_Name: Bat
   m_EditorClassIdentifier: 
-  name: Bat
   heath: 999999
   damage: 600
   defense: 0
