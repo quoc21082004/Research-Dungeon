@@ -105,7 +105,7 @@ public class GUI_UpgradeExp : MonoBehaviour
         increaseAmountUse_btn.interactable = false;
         decreaseAmountUse_btn.interactable = false;
 
-        maxLvl = playerdata.MAX_LEVEL;
+        maxLvl = upgradeDataSO.Data.Count;
         currentCoin = playerdata.otherStats.gold;
         UpdateData();
     }
@@ -248,7 +248,7 @@ public class GUI_UpgradeExp : MonoBehaviour
         var playerdata = PartyController.player.playerdata;
         currentLvl = playerdata.upgradeLevel.level;
         currentExp = (int)playerdata.upgradeLevel.exp;
-        maxExp = (int)upgradeDataSO.Data[currentLvl].expToLvl;
+        maxExp = (int)upgradeDataSO.Data[currentLvl - 1].expToLvl;
 
         mainExpSliderBar.maxValue = maxExp;
         mainExpSliderBar.minValue = 0;
@@ -268,7 +268,7 @@ public class GUI_UpgradeExp : MonoBehaviour
             backExpSliderBar.value = mainExpSliderBar.value;
             return;
         }
-        var hasCharacterExp = upgradeDataSO.GetTotalEXP(currentLvl);
+        var hasCharacterExp = playerSO.upgradeLevel.exp;
         var totalIncreaseExp = hasCharacterExp + currentExp + totalExp;
         if (totalIncreaseExp >= upgradeDataSO.Data[currentLvl].expToLvl) 
         {
