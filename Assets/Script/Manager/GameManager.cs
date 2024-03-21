@@ -11,7 +11,6 @@ public class GameManager : Singleton<GameManager>
     public CharacterUpgradeSO upgradeSO;
     private void OnEnable()
     {
-        //var playerdata = PartyController.player.playerdata;
         exp = PlayerPrefs.GetFloat("Exp"); //playerdata.upgradeLevel.exp;//PlayerPrefs.GetFloat("Exp");
         exptolevel = PlayerPrefs.GetFloat("Explevelup");//playerdata.upgradeLevel.expToLvl;//PlayerPrefs.GetFloat("Explevelup");
         level = PlayerPrefs.GetInt("level");//playerdata.upgradeLevel.level;//PlayerPrefs.GetInt("level");

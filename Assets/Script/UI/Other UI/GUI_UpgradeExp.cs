@@ -32,13 +32,12 @@ public class GUI_UpgradeExp : MonoBehaviour
     public List<ExperienceSO> upgrade;
     private List<InventorySlot> itemUpgrade;
     [SerializeField] Transform itemParents;
-    [SerializeField] Image gradientItem;
 
     [SerializeField] Button increaseAmountUse_btn;
     [SerializeField] Button decreaseAmountUse_btn;
     [SerializeField] Button upgrade_btn;
     [SerializeField] Button cancel_btn;
-    public CharacterUpgradeSO upgradeDataSO;
+    private CharacterUpgradeSO upgradeDataSO;
 
     private int increaseLevel;
     private int increaseExp;
@@ -52,7 +51,7 @@ public class GUI_UpgradeExp : MonoBehaviour
     private bool canUpgrade => currentLvl < maxLvl;
     private void OnEnable()
     {
-        InitValue();
+        upgradeDataSO = GameManager.instance.upgradeSO;
         upgrade_btn.onClick.AddListener(OnClickUpgradeButton);
         cancel_btn.onClick.AddListener(OnClickCancelButton);
 
@@ -86,6 +85,8 @@ public class GUI_UpgradeExp : MonoBehaviour
         {
             OnSelectItemButton(3);
         });
+        InitValue();
+        UpdateData();
     }
     private void OnDisable()
     {
@@ -100,31 +101,32 @@ public class GUI_UpgradeExp : MonoBehaviour
         increaseExp = 0;
         increaseLevel = 0;
         totalCost = 0;
+        totalExp = 0;
         amountUse = 0;
         selectItem = 0;
         increaseAmountUse_btn.interactable = false;
         decreaseAmountUse_btn.interactable = false;
 
         maxLvl = upgradeDataSO.Data.Count;
-        currentCoin = playerdata.otherStats.gold;
+        maxExp = (int)upgradeDataSO.GetNextLevel(currentLvl - 1);
+        currentCoin = PartyController.inventoryG.Gold;
         UpdateData();
     }
-    private void UpdateData()
+    public void UpdateData()
     {
         GetStats();
         SetItemQuantity();
         SetCoinText();
-        SetAmountUseText();
-        SetLevelText();
-        SetUpgradeStateButton();
         SetExpText();
+        SetAmountUseText();
+        SetUpgradeStateButton();
+        SetLevelText();
         CheckLevelMax();
     }
     private void OnClickUpgradeButton()
     {
         SetStats();
         InitValue();
-        SetCoinText();
         UpdateData();
     }
     public void OnClickCancelButton()
@@ -172,6 +174,7 @@ public class GUI_UpgradeExp : MonoBehaviour
     public void OnDecreaseAmountButton(int _value)
     {
         amountUse -= _value;
+        increaseAmountUse_btn.interactable = ((smallExpAmt <= amountUse || mediumExpAmt <= amountUse || bigExpAmt <= amountUse) && canUpgrade);
         switch (selectItem)
         {
             case 1:
@@ -193,7 +196,6 @@ public class GUI_UpgradeExp : MonoBehaviour
                 break;
         }
         totalExp = increaseExp * amountUse;
-
         ProgressBarBeforeUpdate();
         SetAmountUseText();
         SetItemQuantity();
@@ -218,16 +220,24 @@ public class GUI_UpgradeExp : MonoBehaviour
         var curHp = playerSO.basicStats.health + increaseHp;
         var curMp = playerSO.basicStats.mana + increaseMp;
         var curDef = playerSO.basicStats.defense + increaseDef;
+        var curAtk = playerSO.basicAttack.wandDamage + increaseAtk;
 
         // notice when upgrade
-
+        UpgradeNoticeManager.instance.SetLevelText(curLvl.ToString());
+        for (var i = 0; i < UpgradeNoticeManager.instance.MAX_ATTRIBUTE; i++)
+        {
+            var _bar = UpgradeNoticeManager.instance.textBarList[i];
+            UpgradeNoticeManager.CreateNoticeBar("Max HP", playerSO.basicStats.health.ToString(), curHp.ToString());
+        }
+        //
         PartyController.IncreaseCoin(-totalCost);
-        playerSO.upgradeLevel.exp = backExpSliderBar.value;
         playerSO.upgradeLevel.level = curLvl;
+        playerSO.upgradeLevel.expToLvl = upgradeDataSO.Data[currentLvl].expToLvl;
+        playerSO.upgradeLevel.exp = backExpSliderBar.value;
         playerSO.basicStats.health = curHp;
         playerSO.basicStats.mana = curMp;
         playerSO.basicStats.defense = curDef;
-        GameManager.instance.LevelUp();
+        playerSO.basicAttack.wandDamage = curDef;
         switch (selectItem)
         {
             case 1: // small exp
@@ -248,7 +258,7 @@ public class GUI_UpgradeExp : MonoBehaviour
         var playerdata = PartyController.player.playerdata;
         currentLvl = playerdata.upgradeLevel.level;
         currentExp = (int)playerdata.upgradeLevel.exp;
-        maxExp = (int)upgradeDataSO.Data[currentLvl - 1].expToLvl;
+        maxExp = (int)upgradeDataSO.GetNextLevel(currentLvl);
 
         mainExpSliderBar.maxValue = maxExp;
         mainExpSliderBar.minValue = 0;
@@ -262,6 +272,7 @@ public class GUI_UpgradeExp : MonoBehaviour
     {
         var playerSO = PartyController.player.playerdata;
         increaseLevel = 0;
+        float expMinus = 0;
         if (amountUse == 0)
         {
             backExpSliderBar.maxValue = mainExpSliderBar.maxValue;
@@ -269,15 +280,25 @@ public class GUI_UpgradeExp : MonoBehaviour
             return;
         }
         var hasCharacterExp = playerSO.upgradeLevel.exp;
-        var totalIncreaseExp = hasCharacterExp + currentExp + totalExp;
-        if (totalIncreaseExp >= upgradeDataSO.Data[currentLvl].expToLvl) 
+        var totalIncreaseExp = hasCharacterExp + totalExp;
+        for (var i = currentLvl - 1; i < upgradeDataSO.Data.Count; i++)
         {
-            increaseLevel++;
-            backExpSliderBar.maxValue = upgradeDataSO.Data[currentLvl + 1].expToLvl;
-            backExpSliderBar.value = (currentExp + totalExp) - upgradeDataSO.Data[currentLvl].expToLvl;
+            if (totalIncreaseExp >= upgradeDataSO.Data[i].expToLvl)
+            {
+                increaseLevel++;
+                backExpSliderBar.maxValue = upgradeDataSO.Data[i + 1].expToLvl;
+                backExpSliderBar.value = totalIncreaseExp - upgradeDataSO.Data[i].expToLvl;
+                expMinus = upgradeDataSO.Data[i].expToLvl;
+                totalIncreaseExp -= expMinus;
+                continue;
+            }
+            else
+            {
+                backExpSliderBar.value = totalIncreaseExp;
+                expMinus = 0;
+            }
+            break;
         }
-        var remainingExp = totalIncreaseExp - upgradeDataSO.Data[currentLvl].expToLvl;
-        backExpSliderBar.value = currentExp + remainingExp;
     }
     private void SetItemQuantity()
     {
@@ -288,10 +309,10 @@ public class GUI_UpgradeExp : MonoBehaviour
         smallExpBuff_txt.text = smallExpAmt > 0 ? $"<color=white>{smallExpAmt.ToString()}" : $"<color=red>{smallExpAmt.ToString()}";
         mediumExpBuff_txt.text = mediumExpAmt > 0 ? "<color=white>" + mediumExpAmt.ToString() : "<color=red>" + mediumExpAmt.ToString();
         bigExpBuff_txt.text = bigExpAmt > 0 ? "<color=white>" + bigExpAmt.ToString() : "<color=red>" + bigExpAmt.ToString();
-
     }
     private void SetCoinText()
     {
+        currentCoin = PartyController.inventoryG.Gold;
         currency_txt.color = currentCoin >= totalCost ? Color.white : Color.red;
         currency_txt.text = $"{currentCoin}/{totalCost}";
     }

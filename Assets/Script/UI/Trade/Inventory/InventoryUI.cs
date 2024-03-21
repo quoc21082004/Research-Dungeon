@@ -41,7 +41,7 @@ public class InventoryUI : MonoBehaviour
             inventory.onItemChangedCallBack += UpdateUI;
         }
         slots = itemsParent.GetComponentsInChildren<InventorySlot>().ToList();
-
+        selectItemDisplay.gameObject.SetActive(false);
         if (itemOptionsWindow != null)
             itemOptionsWindow.gameObject.SetActive(false);
         if (amtConfirmWindow != null)

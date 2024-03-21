@@ -14,9 +14,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MAX_LEVEL: 99
   basicStats:
-    health: 100649
-    mana: 1195
-    defense: 225
+    health: 103699
+    mana: 2110
+    defense: 530
     movementSpeed: 130
     DashSpeed: 5
     healthRegen: 73.799995
@@ -30,11 +30,11 @@ MonoBehaviour:
     builetSpeed: 10
   otherStats:
     damageReduction: 5.2000017
-    skillPoint: 16
-    gold: 1559
+    skillPoint: 40
+    gold: 894
   upgradeLevel:
     level: 1
-    exp: 100
+    exp: 0
     expToLvl: 2160
   extraBuff:
     extraExp: 12

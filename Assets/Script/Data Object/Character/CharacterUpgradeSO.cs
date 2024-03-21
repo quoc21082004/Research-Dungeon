@@ -11,7 +11,7 @@ public class CharacterUpgradeSO : ScriptableObject
     {
         if (_level >= MAX_LEVEL)
             return Data[^1].exp;
-        return _level <= 1 ? Data[0].exp : Data[_level - 1].exp;
+        return _level <= 1 ? (int)Data[0].expToLvl : (int)Data[_level - 1].expToLvl;
     }
     public int GetTotalEXP(int _currentLevel) => _currentLevel <= 1 ? 0 :(int)Data[_currentLevel - 2].expToLvl;
 }

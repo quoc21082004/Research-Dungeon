@@ -802,6 +802,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 1683588582820038378, guid: f064ac48cc11c7e40849b49bdb0d5dc7,
+        type: 3}
+      propertyPath: upgradeSO
+      value: 
+      objectReference: {fileID: 11400000, guid: 9c8f8094200fddd4992322dc64096fa6,
+        type: 2}
     - target: {fileID: 1683588582820038379, guid: f064ac48cc11c7e40849b49bdb0d5dc7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -873,7 +879,7 @@ PrefabInstance:
     - target: {fileID: 5237917800941621653, guid: a8337de90192f7b449802e29f3b0ecfa,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 5859050067740317126, guid: a8337de90192f7b449802e29f3b0ecfa,
         type: 3}
