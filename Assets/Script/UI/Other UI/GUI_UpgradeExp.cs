@@ -14,6 +14,7 @@ public class GUI_UpgradeExp : MonoBehaviour
     [SerializeField] TextMeshProUGUI charExp_txt;
     [SerializeField] TextMeshProUGUI currency_txt;
     [SerializeField] TextMeshProUGUI itemQuantity_txt;
+
     [SerializeField] Slider mainExpSliderBar;
     [SerializeField] Slider backExpSliderBar;
 

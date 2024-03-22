@@ -58,3 +58,18 @@ MonoBehaviour:
   - level: 15
     exp: 0
     expToLvl: 27720
+  - level: 16
+    exp: 0
+    expToLvl: 33264
+  - level: 17
+    exp: 0
+    expToLvl: 39916
+  - level: 18
+    exp: 0
+    expToLvl: 47899
+  - level: 19
+    exp: 0
+    expToLvl: 57478
+  - level: 20
+    exp: 0
+    expToLvl: 68973

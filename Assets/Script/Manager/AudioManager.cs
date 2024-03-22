@@ -28,21 +28,9 @@ public class AudioManager : Singleton<AudioManager>
         sfxSource = sourceClone;
         return sourceClone;
     }
-                                                // Adjust music 
-    public void ToggleMusic()
-    {
-        musicSource.mute = !musicSource.mute;
-    }
-    public void ToggleSfx()
-    {
-        sfxSource.mute = !sfxSource.mute;
-    }
-    public void MusicVolume(float volume)
-    {
-        musicSource.volume = volume;
-    }
-    public void SfxVolume(float volume)
-    {
-        sfxSource.volume = volume;
-    }
+    // Adjust music 
+    public void ToggleMusic() => musicSource.mute = !musicSource.mute;
+    public void ToggleSfx() => sfxSource.mute = !sfxSource.mute;
+    public void MusicVolume(float volume) => musicSource.volume = volume;
+    public void SfxVolume(float volume) => sfxSource.volume = volume;
 }

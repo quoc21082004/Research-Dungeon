@@ -32,12 +32,7 @@ public class GUI_Setting : MonoBehaviour
         else
             sfx_btn.gameObject.GetComponent<Image>().color = Color.red;
     }
-    public void MusicVolume()
-    {
-        AudioManager.instance.MusicVolume(musicSlider.value);
-    }
-    public void SfxVolume()
-    {
-        AudioManager.instance.SfxVolume(sfxSlider.value);
-    }
+    public void MusicVolume() => AudioManager.instance.MusicVolume(musicSlider.value);
+    public void SfxVolume() => AudioManager.instance.SfxVolume(sfxSlider.value);
+
 }
