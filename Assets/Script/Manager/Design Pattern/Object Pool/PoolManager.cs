@@ -68,7 +68,7 @@ public class PoolManager : Singleton<PoolManager>
             pool.Initialize(poolParent);
         }
     }
-    public  GameObject Release(GameObject prefab)
+    public GameObject Release(GameObject prefab)
     {
         if (!prefab2Pool.ContainsKey(prefab))
         {

@@ -29,11 +29,13 @@ public class GUI_Register : MonoBehaviour
     private void OnEnterInput(InputAction.CallbackContext context)
     {
         register_btn.onClick?.Invoke();
+        AudioManager.instance.PlaySfx("Click");
     }
     private void OnESCInput(InputAction.CallbackContext context)
     {
         quit_btn.onClick?.Invoke();
-    }              
+        AudioManager.instance.PlaySfx("Click");
+    }
     public void SetErrorText(string _error)
     {
         error_txt.text = _error;

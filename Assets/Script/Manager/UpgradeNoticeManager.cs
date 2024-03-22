@@ -9,39 +9,45 @@ public class UpgradeNoticeManager : Singleton<UpgradeNoticeManager>
 {
     [SerializeField] Animator myanim;
     [SerializeField] TextMeshProUGUI characterLvl_txt;
-    [SerializeField] GameObject textBarprefab;
+    [SerializeField] TextBar textBarprefab;
     [SerializeField] Transform textBarContent;
-    List<GameObject> textBarList;
     [SerializeField] Button confirm_btn;
     const int MAX = 5;
     public int MAX_ATTRIBUTE => MAX;  // hp , mp , atk , def , dmgx
-    private void Start()
+    public List<TextBar> textBarList;
+    private void OnEnable()
     {
         for (int i = 0; i < MAX_ATTRIBUTE; i++)
         {
-            var textBar = PoolManager.instance.Release(textBarprefab);
-            textBar.transform.SetParent(textBarContent);
+            var _textbar = PoolManager.instance.Release(textBarprefab.gameObject);
+            _textbar.transform.SetParent(textBarContent);
+            _textbar.transform.localScale = new Vector3(1f, 1f, 1f);
         }
-        textBarList = textBarContent.GetComponentsInChildren<GameObject>().ToList();
+        textBarList = textBarContent.GetComponentsInChildren<TextBar>().ToList();
         confirm_btn.onClick.AddListener(DisableUpgradeNotice);
     }
-    private void OnDestroy()
+    private void OnDisable()
     {
         confirm_btn.onClick.RemoveListener(DisableUpgradeNotice);
+        textBarList.ForEach(x => x.gameObject.SetActive(false));
     }
-    public void SetLevelText(string _level) => characterLvl_txt.text = _level;
-    public static void CreateNoticeBar(string _titleAttribute, string _value1, string _value2)
+    public void SetLevelText(string _level) => characterLvl_txt.text = "Lv." + _level;
+    public void CreateNoticeBar(int _index, string _titleAttribute, string _value1, string _value2)
     {
-        foreach (var statsText in textBarList)
-        {
-            var text = statsText.GetComponentInParent<TextMeshPro>();
-            text.text = $"{_titleAttribute}         {_value1}               {_value2}";
-        }
+        textBarList[_index].SetTitleText(_titleAttribute);
+        textBarList[_index].SetValueBefore(_value1);
+        textBarList[_index].SetValueAfter(_value2);
     }
-    public void EnableUpgradeNotice() => myanim.Play("EnableUpgradeNotice");
+    public void EnableUpgradeNotice()
+    {
+        myanim.Play("EnableUpgradeNotice");
+        AudioManager.instance.PlaySfx("Click");
+        textBarList.ForEach(x => x.gameObject.SetActive(true));
+    }
     private void DisableUpgradeNotice()
     {
         myanim.Play("DisableUpgradeNotice");
+        AudioManager.instance.PlaySfx("Click");
         textBarList.ForEach(x => x.gameObject.SetActive(false));
     }
 }

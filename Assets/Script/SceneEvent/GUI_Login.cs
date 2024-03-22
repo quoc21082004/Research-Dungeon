@@ -26,10 +26,12 @@ public class GUI_Login : MonoBehaviour
     private void OnEnterInput(InputAction.CallbackContext context)
     {
         start_btn.onClick?.Invoke();
+        AudioManager.instance.PlaySfx("Click");
     }
     private void OnESCInput(InputAction.CallbackContext context)
     {
         quit_btn.onClick?.Invoke();
+        AudioManager.instance.PlaySfx("Click");
     }
     public void SetErrorText(string _errorText)
     {

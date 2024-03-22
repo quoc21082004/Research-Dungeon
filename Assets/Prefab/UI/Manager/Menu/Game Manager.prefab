@@ -684,7 +684,7 @@ MonoBehaviour:
   exp: 0
   exptolevel: 0
   level: 0
-  playerdata: {fileID: 0}
+  upgradeSO: {fileID: 11400000, guid: 9c8f8094200fddd4992322dc64096fa6, type: 2}
 --- !u!114 &1683588582820038376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1048,6 +1048,8 @@ MonoBehaviour:
     size: 0
   - prefab: {fileID: 1681121638177035043, guid: f3d9ac1317b265141933b5792faafeb1,
       type: 3}
+    size: 0
+  - prefab: {fileID: 637621609403637547, guid: d051764ae2b67704d9840f9e3bd925f7, type: 3}
     size: 0
   lootsPools:
   - prefab: {fileID: 7237565924620861604, guid: 095caaf3992da9e49836917bf2f803dd,

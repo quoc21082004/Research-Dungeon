@@ -134,6 +134,7 @@ public class GUI_AcountManager : MonoBehaviour
     public void LogOutAccount()
     {
         ClearAccountTemp();
+        AudioManager.instance.PlaySfx("Click");
         email_txt.text = "";
         accountID_txt.text = "";
         account_btn.gameObject.SetActive(true);

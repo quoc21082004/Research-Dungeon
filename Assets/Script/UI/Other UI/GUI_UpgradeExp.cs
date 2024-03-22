@@ -45,6 +45,7 @@ public class GUI_UpgradeExp : MonoBehaviour
     private int increaseMp => 15 * increaseLevel;
     private int increaseDef => 5 * increaseLevel;
     private int increaseAtk => 5 * increaseLevel;
+    private float increaseDMGx => 0.25f * increaseLevel;
 
     private int currentCoin,totalCost, totalExp, amountUse, selectItem = 0;
     private int smallExpAmt, mediumExpAmt, bigExpAmt, maxLvl,currentLvl, currentExp, maxExp = 0;
@@ -135,11 +136,13 @@ public class GUI_UpgradeExp : MonoBehaviour
         {
             InitValue();
             UpdateData();
+            AudioManager.instance.PlaySfx("Click");
             return;
         }
     }
     public void OnIncreaseAmountButton(int _value)
     {
+        AudioManager.instance.PlaySfx("Click");
         amountUse += _value;
         decreaseAmountUse_btn.interactable = amountUse > 0;
         switch (selectItem)
@@ -173,6 +176,7 @@ public class GUI_UpgradeExp : MonoBehaviour
     }
     public void OnDecreaseAmountButton(int _value)
     {
+        AudioManager.instance.PlaySfx("Click");
         amountUse -= _value;
         increaseAmountUse_btn.interactable = ((smallExpAmt <= amountUse || mediumExpAmt <= amountUse || bigExpAmt <= amountUse) && canUpgrade);
         switch (selectItem)
@@ -208,6 +212,7 @@ public class GUI_UpgradeExp : MonoBehaviour
     {
         InitValue();
         selectItem = _value;
+        AudioManager.instance.PlaySfx("Click");
         OnIncreaseAmountButton(0);
         if (!canUpgrade)
             return;
@@ -215,22 +220,28 @@ public class GUI_UpgradeExp : MonoBehaviour
     }
     private void SetStats()
     {
+        #region before Upgrade
         var playerSO = PartyController.player.playerdata;
         var curLvl = playerSO.upgradeLevel.level + increaseLevel;
         var curHp = playerSO.basicStats.health + increaseHp;
         var curMp = playerSO.basicStats.mana + increaseMp;
         var curDef = playerSO.basicStats.defense + increaseDef;
         var curAtk = playerSO.basicAttack.wandDamage + increaseAtk;
-
-        // notice when upgrade
-        UpgradeNoticeManager.instance.SetLevelText(curLvl.ToString());
-        for (var i = 0; i < UpgradeNoticeManager.instance.MAX_ATTRIBUTE; i++)
+        var curDMGx = playerSO.extraBuff.percentDamage + increaseDMGx;
+        #endregion
+        if (increaseLevel > 0)
         {
-            var _bar = UpgradeNoticeManager.instance.textBarList[i];
-            UpgradeNoticeManager.CreateNoticeBar("Max HP", playerSO.basicStats.health.ToString(), curHp.ToString());
+            UpgradeNoticeManager.instance.SetLevelText(curLvl.ToString());
+            UpgradeNoticeManager.instance.CreateNoticeBar(0, "HP", playerSO.basicStats.health.ToString(), curHp.ToString());
+            UpgradeNoticeManager.instance.CreateNoticeBar(1, "Mana", playerSO.basicStats.mana.ToString(), curMp.ToString());
+            UpgradeNoticeManager.instance.CreateNoticeBar(2, "Defense", playerSO.basicStats.defense.ToString(), curDef.ToString());
+            UpgradeNoticeManager.instance.CreateNoticeBar(3, "Atk", playerSO.basicAttack.wandDamage.ToString(), curAtk.ToString());
+            UpgradeNoticeManager.instance.CreateNoticeBar(4, "DMGx", playerSO.extraBuff.percentDamage.ToString(), curDMGx.ToString());
+            UpgradeNoticeManager.instance.EnableUpgradeNotice();
         }
-        //
         PartyController.IncreaseCoin(-totalCost);
+        //
+        #region After Upgrade
         playerSO.upgradeLevel.level = curLvl;
         playerSO.upgradeLevel.expToLvl = upgradeDataSO.Data[currentLvl].expToLvl;
         playerSO.upgradeLevel.exp = backExpSliderBar.value;
@@ -238,6 +249,8 @@ public class GUI_UpgradeExp : MonoBehaviour
         playerSO.basicStats.mana = curMp;
         playerSO.basicStats.defense = curDef;
         playerSO.basicAttack.wandDamage = curDef;
+        playerSO.extraBuff.percentDamage = curDMGx;
+        #endregion
         switch (selectItem)
         {
             case 1: // small exp

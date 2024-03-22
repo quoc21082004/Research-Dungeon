@@ -26,10 +26,12 @@ public class GUI_ForgetPW : MonoBehaviour
     private void OnEnterInput(InputAction.CallbackContext context)
     {
         veficatate_btn.onClick?.Invoke();
+        AudioManager.instance.PlaySfx("Click");
     }
     private void OnESCInput(InputAction.CallbackContext context)
     {
         quit_btn.onClick?.Invoke();
+        AudioManager.instance.PlaySfx("Click");
     }
     public void SetErrorText(string _error)
     {
