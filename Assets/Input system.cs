@@ -300,6 +300,24 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenBag"",
+                    ""type"": ""Button"",
+                    ""id"": ""95766774-6f3e-4813-8e3b-6bfb2161086b"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""CloseBag"",
+                    ""type"": ""Button"",
+                    ""id"": ""13f7f38d-7db9-4262-bb62-5ff23aa4db2d"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -366,6 +384,28 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""CloseQuest"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a7a4b107-3ac0-427b-a456-934f584c0988"",
+                    ""path"": ""<Keyboard>/i"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenBag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""3b541b70-f169-42a1-a789-fb3aaafa3eef"",
+                    ""path"": ""<Keyboard>/escape"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""CloseBag"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -455,6 +495,8 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
         m_UI_OpenShop = m_UI.FindAction("OpenShop", throwIfNotFound: true);
         m_UI_OpenQuest = m_UI.FindAction("OpenQuest", throwIfNotFound: true);
         m_UI_CloseQuest = m_UI.FindAction("CloseQuest", throwIfNotFound: true);
+        m_UI_OpenBag = m_UI.FindAction("OpenBag", throwIfNotFound: true);
+        m_UI_CloseBag = m_UI.FindAction("CloseBag", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -662,6 +704,8 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
     private readonly InputAction m_UI_OpenShop;
     private readonly InputAction m_UI_OpenQuest;
     private readonly InputAction m_UI_CloseQuest;
+    private readonly InputAction m_UI_OpenBag;
+    private readonly InputAction m_UI_CloseBag;
     public struct UIActions
     {
         private @Inputsystem m_Wrapper;
@@ -672,6 +716,8 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
         public InputAction @OpenShop => m_Wrapper.m_UI_OpenShop;
         public InputAction @OpenQuest => m_Wrapper.m_UI_OpenQuest;
         public InputAction @CloseQuest => m_Wrapper.m_UI_CloseQuest;
+        public InputAction @OpenBag => m_Wrapper.m_UI_OpenBag;
+        public InputAction @CloseBag => m_Wrapper.m_UI_CloseBag;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -699,6 +745,12 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
             @CloseQuest.started += instance.OnCloseQuest;
             @CloseQuest.performed += instance.OnCloseQuest;
             @CloseQuest.canceled += instance.OnCloseQuest;
+            @OpenBag.started += instance.OnOpenBag;
+            @OpenBag.performed += instance.OnOpenBag;
+            @OpenBag.canceled += instance.OnOpenBag;
+            @CloseBag.started += instance.OnCloseBag;
+            @CloseBag.performed += instance.OnCloseBag;
+            @CloseBag.canceled += instance.OnCloseBag;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -721,6 +773,12 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
             @CloseQuest.started -= instance.OnCloseQuest;
             @CloseQuest.performed -= instance.OnCloseQuest;
             @CloseQuest.canceled -= instance.OnCloseQuest;
+            @OpenBag.started -= instance.OnOpenBag;
+            @OpenBag.performed -= instance.OnOpenBag;
+            @OpenBag.canceled -= instance.OnOpenBag;
+            @CloseBag.started -= instance.OnCloseBag;
+            @CloseBag.performed -= instance.OnCloseBag;
+            @CloseBag.canceled -= instance.OnCloseBag;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -805,5 +863,7 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
         void OnOpenShop(InputAction.CallbackContext context);
         void OnOpenQuest(InputAction.CallbackContext context);
         void OnCloseQuest(InputAction.CallbackContext context);
+        void OnOpenBag(InputAction.CallbackContext context);
+        void OnCloseBag(InputAction.CallbackContext context);
     }
 }

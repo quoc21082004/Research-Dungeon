@@ -6,8 +6,6 @@ using System;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
-using UnityEngine.Video;
-using PlayFab.EconomyModels;
 public class GUI_Quest : Singleton<GUI_Quest>
 {
     [SerializeField] private GameObject questPanel;

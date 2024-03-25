@@ -278,6 +278,24 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OpenBag",
+                    "type": "Button",
+                    "id": "95766774-6f3e-4813-8e3b-6bfb2161086b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
+                },
+                {
+                    "name": "CloseBag",
+                    "type": "Button",
+                    "id": "13f7f38d-7db9-4262-bb62-5ff23aa4db2d",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -344,6 +362,28 @@
                     "processors": "",
                     "groups": "",
                     "action": "CloseQuest",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "a7a4b107-3ac0-427b-a456-934f584c0988",
+                    "path": "<Keyboard>/i",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenBag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "3b541b70-f169-42a1-a789-fb3aaafa3eef",
+                    "path": "<Keyboard>/escape",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "CloseBag",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

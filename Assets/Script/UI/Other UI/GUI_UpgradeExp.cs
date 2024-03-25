@@ -222,14 +222,15 @@ public class GUI_UpgradeExp : MonoBehaviour
     private void SetStats()
     {
         #region before Upgrade
-        var playerSO = PartyController.player.playerdata;
+        var playerSO = GameManager.instance.playerSO;
         var curLvl = playerSO.upgradeLevel.level + increaseLevel;
         var curHp = playerSO.basicStats.health + increaseHp;
         var curMp = playerSO.basicStats.mana + increaseMp;
         var curDef = playerSO.basicStats.defense + increaseDef;
         var curAtk = playerSO.basicAttack.wandDamage + increaseAtk;
         var curDMGx = playerSO.extraBuff.percentDamage + increaseDMGx;
-        #endregion
+
+        #endregion      upgrade notice
         if (increaseLevel > 0)
         {
             UpgradeNoticeManager.instance.SetLevelText(curLvl.ToString());
@@ -241,7 +242,6 @@ public class GUI_UpgradeExp : MonoBehaviour
             UpgradeNoticeManager.instance.EnableUpgradeNotice();
         }
         PartyController.IncreaseCoin(-totalCost);
-        //
         #region After Upgrade
         playerSO.upgradeLevel.level = curLvl;
         playerSO.upgradeLevel.expToLvl = upgradeDataSO.Data[currentLvl].expToLvl;

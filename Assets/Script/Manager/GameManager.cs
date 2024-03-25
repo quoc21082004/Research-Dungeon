@@ -1,4 +1,5 @@
-﻿using System;
+﻿
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -8,6 +9,7 @@ public class GameManager : Singleton<GameManager>
 {
     [HideInInspector] public float exp, exptolevel;
     [HideInInspector] public int level;
+    public PlayerSO playerSO;
     public CharacterUpgradeSO upgradeSO;
     private void OnEnable()
     {
@@ -32,5 +34,5 @@ public class GameManager : Singleton<GameManager>
         exptolevel = playerdata.upgradeLevel.expToLvl;
         exp = playerdata.upgradeLevel.exp;
     }
-    public void RespawnAfterDie(float lostexp) => exp -= (int)((exp * lostexp) / 100); 
+    public void RespawnAfterDie(float lostexp) => exp -= (int)((exp * lostexp) / 100);
 }

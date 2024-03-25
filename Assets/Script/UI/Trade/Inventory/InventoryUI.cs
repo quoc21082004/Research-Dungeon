@@ -50,7 +50,7 @@ public class InventoryUI : MonoBehaviour
     }
     protected virtual void UpdateUI()
     {
-        for (int i = 0; i < slots.Count; i++) 
+        for (int i = 0; i < slots.Count; i++)
         {
             if (i < inventory.items.Count)
                 slots[i].AddItem(inventory.items[i], i);
@@ -78,13 +78,60 @@ public class InventoryUI : MonoBehaviour
         gold_text.text = "" + inventory.Gold;
         AudioManager.instance.PlaySfx("Purchase");
     }
+    public void SortItem(int _selectOption)
+    {
+        switch(_selectOption)
+        {
+            case 1:
+            SortByNumber(inventory.items);
+                break;
+            case 2:
+                SortByRarity(inventory.items);
+                break;
+            case 3:
+                SortByType(inventory.items);
+                break;
+            default:
+                break;
+        }
+    }
     private void SortByNumber(List<ItemSO> itemSlots)
     {
+        AudioManager.instance.PlaySfx("Click");
         itemSlots.Sort((s1, s2) => s2.currentAmt.CompareTo(s1.currentAmt));
         for (int i = 0; i < slots.Count; i++)
         {
             if (slots[i].item != null)
             {
+                slots[i].item = itemSlots[i];
+                slots[i].icon.sprite = itemSlots[i].icon;
+                slots[i].stackItem_text.text = "" + itemSlots[i].currentAmt;
+            }
+        }
+    }
+    private void SortByRarity(List<ItemSO> itemSlots)
+    {
+        AudioManager.instance.PlaySfx("Click");
+        itemSlots.Sort((s1, s2) => s2.Rarity.CompareTo(s1.Rarity));
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].item != null)
+            {
+                slots[i].item = itemSlots[i];
+                slots[i].icon.sprite = itemSlots[i].icon;
+                slots[i].stackItem_text.text = "" + itemSlots[i].currentAmt;
+            }
+        }
+    }
+    private void SortByType(List<ItemSO> itemSlots)
+    {
+        AudioManager.instance.PlaySfx("Click");
+        itemSlots.Sort((s1, s2) => s2.Type.CompareTo(s1.Type));
+        for (int i = 0; i < slots.Count; i++)
+        {
+            if (slots[i].item != null)
+            {
+                slots[i].item = itemSlots[i];
                 slots[i].icon.sprite = itemSlots[i].icon;
                 slots[i].stackItem_text.text = "" + itemSlots[i].currentAmt;
             }

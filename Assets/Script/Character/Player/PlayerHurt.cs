@@ -37,12 +37,9 @@ public class PlayerHurt : Damagable
             gameObject.SetActive(false);
             gameOverprefab.gameObject.SetActive(true);
             Time.timeScale = 0;
-            player.OnDieEvent += Die;
         }
     }
-    void Die() { }
     #endregion
-
     #region Heal Regen - Mana Regen
     public void RegenRecover()
     {

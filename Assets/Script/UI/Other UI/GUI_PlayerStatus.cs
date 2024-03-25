@@ -33,8 +33,8 @@ public class GUI_PlayerStatus : MonoBehaviour
         maxhp = player.maxhealth;
         maxmp = player.maxmana;
         maxexp = GameManager.instance.exptolevel;
-        currenthp = PartyController.player.health;//PlayerPrefs.GetFloat("currenthealth");
-        currentmp = PartyController.player.mana;//PlayerPrefs.GetFloat("currentmana");
+        currenthp = PartyController.player.health;
+        currentmp = PartyController.player.mana;
         currentexp = GameManager.instance.exp;
     }
     private void fillImage()

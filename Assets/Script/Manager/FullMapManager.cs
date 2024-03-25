@@ -20,15 +20,9 @@ public class FullMapManager : Singleton<FullMapManager>
     private void OpenMap(InputAction.CallbackContext context)
     {
         if (!isMapOpen)
-        {
-            if (!PauseMenu.isGamePause)
-                FullMapManager.instance.Map();
-        }
+            FullMapManager.instance.Map();
         else if (isMapOpen)
-        {
-            if (PauseMenu.isGamePause)
-                FullMapManager.instance.CloseMap();
-        }
+            FullMapManager.instance.CloseMap();
     }
     public void Map()
     {
@@ -37,7 +31,6 @@ public class FullMapManager : Singleton<FullMapManager>
         InputManager.playerInput.Disable();
         GUI_Input.playerInput.UI.OpenShop.Disable();
         GUI_Input.playerInput.UI.OpenQuest.Disable();
-        PauseMenu.instance.Pause();
     }
     public void CloseMap()
     {
@@ -51,6 +44,5 @@ public class FullMapManager : Singleton<FullMapManager>
     {
         yield return null;
         isMapOpen = false;
-        PauseMenu.instance.Resume();
     }
 }

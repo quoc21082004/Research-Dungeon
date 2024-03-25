@@ -44,7 +44,7 @@ public class DialogueManager : Singleton<DialogueManager>, IPointerClickHandler
     private void ShowDialogueInternal(DialogueObject dialogueObject)
     {
         dialogue.gameObject.SetActive(true);
-        Player.canAction = false;
+        GUI_Input.playerInput.Disable();
         wasPointerClick = false;
         StopAllCoroutines();
         StartCoroutine(ShowDialogueCoroutine(dialogueObject));
@@ -75,7 +75,7 @@ public class DialogueManager : Singleton<DialogueManager>, IPointerClickHandler
     {
         StopAllCoroutines();
         dialogue.gameObject.SetActive(false);
-        Player.canAction = true;
+        GUI_Input.playerInput.Enable();
         IsUsing = false;
     }
 

@@ -14,7 +14,7 @@ public class GUI_UpgradeStats : MonoBehaviour
     public StatsInfoText infotext;
     [Space]
     public UpgradeButton upgradebtn;
-    private void OnEnable()
+    private void Update()
     {
         skillPointsText.text = "" + "Skill Points: " + (PartyController.player.playerdata.otherStats.skillPoint).ToString();
         StatsLevel_text();

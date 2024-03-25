@@ -25,15 +25,9 @@ public class ShopManager : Singleton<ShopManager>
     private void OpenShop(InputAction.CallbackContext context)
     {
         if (!isShopOpen)
-        {
-            if (!PauseMenu.isGamePause)
-                ShopManager.instance.Shop();
-        }
+            ShopManager.instance.Shop();
         else if (isShopOpen)
-        {
-            if (PauseMenu.isGamePause)
-                ShopManager.instance.CloseShop();
-        }
+            ShopManager.instance.CloseShop();
     }
     public void Shop()
     {
@@ -41,7 +35,7 @@ public class ShopManager : Singleton<ShopManager>
         ShopMenuUI.SetActive(true);
         GUI_Input.playerInput.UI.OpenMap.Disable();
         InputManager.playerInput.Disable();
-        PauseMenu.instance.Pause();
+        //PauseMenu.instance.Pause();
     }
     public void CloseShop()
     {
@@ -49,7 +43,7 @@ public class ShopManager : Singleton<ShopManager>
         ShopMenuUI.SetActive(false);
         InputManager.playerInput.Enable();
         GUI_Input.playerInput.UI.OpenMap.Enable();
-        PauseMenu.instance.Resume();
+        //PauseMenu.instance.Resume();
     }
     public void ShowBuyUI()
     {

@@ -5,7 +5,7 @@ using UnityEngine;
 public class QuickMenu : MonoBehaviour
 {
     [SerializeField] GameObject mainbtn;
-    [SerializeField] GameObject upgradebtn, marketbtn, settingbtn, inventorybtn;
+    [SerializeField] GameObject marketbtn, inventorybtn;
     [Space]
     [SerializeField] GameObject upgrade_obj, setting_obj, ScrollViewObj;
     private bool isOpen = false;
@@ -33,11 +33,7 @@ public class QuickMenu : MonoBehaviour
     {
         ScrollViewObj.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.02f);
-        upgradebtn.gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.02f);
         marketbtn.gameObject.SetActive(true);
-        yield return new WaitForSeconds(0.02f);
-        settingbtn.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.02f);
         inventorybtn.gameObject.SetActive(true);
     }
@@ -47,11 +43,7 @@ public class QuickMenu : MonoBehaviour
         yield return new WaitForSeconds(0.02f);
         inventorybtn.gameObject.SetActive(true);
         yield return new WaitForSeconds(0.02f);
-        settingbtn.gameObject.SetActive(false);
-        yield return new WaitForSeconds(0.02f);
         marketbtn.gameObject.SetActive(false);
-        yield return new WaitForSeconds(0.02f);
-        upgradebtn.gameObject.SetActive(false);
     }
     
 }

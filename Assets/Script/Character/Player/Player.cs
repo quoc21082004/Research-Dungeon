@@ -9,35 +9,32 @@ public class Player : MonoBehaviour
     SpriteRenderer mySR;
     Rigidbody2D myrigid;
     Animator myanim;
-    Collider2D mycollider;
     TrailRenderer mytrail;
     [HideInInspector] public PlayerHurt playerhurt;
     [HideInInspector] public PlayerCombat playercombat;
     [HideInInspector] public float maxhealth, maxmana, health, damage, defense, mana, speed;
     [HideInInspector] public bool isAlve = true;
-    public PlayerSO playerdata;
+    [HideInInspector] public PlayerSO playerdata;
     float startSpeed;
-    public static bool isFace, canAction;
+    public static bool isFace;
     public float dashSpeed, dashCD;
     bool isDash;
     Collider2D[] pickup;
     [HideInInspector] public float rangePickup = 1.2f;
     Vector2 moveInput;
-    public event Action OnDieEvent;
     private void Awake()
     {
         startSpeed = speed;
         mySR = GetComponent<SpriteRenderer>();
         myrigid = GetComponent<Rigidbody2D>();
-        mycollider = GetComponent<Collider2D>();
         myanim = GetComponent<Animator>();
         playerhurt = GetComponentInParent<PlayerHurt>();
         playercombat = GetComponent<PlayerCombat>();
         mytrail = GetComponentInChildren<TrailRenderer>();
     }
-    private void Start()
+    private void OnEnable()
     {
-        canAction = true;
+        playerdata = GameManager.instance.playerSO;
         health = playerdata.basicStats.health;
         mana = playerdata.basicStats.mana;
     }
@@ -48,7 +45,7 @@ public class Player : MonoBehaviour
         defense = playerdata.basicStats.defense;
         damage = playerdata.basicAttack.wandDamage;
         speed = PlayerPrefs.GetFloat("speed") + (PlayerPrefs.GetFloat("speed") * PlayerPrefs.GetFloat("bounsSpeed")) / 100;
-        if (isAlve && canAction)
+        if (isAlve)
         {
             PickUp();
             Dash();
@@ -69,7 +66,7 @@ public class Player : MonoBehaviour
     private void Move()
     {
         moveInput = InputManager.playerInput.Player.Move.ReadValue<Vector2>();
-        if ((moveInput.x != 0 | moveInput.y != 0) && canAction) 
+        if ((moveInput.x != 0 | moveInput.y != 0)) 
         {
             myanim.SetFloat("MoveX", moveInput.x);
             myanim.SetFloat("MoveY", moveInput.y);
@@ -96,7 +93,6 @@ public class Player : MonoBehaviour
             mySR.flipX = false;
             isFace = false;
         }
-
     }
     #endregion
     public void SetPosition(Vector3 cords, Vector2 direction)
