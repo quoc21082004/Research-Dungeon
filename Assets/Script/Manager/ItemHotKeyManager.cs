@@ -49,10 +49,7 @@ public class ItemHotKeyManager : Singleton<ItemHotKeyManager> , IHotKey
         }
         hotkeyItems[numKey] = item; 
     }
-    public bool IsItemOnCoolDown(Potion item)
-    {
-        return isConsumableonCD[item.consumableType];
-    }
+    public bool IsItemOnCoolDown(Potion item) => isConsumableonCD[item.consumableType];
     public void UseItem(Potion item)
     {
         item.Use();

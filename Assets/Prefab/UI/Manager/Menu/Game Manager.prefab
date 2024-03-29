@@ -470,7 +470,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 999
@@ -684,6 +684,7 @@ MonoBehaviour:
   exp: 0
   exptolevel: 0
   level: 0
+  playerSO: {fileID: 11400000, guid: 89136d1e70122974bb96d3540b6762a6, type: 2}
   upgradeSO: {fileID: 11400000, guid: 9c8f8094200fddd4992322dc64096fa6, type: 2}
 --- !u!114 &1683588582820038376
 MonoBehaviour:

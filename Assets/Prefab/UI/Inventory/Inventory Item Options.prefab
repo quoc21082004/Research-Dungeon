@@ -861,7 +861,7 @@ GameObject:
   - component: {fileID: 3625580559625886938}
   - component: {fileID: 3625580559625886939}
   m_Layer: 5
-  m_Name: Item Option Window
+  m_Name: Inventory Item Options
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -884,7 +884,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 255.57745, y: 80.98336}
   m_SizeDelta: {x: 184.25018, y: 99.59039}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &3625580559625886939

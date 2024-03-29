@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
-
-public class InventorySlot : MonoBehaviour
+using UnityEngine.EventSystems;
+public class InventorySlot : MonoBehaviour 
 {
     public Button Item_btn;
     public Image icon;
@@ -18,16 +18,12 @@ public class InventorySlot : MonoBehaviour
     [SerializeField] private Sprite rarityFrameEpic;
     [SerializeField] private Sprite rarityFrameLegendary;
 
-    private void Start()
-    {
-        transform.localScale = new Vector3(1f, 1f, 1f);
-    }
+    private void Start() => transform.localScale = new Vector3(1f, 1f, 1f);
     public void AddItem(ItemSO newItemSO, int _value)
     {
         item = newItemSO;
         icon.sprite = item.icon;
         icon.enabled = true;
-        GetItemValue = _value;
         SetRarityFrameSlot(newItemSO.Rarity);
         if (item.currentAmt > 1) // stack
         {
@@ -40,6 +36,7 @@ public class InventorySlot : MonoBehaviour
             return;
         }
     }
+    public void SetItemSlot(int index) => GetItemValue = index;
     private void SetRarityFrameSlot(ItemRarity itemRarity)
     {
         rarityFrame.enabled = true;
@@ -61,5 +58,5 @@ public class InventorySlot : MonoBehaviour
         stackItem_text.text = "";
     }
     public void SetAmountText(string _value) => stackItem_text.text = _value.ToString();
-    public void SelectItem() => GetComponentInParent<InventoryUI>().SelectItem(this);
+    public virtual void SelectItem() => GetComponentInParent<InventoryUI>().SelectItem(this);
 }

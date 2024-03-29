@@ -15,13 +15,13 @@ public class Inventory
     {
         if (items.Count >= space)
             return false;
-        if (item.isStackable && items.Find(x => x.nameItem.Equals(item.nameItem)) != null) 
+        if (item.isStackable && items.Find(x => x.nameItem.Equals(item.nameItem)) != null)
         {
             ItemSO itemInInventory = items.Find(x => x.nameItem.Equals(item.nameItem)); //             //itemInInventory.currentAmt += item.currentAmt;
             if (itemInInventory != null)
                 itemInInventory.currentAmt += amount;
         }
-        else
+        else 
         {
             items.Add(MonoBehaviour.Instantiate(item));       // add item into list
             items.Sort((x1, x2) => x1.itemNumber.CompareTo(x2.itemNumber)); // sort item number 

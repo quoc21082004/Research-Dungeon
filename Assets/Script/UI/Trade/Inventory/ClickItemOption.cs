@@ -10,8 +10,9 @@ public class ClickItemOption : MonoBehaviour, IPointerClickHandler
     private InventorySlot slotPos;
     private void Start()
     {
-        itemOptionWindow = GetComponentInParent<InventoryUI>().itemOptionsWindow;
         slotPos = GetComponentInParent<InventorySlot>();
+        if (itemOptionWindow != null)
+            itemOptionWindow = GetComponentInParent<InventoryUI>().itemOptionsWindow;
     }
     public void OnPointerClick(PointerEventData eventData)
     {
@@ -19,6 +20,7 @@ public class ClickItemOption : MonoBehaviour, IPointerClickHandler
             || eventData.button == PointerEventData.InputButton.Left)) 
         {
             GetComponentInParent<InventorySlot>().SelectItem();
+
             if (InventoryUI.selectedItem != null)
             {
                 itemOptionWindow.gameObject.SetActive(true);
@@ -27,6 +29,7 @@ public class ClickItemOption : MonoBehaviour, IPointerClickHandler
             }
             else
                 itemOptionWindow.gameObject.SetActive(false);
+                  // if item not equip
         }
     }
 }

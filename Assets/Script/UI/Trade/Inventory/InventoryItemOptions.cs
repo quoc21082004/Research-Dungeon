@@ -28,9 +28,9 @@ public class InventoryItemOptions : ItemOptions
         }
         else if (InventoryUI.selectedItem != null) 
         {
-            Usebtn.interactable = InventoryUI.selectedItem.GetType().IsSubclassOf(typeof(Potion));
+            Usebtn.interactable = InventoryUI.selectedItem.GetType().Equals(typeof(Equipment));
             Learnbtn.interactable = InventoryUI.selectedItem.GetType().Equals(typeof(SpellBook));
-            Hotkeybtn.interactable = InventoryUI.selectedItem.GetType().IsSubclassOf(typeof(Consumable));
+            Hotkeybtn.interactable = InventoryUI.selectedItem.GetType().Equals(typeof(SpellBook)) || InventoryUI.selectedItem.GetType().Equals(typeof(Potion));
             Discardbtn.interactable = true;
         }
         Usebtn.Select();
@@ -39,20 +39,16 @@ public class InventoryItemOptions : ItemOptions
     public void UseItem()
     {
         AudioManager.instance.PlaySfx("Click");
-        Potion item = (Potion)InventoryUI.selectedItem; // ep type data (ItemSO) -> Consumable bcs same child class
-        if (!ItemHotKeyManager.instance.IsItemOnCoolDown(item))
-        {
-            ItemHotKeyManager.instance.UseItem(item);
-            gameObject.SetActive(false);
-            selectSlotbtn.Select();
-            selectSlotbtn.OnSelect(null);
-        }
+        if (InventoryUI.selectedItem)
+            InventoryUI.selectedItem.Use();
+        OnBackButton();
     }
     public void OnDiscardItem()
     {
         AudioManager.instance.PlaySfx("Click");
         discardWindow.gameObject.SetActive(true);
         discardWindow.gameObject.GetComponent<AmtConfirmWindow>().InitAmt(1);
+        OnBackButton();
         this.gameObject.SetActive(false);
     }
     public void OnSelectHotKeyItem()
@@ -79,6 +75,7 @@ public class InventoryItemOptions : ItemOptions
             setkeySpellWindow.gameObject.SetActive(true);
             this.gameObject.SetActive(false);
         }
+        OnBackButton();
     }
     public void OnLearnAbility()
     {
@@ -97,5 +94,6 @@ public class InventoryItemOptions : ItemOptions
             CompeleteLearnWindow.gameObject.SetActive(true);
             gameObject.SetActive(false);
         }
+        OnBackButton();
     }
 }

@@ -10,18 +10,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6d20ca50a56e5ba4f9f31359768ac396, type: 3}
-  m_Name: Big EXP
+  m_Name: Small EXP
   m_EditorClassIdentifier: 
-  nameItem: Big EXP
-  icon: {fileID: 5929268984432166123, guid: 72deb44d3494f444fbf67d74be2a2abc, type: 3}
-  itemNumber: 32
+  nameItem: Small EXP
+  icon: {fileID: 7997236479080048479, guid: 72deb44d3494f444fbf67d74be2a2abc, type: 3}
+  itemNumber: 30
   currentAmt: 1
   isStackable: 1
   itemDescription: Use to increase exp
-  flavor: Co 45la
-  buyPrice: 2250
+  flavor: Gain 1000 Exp
+  buyPrice: 1700
   sellPrice: 0
-  Rarity: 3
+  Rarity: 0
   Type: 0
-  value: 3000
-  costUpgrade: 100
+  value: 1000
+  costUpgrade: 50

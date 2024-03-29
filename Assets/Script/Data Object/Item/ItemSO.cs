@@ -16,7 +16,10 @@ public class ItemSO : ScriptableObject
     public int sellPrice;
     public ItemRarity Rarity;
     public ItemType Type;
-    public virtual void Use() { }
+    public virtual void Use()
+    {
+
+    }
     public int GetAmtInInventory()
     {
         return PartyController.inventoryG.GetItemAmt(this);
@@ -39,4 +42,5 @@ public class ItemSO : ScriptableObject
         PartyController.IncreaseCoin(-learncost);
         PartyController.inventoryG.LoadInventory();
     }
+
 }

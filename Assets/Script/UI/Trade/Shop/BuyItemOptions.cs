@@ -25,5 +25,6 @@ public class BuyItemOptions : ItemOptions
             buyWindow.gameObject.GetComponent<AmtConfirmWindow>().InitAmt(1);
             gameObject.SetActive(false);
         }
+        OnBackButton();
     }
 }

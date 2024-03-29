@@ -5,5 +5,8 @@ using UnityEngine;
 public abstract class Consumable : ItemSO
 {
     public int value;
-    public abstract void Use();
+    public override void Use()
+    {
+        base.Use();
+    }
 }

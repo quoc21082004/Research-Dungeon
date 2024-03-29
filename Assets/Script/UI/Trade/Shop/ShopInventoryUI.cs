@@ -1,10 +1,24 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class ShopInventoryUI : InventoryUI
 {
     public List<ItemSO> shopItemList;
+    protected override void Awake()
+    {
+        inventory = PartyController.inventoryG;
+        //slots = itemsParent.GetComponentsInChildren<InventorySlot>();
+        slots = itemsParent.GetComponentsInChildren<InventorySlot>().ToList();
+        for (int i = 0; i < shopItemList.Count + 2; i++) 
+        {
+            var spawnSlot = PoolManager.instance.Release(slotprefab.gameObject);
+            spawnSlot.transform.SetParent(itemsParent);
+            spawnSlot.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        inventory.onItemChangedCallBack += UpdateUI;
+    }
     protected override void UpdateUI()
     {
         for (int i = 0; i < slots.Count; i++) 
