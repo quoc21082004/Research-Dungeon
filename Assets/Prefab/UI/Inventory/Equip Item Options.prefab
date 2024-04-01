@@ -495,7 +495,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &5725462353833061262
 RectTransform:
   m_ObjectHideFlags: 0
@@ -538,7 +538,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   selectSlotbtn: {fileID: 0}
   unEquip_btn: {fileID: 5191298086513046931}
-  equipmentIndex: 0
 --- !u!1 &5553305276171369890
 GameObject:
   m_ObjectHideFlags: 0

@@ -17,6 +17,8 @@ public class InventorySlotBtn :MonoBehaviour ,ISelectHandler
                 itemOptionWindow.gameObject.SetActive(true);
                 itemOptionWindow.selectSlotbtn = GetComponent<Button>();
             }
+            else
+                itemOptionWindow.gameObject.SetActive(false);
         });
     }
     public void OnSelect(BaseEventData eventData)

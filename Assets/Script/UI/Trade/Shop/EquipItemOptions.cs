@@ -14,9 +14,7 @@ public class EquipItemOptions : ItemOptions
     private void Update()
     {
         if (selectSlotbtn != null)
-        {
             equipmentIndex = selectSlotbtn.GetComponentInParent<EquipSlot>().GetItemValue;
-        }
     }
     public void OnUnEquipButton()
     {

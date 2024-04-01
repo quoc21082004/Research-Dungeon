@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Shoes
   m_EditorClassIdentifier: 
   nameItem: Shoes Armor
-  icon: {fileID: 1511437810439455084, guid: 75ad3dea3a2ec5c47942a205cfbca39b, type: 3}
-  itemNumber: 43
+  icon: {fileID: 1149257448, guid: 2afebe2c0d7849046b9c5d9bbc7691d1, type: 3}
+  itemNumber: 45
   currentAmt: 1
   isStackable: 0
   itemDescription: 'use to equip '
@@ -26,6 +26,6 @@ MonoBehaviour:
   Rarity: 0
   Type: 0
   value: -1
-  equipSlot: 3
+  equipSlot: 5
   armorModifier: 10
   damageModifier: 10

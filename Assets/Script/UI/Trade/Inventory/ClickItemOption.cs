@@ -14,6 +14,7 @@ public class ClickItemOption : MonoBehaviour, IPointerClickHandler
         if (itemOptionWindow != null)
             itemOptionWindow = GetComponentInParent<InventoryUI>().itemOptionsWindow;
     }
+    private void OnDisable() => itemOptionWindow.gameObject.SetActive(false);
     public void OnPointerClick(PointerEventData eventData)
     {
         if (GetComponent<Button>().interactable = true && (eventData.button == PointerEventData.InputButton.Right

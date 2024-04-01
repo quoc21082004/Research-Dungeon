@@ -16,6 +16,8 @@ public class Equipment : Consumable
 }
 public enum EquipmentSlot       // 0 - 3
 {
+    Weapon,
+    Ring,
     Head,   
     Chest,
     Legs,

@@ -21,5 +21,5 @@ MonoBehaviour:
   flavor: Just Sell
   buyPrice: 503
   sellPrice: 200
-  Rarity: 0
+  Rarity: 2
   Type: 3

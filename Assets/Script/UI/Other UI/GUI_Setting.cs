@@ -139,16 +139,12 @@ public class GUI_Setting : MonoBehaviour
     {
         PlayerPrefs.SetInt(Key_CurrentResolutionIndex, _index);
         var _resolution = _settingResolution[_index];
-        Debug.Log("pos " + _index);
-        Debug.Log($"{_resolution.width} {_resolution.height}");
         Screen.SetResolution(_resolution.width, _resolution.height, CheckResolutionFullScreen(_resolution));
     }
     public void OnValueChangeFps(int _index)
     {
         PlayerPrefs.SetInt(Key_CurrentFpsIndex, _index);
         var _fps = _index >= 6 ? -1 : int.Parse(_settingfps[_index]); // string -> to int
-        Debug.Log("pos " + _index);
-        Debug.Log($"fps :{_fps}");
         Application.targetFrameRate = _fps;
     }
     #endregion

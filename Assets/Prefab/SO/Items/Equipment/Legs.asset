@@ -13,8 +13,8 @@ MonoBehaviour:
   m_Name: Legs
   m_EditorClassIdentifier: 
   nameItem: Legs Armor
-  icon: {fileID: -4715539122891686254, guid: 75ad3dea3a2ec5c47942a205cfbca39b, type: 3}
-  itemNumber: 42
+  icon: {fileID: 594983225, guid: 2afebe2c0d7849046b9c5d9bbc7691d1, type: 3}
+  itemNumber: 44
   currentAmt: 1
   isStackable: 0
   itemDescription: 'use to equip '
@@ -26,6 +26,6 @@ MonoBehaviour:
   Rarity: 0
   Type: 0
   value: -1
-  equipSlot: 2
+  equipSlot: 4
   armorModifier: 7
   damageModifier: 7

@@ -9,10 +9,7 @@ public class SelectedItemDisplay : MonoBehaviour
     [SerializeField] public TextMeshProUGUI itemTitle_txt;
     [SerializeField] public TextMeshProUGUI itemDescription_txt;
     [SerializeField] public TextMeshProUGUI itemFlavor_txt;
-    private void OnEnable()
-    {
-        UpdateUI();
-    }
+    private void OnEnable() => UpdateUI();
     public virtual void UpdateUI()
     {
         if (InventoryUI.selectedItem == null)

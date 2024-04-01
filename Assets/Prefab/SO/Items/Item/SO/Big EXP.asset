@@ -21,7 +21,7 @@ MonoBehaviour:
   flavor: Gain 3000 Exp
   buyPrice: 2250
   sellPrice: 0
-  Rarity: 0
+  Rarity: 2
   Type: 0
   value: 3000
   costUpgrade: 100

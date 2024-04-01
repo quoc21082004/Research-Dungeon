@@ -10,22 +10,20 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: ec2d6ce8e2601274fa99b7fee3eb66a0, type: 3}
-  m_Name: Head
+  m_Name: Staff
   m_EditorClassIdentifier: 
-  nameItem: Head Amor
-  icon: {fileID: -1432909337, guid: 2afebe2c0d7849046b9c5d9bbc7691d1, type: 3}
-  itemNumber: 42
+  nameItem: Staff Weapon
+  icon: {fileID: 2010682035, guid: 2afebe2c0d7849046b9c5d9bbc7691d1, type: 3}
+  itemNumber: 40
   currentAmt: 1
   isStackable: 0
   itemDescription: 'use to equip '
-  flavor: '+5 def
-
-    +10 dmg'
+  flavor: +100 dmg
   buyPrice: 4500
   sellPrice: 500
-  Rarity: 0
+  Rarity: 2
   Type: 0
   value: -1
-  equipSlot: 2
-  armorModifier: 5
-  damageModifier: 10
+  equipSlot: 0
+  armorModifier: 100
+  damageModifier: 0

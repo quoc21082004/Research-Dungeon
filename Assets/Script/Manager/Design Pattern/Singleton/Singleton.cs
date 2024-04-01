@@ -16,9 +16,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
         else
         {
             if (instance != null)
-            {
                 Destroy(this.gameObject);
-            }
         }
     }
 }

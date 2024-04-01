@@ -19,7 +19,7 @@ MonoBehaviour:
   isStackable: 1
   itemDescription: 'Increase 150 hp '
   flavor: 
-  buyPrice: 2000
+  buyPrice: 1990
   sellPrice: 1000
   Rarity: 2
   Type: 0

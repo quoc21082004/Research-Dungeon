@@ -21,5 +21,5 @@ MonoBehaviour:
   flavor: It's useless ! Only Sell
   buyPrice: 502
   sellPrice: 300
-  Rarity: 0
+  Rarity: 2
   Type: 3

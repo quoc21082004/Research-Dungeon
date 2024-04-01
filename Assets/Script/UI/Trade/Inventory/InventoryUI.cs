@@ -18,6 +18,11 @@ public class InventoryUI : MonoBehaviour
     [HideInInspector] public static Inventory inventory;
     protected List<InventorySlot> slots = new List<InventorySlot>();
     [SerializeField] public InventorySlot slotprefab;
+
+    public TMP_Dropdown sortDropDown;
+    List<string> sort_txt_index = new List<string>() { "All", "Amount", "Rarity", "Type" };
+    private string Key_CurrentSortIndex = "SortIndex";
+
     protected virtual void Awake()
     {
         inventory = PartyController.inventoryG;
@@ -50,6 +55,7 @@ public class InventoryUI : MonoBehaviour
         if (amtConfirmWindow != null)
             amtConfirmWindow.gameObject.SetActive(false);
         UpdateUI();
+        InitSortDropDown();
     }
     protected virtual void UpdateUI()
     {
@@ -68,13 +74,30 @@ public class InventoryUI : MonoBehaviour
     public void SelectItem(InventorySlot slot) // make option show
     {
         if (itemOptionsWindow != null)
+        {
             itemOptionsWindow.gameObject.SetActive(false);
-        selectedItem = slot.item;       // 415
-        selectItemDisplay.transform.position = new Vector3(slot.transform.position.x - 172, slot.transform.position.y, slot.transform.position.z);
-        selectItemDisplay.UpdateUI();
+            selectedItem = slot.item;       // 415
+            selectItemDisplay.transform.position = new Vector3(slot.transform.position.x - 172, slot.transform.position.y, slot.transform.position.z);
+            selectItemDisplay.UpdateUI();
+        }
+    }
+
+    #region Sort Item ( acorrding amonut - rarity - type
+    private void InitSortDropDown()
+    {
+        if (sortDropDown)
+        {
+            sortDropDown.ClearOptions();
+            sortDropDown.AddOptions(sort_txt_index);
+            sortDropDown.value = PlayerPrefs.GetInt(Key_CurrentSortIndex, 0);
+            sortDropDown.RefreshShownValue();
+            SortItem(sortDropDown.value);
+        }
     }
     public void SortItem(int _selectOption) // item Sort Inventory
     {
+        PlayerPrefs.SetInt(Key_CurrentSortIndex, _selectOption);
+        Debug.Log("123");
         switch(_selectOption)
         {
             case 1:
@@ -94,44 +117,23 @@ public class InventoryUI : MonoBehaviour
     {
         AudioManager.instance.PlaySfx("Click");
         itemSlots.Sort((s1, s2) => s2.currentAmt.CompareTo(s1.currentAmt));
-        for (int i = 0; i < slots.Count; i++)
-        {
-            if (slots[i].item != null)
-            {
-                slots[i].item = itemSlots[i];
-                slots[i].icon.sprite = itemSlots[i].icon;
-                slots[i].stackItem_text.text = "" + itemSlots[i].currentAmt;
-            }
-        }
+        UpdateUI();
     }
     private void SortByRarity(List<ItemSO> itemSlots)
     {
         AudioManager.instance.PlaySfx("Click");
         itemSlots.Sort((s1, s2) => s2.Rarity.CompareTo(s1.Rarity));
-        for (int i = 0; i < slots.Count; i++)
-        {
-            if (slots[i].item != null)
-            {
-                slots[i].item = itemSlots[i];    
-                slots[i].icon.sprite = itemSlots[i].icon;
-                slots[i].stackItem_text.text = "" + itemSlots[i].currentAmt;
-            }
-        }
+        UpdateUI();
     }
     private void SortByType(List<ItemSO> itemSlots)
     {
         AudioManager.instance.PlaySfx("Click");
         itemSlots.Sort((s1, s2) => s1.Type.CompareTo(s2.Type));
-        for (int i = 0; i < slots.Count; i++)
-        {
-            if (slots[i].item != null)
-            {
-                slots[i].item = itemSlots[i];
-                slots[i].icon.sprite = itemSlots[i].icon;
-                slots[i].stackItem_text.text = "" + itemSlots[i].currentAmt;
-            }
-        }
+        UpdateUI();
     }
+
+    #endregion
+
     public void AddGoldFree()
     {
         int random = Random.Range(500, 800);

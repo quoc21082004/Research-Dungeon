@@ -12,7 +12,7 @@ public class SelectShopDisplay : SelectedItemDisplay
     }
     public override void UpdateUI()
     {
-        if (InventoryUI.selectedItem == null)
+        /*if (InventoryUI.selectedItem == null)
         {
             gameObject.SetActive(false);
             item_img.sprite = null;
@@ -31,6 +31,17 @@ public class SelectShopDisplay : SelectedItemDisplay
             else if (PartyController.inventoryG.Gold < InventoryUI.selectedItem.buyPrice)
                 itemPriceGold_txt.color = Color.red;
             itemPriceGold_txt.text = "" + InventoryUI.selectedItem.buyPrice + "  <sprite=3>";
+        }*/
+        base.UpdateUI();
+        if (InventoryUI.selectedItem != null)
+        {
+            if (PartyController.inventoryG.Gold >= InventoryUI.selectedItem.buyPrice)
+                itemPriceGold_txt.color = Color.white;
+            else if (PartyController.inventoryG.Gold < InventoryUI.selectedItem.buyPrice)
+                itemPriceGold_txt.color = Color.red;
+            itemPriceGold_txt.text = "" + InventoryUI.selectedItem.buyPrice + "  <sprite=3>";
         }
+        else if (InventoryUI.selectedItem == null)
+            itemPriceGold_txt.text = "";
     }
 }
