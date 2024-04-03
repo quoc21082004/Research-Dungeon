@@ -17,6 +17,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Dungeon/BossRoom.unity
     guid: cb78be7bc7ce56e49a349998b042ff96
+  - enabled: 1
+    path: Assets/Scenes/Base/Cut Scene.unity
+    guid: 282140c49414de74ca38d322b926824b
   m_configObjects:
     com.unity.input.settings: {fileID: 11400000, guid: a55463809fee53e449a73cb93d1e6391,
       type: 2}

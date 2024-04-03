@@ -14,10 +14,13 @@ public class FloatingAlert: MonoBehaviour
         mySR = GetComponent<SpriteRenderer>();
         alertTimeCounter = alertTime;
     }
-    private void Update()
+    private void Enable()
     {
-        transform.Translate(new Vector3(0f, moveSpeed * Time.deltaTime, 0f));
-        mySR.color = new Color(1f, 1f, 1f, alertTimeCounter / alertTime);
-        alertTimeCounter -= Time.deltaTime;
+        while (alertTimeCounter > 0.1f)
+        {
+            transform.Translate(new Vector3(0f, moveSpeed * Time.deltaTime, 0f));
+            mySR.color = new Color(1f, 1f, 1f, alertTimeCounter / alertTime);
+            alertTimeCounter -= Time.deltaTime;
+        }
     }
 }
