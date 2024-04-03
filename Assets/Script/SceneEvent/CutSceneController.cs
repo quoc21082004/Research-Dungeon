@@ -20,7 +20,7 @@ public class CutSceneController : MonoBehaviour
     private int currentAction = 0;
     private float moveSpeed;
     private int runningAction = 0;
-    private float cameraChangeSize;
+    private float cameraChangeSizeSpeed = 12f;
 
     private Coroutine moveCoroutine;
     private Coroutine cameraSizeCoroutine;
@@ -61,6 +61,7 @@ public class CutSceneController : MonoBehaviour
         moveCoroutine = null;
         runningAction--;
     }
+    public void SetMoveSpeed(float _setSpeed) => moveSpeed = _setSpeed;
     #endregion
 
     #region Show Dialogue 
@@ -68,13 +69,10 @@ public class CutSceneController : MonoBehaviour
     {
         if (DialogueManager.instance.IsUsing)
             runningAction--;
-        else
-        {
-            runningAction++;
-            if (index > dialogueStore.Length || index < 0) 
-                Debug.Log("Don't have enough storage dialogue " + index);
-            StartCoroutine(ShowDialogueCoroutine(Mathf.Clamp(index, 0, dialogueStore.Length - 1))); //
-        }
+        runningAction++;
+        if (index > dialogueStore.Length || index < 0)
+            Debug.Log("Don't have enough storage dialogue " + index);
+        StartCoroutine(ShowDialogueCoroutine(Mathf.Clamp(index, 0, dialogueStore.Length - 1))); //
     }
     private IEnumerator ShowDialogueCoroutine(int index)
     {
@@ -97,14 +95,15 @@ public class CutSceneController : MonoBehaviour
     }
     private IEnumerator ChangeCameraSizeCoroutine(float _size)
     {
-        while (virtualCineCamera.m_Lens.OrthographicSize - _size > Mathf.Epsilon)  
+        while (Mathf.Abs(virtualCineCamera.m_Lens.OrthographicSize - _size) > Mathf.Epsilon)
         {
-            virtualCineCamera.m_Lens.OrthographicSize = Mathf.MoveTowards(virtualCineCamera.m_Lens.OrthographicSize, _size, cameraChangeSize * Time.fixedDeltaTime);
+            virtualCineCamera.m_Lens.OrthographicSize = Mathf.MoveTowards(virtualCineCamera.m_Lens.OrthographicSize, _size, cameraChangeSizeSpeed * Time.fixedDeltaTime);
             yield return new WaitForSeconds(Time.fixedDeltaTime);
         }
         cameraSizeCoroutine = null;
         runningAction--;
     }
+    public void SetCameraSizeChange(float _setCameraSizeChange) => cameraChangeSizeSpeed = _setCameraSizeChange;
     #endregion
 
     #region Delay Action End
@@ -126,16 +125,15 @@ public class CutSceneController : MonoBehaviour
     }
     #endregion
 
-    public void SetMoveSpeed(float _setSpeed) => moveSpeed = _setSpeed;
-    public void SetCameraSizeChange(float _setCameraSizeChange) => cameraChangeSize = _setCameraSizeChange;
     public void SetFade(bool isState) => SetFade(isState, isState ? 1f : 0f);
     public void SetFade(bool isState, float duration)
     {
-        fadingAnim.StopPlayback();
-        var _alpha = isState ? 1f : 0f;
-        fadingAnim.Play("fading");
+        if (isState)
+            fadingAnim.Play("FadeIn");
+        else
+            fadingAnim.Play("FadeOut");
     }
-    private void SkipCutScene()
+    public void SkipCutScene()
     {
         StopAllCoroutines();
         StartCoroutine(SkipCutSceneCoroutine());

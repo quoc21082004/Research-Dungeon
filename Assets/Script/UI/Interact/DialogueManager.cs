@@ -1,3 +1,4 @@
+
 using System;
 using System.Collections;
 using System.Linq;
@@ -44,6 +45,7 @@ public class DialogueManager : Singleton<DialogueManager>, IPointerClickHandler
     private void ShowDialogueInternal(DialogueObject dialogueObject)
     {
         dialogue.gameObject.SetActive(true);
+        InputManager.playerInput.Disable();
         GUI_Input.playerInput.Disable();
         wasPointerClick = false;
         StopAllCoroutines();
@@ -51,21 +53,21 @@ public class DialogueManager : Singleton<DialogueManager>, IPointerClickHandler
     }
     private IEnumerator ShowDialogueCoroutine(DialogueObject dialogueObject)
     {
+        name_txt.text = dialogueObject.name.ToString();
         foreach (var sentence in dialogueObject.sentences)
         {
-            name_txt.text = dialogueObject.name.ToString();
             StartWrite(sentence);
             yield return new WaitWhile(() => isWriting && !wasPointerClick);
-            //StopWrite();
+            StopWrite();
             dialogue_txt.color = Color.green;
             yield return null;
             yield return new WaitUntil(() => wasPointerClick);
             yield return null;
         }
+        //dialogue_txt.text = string.Empty;
+        //name_txt.text = string.Empty;
         if (dialogueObject.options.Count > 0)
         {
-            dialogue_txt.text = string.Empty;
-            name_txt.text = string.Empty;
             optionBox.ShowOption(dialogueObject);
             yield return new WaitWhile(() => optionBox.isShowing);
         }
@@ -75,6 +77,7 @@ public class DialogueManager : Singleton<DialogueManager>, IPointerClickHandler
     {
         StopAllCoroutines();
         dialogue.gameObject.SetActive(false);
+        InputManager.playerInput.Enable();
         GUI_Input.playerInput.Enable();
         IsUsing = false;
     }
@@ -92,10 +95,7 @@ public class DialogueManager : Singleton<DialogueManager>, IPointerClickHandler
         isWriting = false;
         isSkipDialogue = false;
     }
-    private void StartWrite(string sentence)
-    {
-        writeCourtine = StartCoroutine(TypeWritterCoroutine(sentence));
-    }
+    private void StartWrite(string sentence) => writeCourtine = StartCoroutine(TypeWritterCoroutine(sentence));
     private void StopWrite()
     {
         if (writeCourtine != null)
