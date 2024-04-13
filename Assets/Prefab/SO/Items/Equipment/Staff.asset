@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2d6ce8e2601274fa99b7fee3eb66a0, type: 3}
   m_Name: Staff
   m_EditorClassIdentifier: 
-  nameItem: Staff Weapon
+  nameItem: 'Staff '
   icon: {fileID: 2010682035, guid: 2afebe2c0d7849046b9c5d9bbc7691d1, type: 3}
   itemNumber: 40
   currentAmt: 1
@@ -25,5 +25,6 @@ MonoBehaviour:
   Type: 0
   value: -1
   equipSlot: 0
+  level: 1
   armorModifier: 100
-  damageModifier: 0
+  atkModifier: 0

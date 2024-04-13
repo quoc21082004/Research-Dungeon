@@ -821,6 +821,12 @@ PrefabInstance:
       propertyPath: m_Name
       value: Game Manager
       objectReference: {fileID: 0}
+    - target: {fileID: 1683588582820038378, guid: f064ac48cc11c7e40849b49bdb0d5dc7,
+        type: 3}
+      propertyPath: equipUpgradeSO
+      value: 
+      objectReference: {fileID: 11400000, guid: cb60bf920b7a0f446afd686e3ee97bf4,
+        type: 2}
     - target: {fileID: 1683588582820038379, guid: f064ac48cc11c7e40849b49bdb0d5dc7,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1032,7 +1038,7 @@ PrefabInstance:
     - target: {fileID: 9179929879596257622, guid: a8337de90192f7b449802e29f3b0ecfa,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_IntArgument
-      value: 4
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

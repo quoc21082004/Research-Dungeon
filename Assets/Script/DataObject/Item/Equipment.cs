@@ -6,8 +6,9 @@ using UnityEngine;
 public class Equipment : Consumable
 {
     public EquipmentSlot equipSlot;
+    public int level;
     public int armorModifier;
-    public int damageModifier;
+    public int atkModifier;
     public override void Use()
     {
         base.Use();

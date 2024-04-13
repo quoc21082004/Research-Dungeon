@@ -5,8 +5,6 @@ using System;
 public class EquipmentManager : Singleton<EquipmentManager>
 {
     public Equipment[] currentEquipment;
-    public delegate void OnEquipmentChanged(Equipment newItem, Equipment oldItem);
-    public OnEquipmentChanged onEquipmentChanged;
     int numOfEquipment;
 
     private void Start()
@@ -39,23 +37,16 @@ public class EquipmentManager : Singleton<EquipmentManager>
             currentEquipment[_slotindex] = null;
         }
     }
-    public void UnAllEquip()
-    {
-        for (int i = 0; i < currentEquipment.Length; i++) 
-        {
-            UnEquip(i);
-        }
-    }
     public void AddModifier(Equipment modifier)
     {
         var playerSO = GameManager.instance.playerSO;
         playerSO.basicStats.defense = Mathf.Max(0, playerSO.basicStats.defense + modifier.armorModifier);
-        playerSO.basicAttack.wandDamage = Mathf.Max(0, playerSO.basicAttack.wandDamage + modifier.damageModifier);
+        playerSO.basicAttack.wandDamage = Mathf.Max(0, playerSO.basicAttack.wandDamage + modifier.atkModifier);
     }
     public void RemoveModifier(Equipment modifier)
     {
         var playerSO = GameManager.instance.playerSO;
         playerSO.basicStats.defense = Mathf.Max(0, playerSO.basicStats.defense - modifier.armorModifier);
-        playerSO.basicAttack.wandDamage = Mathf.Max(0, playerSO.basicAttack.wandDamage - modifier.damageModifier);
+        playerSO.basicAttack.wandDamage = Mathf.Max(0, playerSO.basicAttack.wandDamage - modifier.atkModifier);
     }
 }

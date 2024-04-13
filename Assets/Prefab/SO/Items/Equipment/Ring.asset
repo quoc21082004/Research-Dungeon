@@ -25,5 +25,6 @@ MonoBehaviour:
   Type: 0
   value: -1
   equipSlot: 1
+  level: 1
   armorModifier: 80
-  damageModifier: 0
+  atkModifier: 0

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2d6ce8e2601274fa99b7fee3eb66a0, type: 3}
   m_Name: Head
   m_EditorClassIdentifier: 
-  nameItem: Head Amor
+  nameItem: 'Head '
   icon: {fileID: -1432909337, guid: 2afebe2c0d7849046b9c5d9bbc7691d1, type: 3}
   itemNumber: 42
   currentAmt: 1
@@ -27,5 +27,6 @@ MonoBehaviour:
   Type: 0
   value: -1
   equipSlot: 2
+  level: 1
   armorModifier: 5
-  damageModifier: 10
+  atkModifier: 0

@@ -80,7 +80,7 @@ public class SpellHotKeyManager : Singleton<SpellHotKeyManager> , IHotKey
                 hotkeySpellIcons[i].enabled = true;
                 hotkeySpellIcons[i].sprite = hotkeySpell[i].icon;
                 SpellBookType type = hotkeySpell[i].type;
-                hotkeySpellCD[i].fillAmount = spellbookCDcounter[type] / SpellBook.GetSpellCooldown(type);
+                hotkeySpellCD[i].fillAmount = spellbookCDcounter[type] / hotkeySpell[i].spell.baseCoolDown;
             }
         }
     }
@@ -122,7 +122,7 @@ public class SpellHotKeyManager : Singleton<SpellHotKeyManager> , IHotKey
         spellbook.Use();
         SpellBookType type = spellbook.type;
         isSpellCDcounter[type] = true;
-        spellbookCDcounter[type] = SpellBook.GetSpellCooldown(type);
+        spellbookCDcounter[type] = spellbook.spell.baseCoolDown;
         skillbarDisplay.gameObject.SetActive(false);
         isCast = false;
         UpdateHoyKeySpellIcon();

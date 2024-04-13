@@ -51,12 +51,9 @@ public class GUI_UpgradeExp : MonoBehaviour
     private int currentCoin,totalCost, totalExp, amountUse, selectItem = 0;
     private int smallExpAmt, mediumExpAmt, bigExpAmt, maxLvl,currentLvl, currentExp, maxExp = 0;
     private bool canUpgrade => currentLvl < maxLvl;
-    private void OnEnable()
+    private void Awake()
     {
-        upgradeDataSO = GameManager.instance.upgradeSO;
-        upgrade_btn.onClick.AddListener(OnClickUpgradeButton);
-        cancel_btn.onClick.AddListener(OnClickCancelButton);
-
+        itemUpgrade = itemParents.GetComponentsInChildren<InventorySlot>().ToList();
         for (int i = 0; i < upgrade.Count; i++)
         {
             var spawnItemUpgrade = PoolManager.instance.Release(itemprefab.gameObject);
@@ -64,29 +61,28 @@ public class GUI_UpgradeExp : MonoBehaviour
             spawnItemUpgrade.GetComponentInChildren<InventorySlotBtn>().enabled = false;
             spawnItemUpgrade.GetComponentInChildren<ClickItemOption>().enabled = false;
         }
+    }
+    private void OnEnable()
+    {
+        upgradeDataSO = GameManager.instance.upgradeSO;
+        upgrade_btn.onClick.AddListener(OnClickUpgradeButton);
+        cancel_btn.onClick.AddListener(OnClickCancelButton);
+
         itemUpgrade = itemParents.GetComponentsInChildren<InventorySlot>().ToList();
+        itemUpgrade.ForEach(x => x.gameObject.SetActive(true));
         itemUpgrade.ForEach(s1 => s1.GetComponentInChildren<Button>().onClick.RemoveAllListeners());
-        int count = 0;
-        foreach (var _itemUpgrade in itemUpgrade)
+        for (int i = 0; i < itemUpgrade.Count; i++)
         {
-            var itemSO = upgrade[count];
+            var itemSO = upgrade[i];
             var itemValue = PartyController.inventoryG.GetItemAmt(itemSO);
-            _itemUpgrade.AddItem(itemSO, itemValue);
-            _itemUpgrade.SetAmountText("");
-            count++;
+            itemUpgrade[i].AddItem(itemSO, itemValue);
+            itemUpgrade[i].SetAmountText("");
+            var copy = i + 1;
+            itemUpgrade[i].GetComponentInChildren<Button>().onClick.AddListener(() =>
+            {
+                OnSelectItemButton(copy);
+            });
         }
-        itemUpgrade[0].GetComponentInChildren<Button>().onClick.AddListener(() =>
-        {
-            OnSelectItemButton(1);
-        });
-        itemUpgrade[1].GetComponentInChildren<Button>().onClick.AddListener(() =>
-        {
-            OnSelectItemButton(2);
-        });
-        itemUpgrade[2].GetComponentInChildren<Button>().onClick.AddListener(() =>
-        {
-            OnSelectItemButton(3);
-        });
         InitValue();
         UpdateData();
     }
@@ -95,7 +91,7 @@ public class GUI_UpgradeExp : MonoBehaviour
         upgrade_btn.onClick.RemoveListener(OnClickUpgradeButton);
         cancel_btn.onClick.RemoveListener(OnClickCancelButton);
         itemUpgrade.ForEach(s1 => s1.GetComponentInChildren<Button>().onClick.RemoveAllListeners());          
-        itemUpgrade.ForEach(_itemUpgrade => _itemUpgrade.gameObject.SetActive(false));
+        //itemUpgrade.ForEach(_itemUpgrade => _itemUpgrade.gameObject.SetActive(false));
     }
     private void InitValue()
     {
@@ -217,7 +213,6 @@ public class GUI_UpgradeExp : MonoBehaviour
         OnIncreaseAmountButton(0);
         if (!canUpgrade)
             return;
-        Debug.Log("select item :" + selectItem);
     }
     private void SetStats()
     {
@@ -233,13 +228,14 @@ public class GUI_UpgradeExp : MonoBehaviour
         #endregion      upgrade notice
         if (increaseLevel > 0)
         {
+            UpgradeNoticeManager.instance.MAX_ATTRIBUTE = 5;
+            UpgradeNoticeManager.instance.SpawnNoticeUpgrade();
             UpgradeNoticeManager.instance.SetLevelText(curLvl.ToString());
             UpgradeNoticeManager.instance.CreateNoticeBar(0, "HP", playerSO.basicStats.health.ToString(), curHp.ToString());
             UpgradeNoticeManager.instance.CreateNoticeBar(1, "Mana", playerSO.basicStats.mana.ToString(), curMp.ToString());
             UpgradeNoticeManager.instance.CreateNoticeBar(2, "Defense", playerSO.basicStats.defense.ToString(), curDef.ToString());
             UpgradeNoticeManager.instance.CreateNoticeBar(3, "Atk", playerSO.basicAttack.wandDamage.ToString(), curAtk.ToString());
             UpgradeNoticeManager.instance.CreateNoticeBar(4, "DMGx", playerSO.extraBuff.percentDamage.ToString(), curDMGx.ToString());
-            UpgradeNoticeManager.instance.EnableUpgradeNotice();
         }
         PartyController.IncreaseCoin(-totalCost);
         #region After Upgrade
@@ -252,6 +248,7 @@ public class GUI_UpgradeExp : MonoBehaviour
         playerSO.basicAttack.wandDamage = curDef;
         playerSO.extraBuff.percentDamage = curDMGx;
         #endregion
+
         switch (selectItem)
         {
             case 1: // small exp

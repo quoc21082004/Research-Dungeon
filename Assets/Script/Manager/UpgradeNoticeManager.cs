@@ -12,20 +12,9 @@ public class UpgradeNoticeManager : Singleton<UpgradeNoticeManager>
     [SerializeField] TextBar textBarprefab;
     [SerializeField] Transform textBarContent;
     [SerializeField] Button confirm_btn;
-    const int MAX = 5;
-    public int MAX_ATTRIBUTE => MAX;  // hp , mp , atk , def , dmgx
+    public int MAX_ATTRIBUTE;  // hp , mp , atk , def , dmgx
     public List<TextBar> textBarList;
-    private void OnEnable()
-    {
-        for (int i = 0; i < MAX_ATTRIBUTE; i++)
-        {
-            var _textbar = PoolManager.instance.Release(textBarprefab.gameObject);
-            _textbar.transform.SetParent(textBarContent);
-            _textbar.transform.localScale = new Vector3(1f, 1f, 1f);
-        }
-        textBarList = textBarContent.GetComponentsInChildren<TextBar>().ToList();
-        confirm_btn.onClick.AddListener(DisableUpgradeNotice);
-    }
+
     private void OnDisable()
     {
         confirm_btn.onClick.RemoveListener(DisableUpgradeNotice);
@@ -38,11 +27,18 @@ public class UpgradeNoticeManager : Singleton<UpgradeNoticeManager>
         textBarList[_index].SetValueBefore(_value1);
         textBarList[_index].SetValueAfter(_value2);
     }
-    public void EnableUpgradeNotice()
+    public void SpawnNoticeUpgrade()
     {
+        for (int i = 0; i < MAX_ATTRIBUTE; i++)
+        {
+            var _textbar = PoolManager.instance.Release(textBarprefab.gameObject);
+            _textbar.transform.SetParent(textBarContent);
+            _textbar.transform.localScale = new Vector3(1f, 1f, 1f);
+        }
+        textBarList = textBarContent.GetComponentsInChildren<TextBar>().ToList();
+        confirm_btn.onClick.AddListener(DisableUpgradeNotice);
         myanim.Play("EnableUpgradeNotice");
         AudioManager.instance.PlaySfx("Click");
-        textBarList.ForEach(x => x.gameObject.SetActive(true));
     }
     private void DisableUpgradeNotice()
     {

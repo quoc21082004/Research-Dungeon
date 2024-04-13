@@ -7,12 +7,10 @@ public class SpellBook : Consumable
     public SpellBookType type;
     public SkillSO spell;
     ActiveAbility ability;
-    public static float CD;
     public override void Use()
     {
         if (ability == null)
             ability = PartyController.player.GetComponent<ActiveAbility>();
-        CD = spell.baseCoolDown;
         switch(type)
         {
             case SpellBookType.ExplosionCircle:
@@ -37,24 +35,6 @@ public class SpellBook : Consumable
         {
             ability.skillInfo = spell;
             ability.TryUse();
-        }
-    }
-    public static float GetSpellCooldown(SpellBookType type)
-    {
-        switch(type)
-        {
-            case SpellBookType.ExplosionCircle:
-                return CD + 1;
-            case SpellBookType.ExplosionBuilet:
-                return CD + 2;
-            case SpellBookType.PoisonZone:
-                return CD + 4;
-            case SpellBookType.LightingCircle:
-                return CD + 8;
-            case SpellBookType.ShieldZone:
-                return CD + 10;
-            default:
-                return -1;
         }
     }
 }

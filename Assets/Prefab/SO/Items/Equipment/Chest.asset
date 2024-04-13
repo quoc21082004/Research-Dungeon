@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec2d6ce8e2601274fa99b7fee3eb66a0, type: 3}
   m_Name: Chest
   m_EditorClassIdentifier: 
-  nameItem: Chest Armor
+  nameItem: 'Chest '
   icon: {fileID: 1701311347, guid: 2afebe2c0d7849046b9c5d9bbc7691d1, type: 3}
   itemNumber: 43
   currentAmt: 1
@@ -27,5 +27,6 @@ MonoBehaviour:
   Type: 0
   value: -1
   equipSlot: 3
+  level: 1
   armorModifier: 15
-  damageModifier: 3
+  atkModifier: 0

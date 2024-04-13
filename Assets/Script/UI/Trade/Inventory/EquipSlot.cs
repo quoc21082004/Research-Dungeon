@@ -1,10 +1,15 @@
 ﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
+
 public class EquipSlot : InventorySlot
 {
-    public override void SelectItem() 
+    public int level;
+    public TextMeshProUGUI equipInfo;
+
+    public override void SelectItem()
     {
         base.SelectItem();
     }

@@ -11,11 +11,12 @@ public class GameManager : Singleton<GameManager>
     [HideInInspector] public int level;
     public PlayerSO playerSO;
     public CharacterUpgradeSO upgradeSO;
+    public EquipmentUpgradeSO equipUpgradeSO;
     private void OnEnable()
     {
-        exp = PlayerPrefs.GetFloat("Exp"); //playerdata.upgradeLevel.exp;//PlayerPrefs.GetFloat("Exp");
-        exptolevel = PlayerPrefs.GetFloat("Explevelup");//playerdata.upgradeLevel.expToLvl;//PlayerPrefs.GetFloat("Explevelup");
-        level = PlayerPrefs.GetInt("level");//playerdata.upgradeLevel.level;//PlayerPrefs.GetInt("level");
+        exp = PlayerPrefs.GetFloat("Exp"); 
+        exptolevel = PlayerPrefs.GetFloat("Explevelup");
+        level = PlayerPrefs.GetInt("level");
     }
     public void LevelUp()
     {
