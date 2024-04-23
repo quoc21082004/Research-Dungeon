@@ -1,4 +1,5 @@
 using System;
+using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
 // use when have  function similar
@@ -30,4 +31,9 @@ public interface IInteract
     void Interact();
     void StartAssign();
     void EndAssign();
+}
+public interface IGUI
+{
+    public void GetReference(GameManager _gameManager);
+    public void UpdateDataGUI();
 }

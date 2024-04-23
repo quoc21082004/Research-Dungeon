@@ -10,7 +10,7 @@ public class Singleton<T> : MonoBehaviour where T : Component
     {
         if (instance == null)
         {
-            DontDestroyOnLoad(this);
+            DontDestroyOnLoad(transform.root);
             instance = this as T;
         }
         else

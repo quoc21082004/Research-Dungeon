@@ -6,7 +6,7 @@ using UnityEngine.EventSystems;
 
 public class PlayerHurt : Damagable
 {
-    Player player;
+    PlayerCTL player;
     bool isHealthRegen, isManaRegen;
     public GameObject gameOverprefab;
     [SerializeField] UnityEvent OnStartCombat;
@@ -14,8 +14,9 @@ public class PlayerHurt : Damagable
     
     private void Awake()
     {
-        player = GameObject.Find("Player").GetComponent<Player>();
+        player = GameObject.Find("Player").GetComponent<PlayerCTL>();
     }
+
     #region Take Damage & Dead
     public override void TakeDamage(float amount, bool isCrit)
     {

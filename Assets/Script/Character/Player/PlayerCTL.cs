@@ -4,8 +4,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class Player : MonoBehaviour
+public class PlayerCTL : MonoBehaviour
 {
+    public const string FILE_NAME = "PlayerStatus";
     SpriteRenderer mySR;
     Rigidbody2D myrigid;
     Animator myanim;
@@ -15,7 +16,6 @@ public class Player : MonoBehaviour
     [HideInInspector] public float maxhealth, maxmana, health, damage, defense, mana, speed;
     [HideInInspector] public bool isAlve = true;
     [HideInInspector] public PlayerSO playerdata;
-    float startSpeed;
     public static bool isFace;
     public float dashSpeed, dashCD;
     bool isDash;
@@ -24,7 +24,6 @@ public class Player : MonoBehaviour
     Vector2 moveInput;
     private void Awake()
     {
-        startSpeed = speed;
         mySR = GetComponent<SpriteRenderer>();
         myrigid = GetComponent<Rigidbody2D>();
         myanim = GetComponent<Animator>();
@@ -38,13 +37,21 @@ public class Player : MonoBehaviour
         health = playerdata.basicStats.health;
         mana = playerdata.basicStats.mana;
     }
+    private void Start()
+    {
+        LoadPos();
+    }
+    private void OnApplicationQuit()
+    {
+        SavePos();
+    }
     private void Update()
     {
         maxhealth = playerdata.basicStats.health;
         maxmana = playerdata.basicStats.mana;
         defense = playerdata.basicStats.defense;
         damage = playerdata.basicAttack.wandDamage;
-        speed = PlayerPrefs.GetFloat("speed") + (PlayerPrefs.GetFloat("speed") * PlayerPrefs.GetFloat("bounsSpeed")) / 100;
+        speed = playerdata.basicStats.movementSpeed;
         if (isAlve)
         {
             PickUp();
@@ -62,6 +69,7 @@ public class Player : MonoBehaviour
         if (mana >= playerdata.basicStats.mana)
             mana = playerdata.basicStats.mana;
     }
+
     #region move & flip
     private void Move()
     {
@@ -94,13 +102,14 @@ public class Player : MonoBehaviour
             isFace = false;
         }
     }
-    #endregion
     public void SetPosition(Vector3 cords, Vector2 direction)
     {
         Vector2 currentMove = new Vector2(moveInput.x, moveInput.y);
-        this.transform.position = cords;
+        transform.position = cords;
         currentMove = direction;
     }
+    #endregion
+
     #region Dash
     private void Dash()
     {
@@ -116,7 +125,7 @@ public class Player : MonoBehaviour
     {
         float dashTime = 0.2f;
         yield return new WaitForSeconds(dashTime);
-        speed = startSpeed;
+        speed = speed / 2;
         yield return new WaitForSeconds(dashCD);
         mytrail.emitting = false;
         isDash = false;
@@ -135,6 +144,19 @@ public class Player : MonoBehaviour
                 if (collider.gameObject.TryGetComponent<LootItem>(out LootItem loot))
                     loot.StartCoroutine(loot.MoveCourtine());
             }
+    }
+    #endregion
+
+    #region save-load
+    public void SavePos()
+    {
+        Vector3 tempPos = transform.position;
+        SaveLoadHandler.SaveToJson<Vector3>(tempPos, FILE_NAME);
+    }
+    public void LoadPos()
+    {
+        Vector3 afterPos = SaveLoadHandler.LoadFromFile<Vector3>(FILE_NAME);
+        transform.position = afterPos;
     }
     #endregion
 }

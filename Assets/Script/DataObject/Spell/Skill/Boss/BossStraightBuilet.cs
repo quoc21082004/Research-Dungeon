@@ -11,7 +11,7 @@ public class BossStraightBuilet : MonoBehaviour, ISpell
     Transform target;
     private void Awake()
     {
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        target = GameObject.FindGameObjectWithTag("PlayerCTL").GetComponent<Transform>();
         myrigid = GetComponent<Rigidbody2D>();
     }
     public void KickOff(ActiveAbility ability, Vector2 dir, Quaternion rot)

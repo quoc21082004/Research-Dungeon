@@ -26,7 +26,7 @@ public class Skeleton : EnemyMelee
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "PlayerCTL")
             collision.gameObject.GetComponent<PlayerHurt>().TakeDamage(damage, false);
     }
     void OnDrawGizmos()

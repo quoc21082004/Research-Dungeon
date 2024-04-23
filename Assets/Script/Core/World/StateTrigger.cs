@@ -14,7 +14,7 @@ public class StateTrigger : MonoBehaviour
     private int currentSpawner;
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (!isTrigger && collision.gameObject.CompareTag("Player")) 
+        if (!isTrigger && collision.gameObject.CompareTag("PlayerCTL")) 
         {
             TriggerStartEvent();
         }

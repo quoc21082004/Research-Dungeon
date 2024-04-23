@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
-public class ShopManager : Singleton<ShopManager>
+public class GUI_Shop : MonoBehaviour , IGUI
 {
     [SerializeField] GameObject ShopMenuUI;
     [SerializeField] GameObject BuyUI;
@@ -22,12 +22,14 @@ public class ShopManager : Singleton<ShopManager>
         var guiInput = GUI_Input.playerInput.UI;
         guiInput.OpenShop.performed -= OpenShop;
     }
+    public void GetReference(GameManager _gameManager) { }
+    public void UpdateDataGUI() { }
     private void OpenShop(InputAction.CallbackContext context)
     {
         if (!isShopOpen)
-            ShopManager.instance.Shop();
+            Shop();
         else if (isShopOpen)
-            ShopManager.instance.CloseShop();
+            CloseShop();
     }
     public void Shop()
     {
@@ -35,7 +37,6 @@ public class ShopManager : Singleton<ShopManager>
         ShopMenuUI.SetActive(true);
         GUI_Input.playerInput.UI.OpenMap.Disable();
         InputManager.playerInput.Disable();
-        //PauseMenu.instance.Pause();
     }
     public void CloseShop()
     {
@@ -43,21 +44,14 @@ public class ShopManager : Singleton<ShopManager>
         ShopMenuUI.SetActive(false);
         InputManager.playerInput.Enable();
         GUI_Input.playerInput.UI.OpenMap.Enable();
-        //PauseMenu.instance.Resume();
     }
-    public void ShowBuyUI()
-    {
-        BuyUI.SetActive(true);
-    }
+    public void ShowBuyUI() => BuyUI.SetActive(true);
     public void HideBuyUI()
     {
         BuyUI.SetActive(false);
         SelectBtn(buybtn);
     }
-    public void ShowSellUI()
-    {
-        SellUI.SetActive(true);
-    }
+    public void ShowSellUI() => SellUI.SetActive(true);
     public void HideSellUI()
     {
         SellUI.SetActive(false);

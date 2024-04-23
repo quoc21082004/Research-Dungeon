@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class TransferPlayer : MonoBehaviour
 {
-    static Player player;
+    static PlayerCTL player;
     public string sceneLoad;
     public string transferTo;
     public int sceneID;
@@ -14,11 +14,11 @@ public class TransferPlayer : MonoBehaviour
     public static Vector3 nextDirection;
     private void OnEnable()
     {
-        player = GameObject.Find("Player").GetComponent<Player>();
+        player = GameObject.Find("PlayerCTL").GetComponent<PlayerCTL>();
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("PlayerCTL"))
         {
             if (sceneLoad != "") 
             {
@@ -32,6 +32,6 @@ public class TransferPlayer : MonoBehaviour
     }
     public static void Teleport(Vector3 newcord, Vector2 direction)
     {
-        player.gameObject.GetComponent<Player>().SetPosition(newcord, direction);
+        player.gameObject.GetComponent<PlayerCTL>().SetPosition(newcord, direction);
     }
 }

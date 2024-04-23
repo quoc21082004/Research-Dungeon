@@ -17,6 +17,7 @@ public class PlayerSO : ScriptableObject
     public ExtraBuff extraBuff;
     [Space]
     public Upgrade upgrade;
+
 }
 
 #region Stats Full
@@ -71,4 +72,6 @@ public class ExtraBuff
     public float percentDamage;
     public float extraSpeedMove;
 }
+
+
 #endregion

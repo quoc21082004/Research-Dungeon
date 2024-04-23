@@ -8,7 +8,7 @@ using UnityEngine.UI;
 public abstract class Enemy : MonoBehaviour
 {
     public EnemySO enemystat;
-    public Player player;
+    public PlayerCTL player;
     Rigidbody2D myrigid;
     [HideInInspector] public EnemyHurt enemyhurt;
     [HideInInspector] public SpriteRenderer mySR;

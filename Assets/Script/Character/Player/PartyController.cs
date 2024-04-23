@@ -6,12 +6,12 @@ using UnityEngine;
 public class PartyController : Singleton<PartyController>
 {
     public static event Action<int> onCoinChanged;
-    public static Player player;
+    public static PlayerCTL player;
     public static Inventory inventoryG;
     private void Update()
     {
         if (player == null)
-            player = transform.GetChild(0).gameObject.GetComponent<Player>();
+            player = transform.GetChild(0).gameObject.GetComponent<PlayerCTL>();
 
         if (inventoryG == null)
             inventoryG = new Inventory { Gold = player.playerdata.otherStats.gold };

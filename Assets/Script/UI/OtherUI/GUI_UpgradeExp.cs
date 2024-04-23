@@ -4,10 +4,9 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System;
-using System.Net;
 using System.Linq;
 
-public class GUI_UpgradeExp : MonoBehaviour
+public class GUI_UpgradeExp : MonoBehaviour , IGUI
 {
     [Header(("Stats Character"))]
     [SerializeField] TextMeshProUGUI charLevel_txt;
@@ -40,8 +39,7 @@ public class GUI_UpgradeExp : MonoBehaviour
     [SerializeField] Button cancel_btn;
     private CharacterUpgradeSO upgradeDataSO;
 
-    private int increaseLevel;
-    private int increaseExp;
+    private int increaseLevel, increaseExp;
     private int increaseHp => 50 * increaseLevel;
     private int increaseMp => 15 * increaseLevel;
     private int increaseDef => 5 * increaseLevel;
@@ -64,6 +62,7 @@ public class GUI_UpgradeExp : MonoBehaviour
     }
     private void OnEnable()
     {
+        GUI_Manager.AddGUI(this);
         upgradeDataSO = GameManager.instance.upgradeSO;
         upgrade_btn.onClick.AddListener(OnClickUpgradeButton);
         cancel_btn.onClick.AddListener(OnClickCancelButton);
@@ -88,14 +87,13 @@ public class GUI_UpgradeExp : MonoBehaviour
     }
     private void OnDisable()
     {
+        GUI_Manager.RemoveGUI(this);
         upgrade_btn.onClick.RemoveListener(OnClickUpgradeButton);
         cancel_btn.onClick.RemoveListener(OnClickCancelButton);
         itemUpgrade.ForEach(s1 => s1.GetComponentInChildren<Button>().onClick.RemoveAllListeners());          
-        //itemUpgrade.ForEach(_itemUpgrade => _itemUpgrade.gameObject.SetActive(false));
     }
     private void InitValue()
     {
-        var playerdata = PartyController.player.playerdata;
         increaseExp = 0;
         increaseLevel = 0;
         totalCost = 0;
@@ -108,7 +106,6 @@ public class GUI_UpgradeExp : MonoBehaviour
         maxLvl = upgradeDataSO.Data.Count;
         maxExp = (int)upgradeDataSO.GetNextLevel(currentLvl - 1);
         currentCoin = PartyController.inventoryG.Gold;
-        UpdateData();
     }
     public void UpdateData()
     {
@@ -356,4 +353,14 @@ public class GUI_UpgradeExp : MonoBehaviour
     }
     private void SetUpgradeStateButton() => upgrade_btn.interactable = (amountUse > 0 && currentCoin >= totalCost && canUpgrade);
 
+    public void GetReference(GameManager _gameManager)
+    {
+        upgradeDataSO = _gameManager.upgradeSO;
+        Debug.Log("have value :" + upgradeDataSO);
+    }
+
+    public void UpdateDataGUI()
+    {
+        throw new NotImplementedException();
+    }
 }

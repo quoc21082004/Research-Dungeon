@@ -28,9 +28,9 @@ public class FlyingMelee : EnemyMelee
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "PlayerCTL")
         {
-            if (collision.gameObject.TryGetComponent<Player>(out Player player))
+            if (collision.gameObject.TryGetComponent<PlayerCTL>(out PlayerCTL player))
             {
                 player.GetComponent<PlayerHurt>().TakeDamage(damage, false);
             }
@@ -38,9 +38,9 @@ public class FlyingMelee : EnemyMelee
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "PlayerCTL")
         {
-            if (collision.gameObject.TryGetComponent<Player>(out Player player))
+            if (collision.gameObject.TryGetComponent<PlayerCTL>(out PlayerCTL player))
                 if (isAttack)
                     if (!isDMG)
                     {

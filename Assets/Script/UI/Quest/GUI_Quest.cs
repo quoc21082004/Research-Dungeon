@@ -6,7 +6,7 @@ using System;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
-public class GUI_Quest : Singleton<GUI_Quest>
+public class GUI_Quest : MonoBehaviour , IGUI
 {
     [SerializeField] private GameObject questPanel;
     [SerializeField] private Animator noticeQuestanim;
@@ -36,11 +36,12 @@ public class GUI_Quest : Singleton<GUI_Quest>
     [SerializeField] private List<QuestBox> questBox;
     [SerializeField] private Transform contentQuest;
 
+    private Inventory userData;
     private QuestBox currentQuestBox;
     private bool canOpenPanel;
     private bool isAccept;
     private bool isReport;
-    int indexItemNumber;
+
     private void Start()
     {
         foreach (var _questbox in questBox)
@@ -56,10 +57,7 @@ public class GUI_Quest : Singleton<GUI_Quest>
         Init();
         RegisterEvent();
     }
-    private void OnDisable()
-    {
-        UnRegisterEvent();
-    }
+    private void OnDisable() => UnRegisterEvent();
     private void Init()
     {
         questTitle_txt.text = "";
@@ -68,6 +66,8 @@ public class GUI_Quest : Singleton<GUI_Quest>
         canOpenPanel = true;
         questPanel.gameObject.SetActive(false);
     }
+    public void GetReference(GameManager _gameManager) { }
+    public void UpdateDataGUI() { }
     private void RegisterEvent()
     {
         var gui = GUI_Input.playerInput;
@@ -278,7 +278,7 @@ public class GUI_Quest : Singleton<GUI_Quest>
     }
     private void CheckQuestReport(QuestBox _questbox)
     {
-        var taskRequire = _questbox.questSetUp.requireQuest;      
+        var taskRequire = _questbox.questSetUp.requireQuest;
         int requireItemAmount = PartyController.inventoryG.GetItemAmt(taskRequire.requireItem);
         var checkComplete = taskRequire.amount <= requireItemAmount;
         report_btn.interactable = checkComplete && !_questbox.questSetUp.taskQuest.isCompleted;

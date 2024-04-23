@@ -5,7 +5,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerCombat : ActiveAbility 
 {
-    Player player;
+    PlayerCTL player;
     public static Transform muzzlePoint;
     public GameObject fireballprefab;
     bool isAttack = false;
@@ -16,7 +16,7 @@ public class PlayerCombat : ActiveAbility
     private void OnEnable()
     {
         muzzlePoint = GameObject.FindGameObjectWithTag("Muzzle").GetComponent<Transform>();
-        player = GameObject.Find("Player").GetComponent<Player>();
+        player = GameObject.Find("Player").GetComponent<PlayerCTL>();
         mouseFollow = GetComponentInChildren<MouseFollow>();
         RegisterEvent();
     }

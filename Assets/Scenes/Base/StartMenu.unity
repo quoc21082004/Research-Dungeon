@@ -218,6 +218,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   currentEquipment: []
+  saveEquip:
+    numOfEquipment: 0
+    saveEquipment: []
 --- !u!1 &668133653
 GameObject:
   m_ObjectHideFlags: 0

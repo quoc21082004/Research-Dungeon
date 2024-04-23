@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 using System.Runtime.CompilerServices;
-public class GUI_Setting : MonoBehaviour
+public class GUI_Setting : MonoBehaviour , IGUI
 {
     [SerializeField] Button controls_btn;
     [SerializeField] Button graphic_btn;
@@ -41,21 +41,18 @@ public class GUI_Setting : MonoBehaviour
     }
     private void OnEnable()
     {
+        GUI_Manager.AddGUI(this);
         controls_btn.onClick.AddListener(Controls_Button);
         graphic_btn.onClick.AddListener(Graphic_Button);
         audio_btn.onClick.AddListener(Audio_Button);
 
-        InputManager.playerInput.Disable();
-        GUI_Input.playerInput.UI.Disable();
     }
     private void OnDisable()
     {
+        GUI_Manager.RemoveGUI(this);
         controls_btn.onClick.RemoveListener(Controls_Button);
         graphic_btn.onClick.RemoveListener(Graphic_Button);
         audio_btn.onClick.RemoveListener(Audio_Button);
-
-        InputManager.playerInput.Enable();
-        GUI_Input.playerInput.UI.Enable();
     }
     private void Initialized()
     {
@@ -89,6 +86,8 @@ public class GUI_Setting : MonoBehaviour
         OnValueChangeDisplayMode(_resolutionIndex);
         OnValueChangeFps(_fpsIndex);
     }
+    public void GetReference(GameManager _gameManager) { }
+    public void UpdateDataGUI() { }
 
     #region Button Setting
     private void Controls_Button()

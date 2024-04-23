@@ -6,7 +6,7 @@ public class SpikeSpell : MonoBehaviour, ISpell
 {
     [SerializeField] Transform damageZone;
     Animator myanim;
-    Collider2D collider;
+    new Collider2D collider;
     [SerializeField] GameObject explosionprefab;
     private ActiveAbility activeAbility;
     [Header("Skill Info")]
@@ -22,10 +22,7 @@ public class SpikeSpell : MonoBehaviour, ISpell
         myanim = GetComponentInChildren<Animator>();
         collider = GetComponent<Collider2D>();
     }
-    private void OnDisable()
-    {
-        collider.enabled = false;
-    }
+    private void OnDisable() => collider.enabled = false;
     public void KickOff(ActiveAbility ability, Vector2 position, Quaternion rot)
     {
         activeAbility = ability;

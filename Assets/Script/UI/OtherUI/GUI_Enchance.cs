@@ -6,7 +6,7 @@ using TMPro;
 using System;
 using System.Linq;
 
-public class GUI_Enchance : MonoBehaviour
+public class GUI_Enchance : MonoBehaviour , IGUI
 {
     const int defaultSlot = -1;
     int currentEquipIndex;
@@ -67,6 +67,7 @@ public class GUI_Enchance : MonoBehaviour
     private void OnDisable() => UnRegisterEvent();
     private void RegisterEvent()
     {
+        GUI_Manager.AddGUI(this);
         slotEquips = contentEquip.GetComponentsInChildren<EquipSlot>().ToList();
         slotEquips.ForEach(x => x.gameObject.SetActive(true));
         slotItemRequire.ForEach(x => x.gameObject.SetActive(false));
@@ -98,10 +99,11 @@ public class GUI_Enchance : MonoBehaviour
                 slotEquips[copy].GetComponentInChildren<Button>().onClick.RemoveAllListeners();
             }
         }
-        UpdateData();
+        UpdateDataEC();
     }
     private void UnRegisterEvent()
     {
+        GUI_Manager.RemoveGUI(this);
         slotEquips = contentEquip.GetComponentsInChildren<EquipSlot>().ToList();
         var _currentEquipment = EquipmentManager.instance;
         for (int i = 0; i < slotEquips.Count; i++)
@@ -119,7 +121,7 @@ public class GUI_Enchance : MonoBehaviour
 
         costUpgrade = 0;
     }
-    private void UpdateData()
+    private void UpdateDataEC()
     {
         SetCoinText();
         SetUpgradeStateButton();
@@ -149,7 +151,7 @@ public class GUI_Enchance : MonoBehaviour
         currentSelectEquipment.level = EquipmentManager.instance.currentEquipment[_index].level;
         equipmentLevel = currentSelectEquipment.level;
         slotEquips[_index].equipInfo.text = $"{EquipmentManager.instance.currentEquipment[_index].nameItem}   + {EquipmentManager.instance.currentEquipment[_index].level}";
-        UpdateData();
+        UpdateDataEC();
         ShowItemRequire();
     }
     private void ShowItemRequire()
@@ -175,7 +177,7 @@ public class GUI_Enchance : MonoBehaviour
                 canUpgrade = false;
             count++;
         }
-        UpdateData();
+        UpdateDataEC();
     }
     private IEnumerator UpdateCoroutine()
     {
@@ -202,9 +204,10 @@ public class GUI_Enchance : MonoBehaviour
         EquipmentManager.instance.currentEquipment[currentEquipIndex].armorModifier = currentArmor;
 
         OnSelectItem(currentEquipIndex);
-        UpdateData();
+        UpdateDataEC();
         yield return null;
     }
+
     #region Set
     private void SetCoinText()
     {
@@ -227,5 +230,10 @@ public class GUI_Enchance : MonoBehaviour
     }
     private void SetBarProgressLevel() => expProgressSlider.value = currentSelectEquipment.level <= equipmentUpgradeSO.MAX_LEVEL ? currentSelectEquipment.level : expProgressSlider.maxValue;
     #endregion
-    
+
+    public void GetReference(GameManager _gameManager) { }
+    public void UpdateDataGUI()
+    {
+
+    }
 }

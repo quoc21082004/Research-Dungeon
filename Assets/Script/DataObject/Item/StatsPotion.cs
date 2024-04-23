@@ -10,23 +10,23 @@ public class StatsPotion : Consumable
         switch(statsType)
         {
             case StatsType.HP:
-                PartyController.player.gameObject.GetComponent<Player>().playerdata.basicStats.health += value;
+                PartyController.player.gameObject.GetComponent<PlayerCTL>().playerdata.basicStats.health += value;
                 break;
             case StatsType.MP:
-                PartyController.player.gameObject.GetComponent<Player>().playerdata.basicStats.mana += value;
+                PartyController.player.gameObject.GetComponent<PlayerCTL>().playerdata.basicStats.mana += value;
                 break;
             case StatsType.ATK:
-                PartyController.player.gameObject.GetComponent<Player>().playerdata.basicAttack.wandDamage += value;
+                PartyController.player.gameObject.GetComponent<PlayerCTL>().playerdata.basicAttack.wandDamage += value;
                 break;
             case StatsType.DEF:
-                PartyController.player.gameObject.GetComponent<Player>().playerdata.otherStats.damageReduction += (int)value;
+                PartyController.player.gameObject.GetComponent<PlayerCTL>().playerdata.otherStats.damageReduction += (int)value;
                 break;
             case StatsType.CRIT:
-                PartyController.player.gameObject.GetComponent<Player>().playerdata.basicAttack.critChance += value;
+                PartyController.player.gameObject.GetComponent<PlayerCTL>().playerdata.basicAttack.critChance += value;
                 break;
             case StatsType.CRITDMG:
-                PartyController.player.gameObject.GetComponent<Player>().playerdata.basicAttack.maxCritDamage += value;
-                PartyController.player.gameObject.GetComponent<Player>().playerdata.basicAttack.minCritDamage += value;
+                PartyController.player.gameObject.GetComponent<PlayerCTL>().playerdata.basicAttack.maxCritDamage += value;
+                PartyController.player.gameObject.GetComponent<PlayerCTL>().playerdata.basicAttack.minCritDamage += value;
                 break;
             default:
                 break;

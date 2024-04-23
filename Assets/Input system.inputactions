@@ -282,7 +282,7 @@
                 {
                     "name": "OpenBag",
                     "type": "Button",
-                    "id": "95766774-6f3e-4813-8e3b-6bfb2161086b",
+                    "id": "7c5cb722-6320-44d6-bac9-1b9944954c20",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -291,7 +291,7 @@
                 {
                     "name": "CloseBag",
                     "type": "Button",
-                    "id": "13f7f38d-7db9-4262-bb62-5ff23aa4db2d",
+                    "id": "d62a1633-6b9f-46ab-961d-92714cfa41d7",
                     "expectedControlType": "Button",
                     "processors": "",
                     "interactions": "",
@@ -367,8 +367,8 @@
                 },
                 {
                     "name": "",
-                    "id": "a7a4b107-3ac0-427b-a456-934f584c0988",
-                    "path": "<Keyboard>/i",
+                    "id": "8c0bfbeb-e588-4565-8774-87aee33bc8a4",
+                    "path": "<Keyboard>/b",
                     "interactions": "",
                     "processors": "",
                     "groups": "",
@@ -378,7 +378,7 @@
                 },
                 {
                     "name": "",
-                    "id": "3b541b70-f169-42a1-a789-fb3aaafa3eef",
+                    "id": "27155374-1a99-45b3-a12b-1bb9a6189457",
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",

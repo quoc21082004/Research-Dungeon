@@ -2,16 +2,20 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using Newtonsoft.Json;
+using UnityEngine.UI;
 [CreateAssetMenu(fileName = "Shop Item", menuName = "Shop/Mobs Item")]
 public class ItemSO : ScriptableObject
 {
     public string nameItem;
-    public Sprite icon = null;
+    public Sprite icon;
     public int itemNumber;
     public int currentAmt = 1;
     public bool isStackable;
-    [TextArea(0, 2)] public string itemDescription;
-    [TextArea(0, 2)] public string flavor;
+    [TextArea(0, 2)]
+    public string itemDescription;
+    [TextArea(0, 2)]
+    public string flavor;
     public int buyPrice;
     public int sellPrice;
     public ItemRarity Rarity;

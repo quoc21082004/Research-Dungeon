@@ -7,6 +7,7 @@ using System;
 
 public class SpellHotKeyManager : Singleton<SpellHotKeyManager> , IHotKey
 {
+    public const string FILE_NAME = "SkillSet.json";
     public int NumOfHotKeySpell = 4;
     public Image[] hotkeySpellIcons;
     public Image[] hotkeySpellCD;
@@ -39,20 +40,6 @@ public class SpellHotKeyManager : Singleton<SpellHotKeyManager> , IHotKey
     {
         UpdateCoolDown();
         UpdateHoyKeySpellIcon();
-
-        foreach (var spell in hotkeySpell)
-        {
-            if (spell != null)
-            {
-                if (skillbarDisplay != null)
-                {
-                    delayTime += Time.deltaTime;
-                    castDelay_img.fillAmount = delayTime / spell.spell.baseCastDelay;
-                }
-                else
-                    delayTime = 0;
-            }
-        }
     }
     public void SetHotKeySpell(int numKey, SpellBook spellItem)
     {
@@ -93,15 +80,17 @@ public class SpellHotKeyManager : Singleton<SpellHotKeyManager> , IHotKey
     {
         foreach (var type in (SpellBookType[])Enum.GetValues(typeof(SpellBookType)))
         {
-            spellbookCDcounter[type] -= Time.deltaTime;
-            if (spellbookCDcounter[type] < 0)
+            if (isSpellCDcounter[type])
             {
-                spellbookCDcounter[type] = 0;
-                isSpellCDcounter[type] = false;
+                spellbookCDcounter[type] -= Time.deltaTime;
+                if (spellbookCDcounter[type] < 0)
+                {
+                    spellbookCDcounter[type] = 0;
+                    isSpellCDcounter[type] = false;
+                }
             }
         }
     }
-
     public bool IsHotKeyCoolDown(int numkey)
     {
         if (hotkeySpell[numkey] == null)
@@ -109,22 +98,39 @@ public class SpellHotKeyManager : Singleton<SpellHotKeyManager> , IHotKey
         else
             return isSpellCDcounter[hotkeySpell[numkey].type];
     }
-    public void UseHotKey(int numkey)
+    public void UseHotKey(int numkey) => UseSpell(hotkeySpell[numkey]);
+    private IEnumerator DelayWhenUse()
     {
-        UseSpell(hotkeySpell[numkey]);
+        foreach (var spell in hotkeySpell)
+        {
+            if (spell != null)
+            {
+                if (skillbarDisplay != null)
+                {
+                    while (delayTime < 0.6f)  
+                    {
+                        delayTime += Time.deltaTime;
+                        castDelay_img.fillAmount = delayTime / spell.spell.baseCastDelay;
+                        yield return new WaitForSeconds(Time.fixedDeltaTime);
+                    }
+                }
+                else
+                    delayTime = 0;
+            }
+        }
     }
-    IEnumerator DelayCast(SpellBook spellbook)
+    private IEnumerator DelayCast(SpellBook spellbook)
     {
         isCast = true;
         skillbarDisplay.gameObject.SetActive(true);
         delayTime = 0;
+        StartCoroutine(DelayWhenUse());
         yield return new WaitForSeconds(spellbook.spell.baseCastDelay);
-        spellbook.Use();
+        spellbook.Use();        // spawn skill
         SpellBookType type = spellbook.type;
         isSpellCDcounter[type] = true;
         spellbookCDcounter[type] = spellbook.spell.baseCoolDown;
         skillbarDisplay.gameObject.SetActive(false);
         isCast = false;
-        UpdateHoyKeySpellIcon();
     }
 }

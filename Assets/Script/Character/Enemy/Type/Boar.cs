@@ -54,9 +54,9 @@ public class Boar : Enemy
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "Player")
+        if (collision.gameObject.tag == "PlayerCTL")
         {
-            if (collision.gameObject.TryGetComponent<Player>(out Player player))
+            if (collision.gameObject.TryGetComponent<PlayerCTL>(out PlayerCTL player))
             {
                 player.GetComponent<PlayerHurt>().TakeDamage(2, false);
             }

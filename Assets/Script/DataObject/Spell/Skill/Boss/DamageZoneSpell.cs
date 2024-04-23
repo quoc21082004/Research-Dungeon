@@ -20,7 +20,7 @@ public class DamageZoneSpell : MonoBehaviour, ISpell
     private void Awake()
     {
         myrigid = GetComponent<Rigidbody2D>();
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        target = GameObject.FindGameObjectWithTag("PlayerCTL").GetComponent<Transform>();
     }
     public void KickOff(ActiveAbility ability, Vector2 position, Quaternion rot)
     {
@@ -66,7 +66,7 @@ public class DamageZoneSpell : MonoBehaviour, ISpell
             return;
         foreach (var collider in colliders)
         {
-            if (collider.gameObject.TryGetComponent<Player>(out Player player))
+            if (collider.gameObject.TryGetComponent<PlayerCTL>(out PlayerCTL player))
             {
                 player.mana = Mathf.Min(player.maxmana, player.mana - reduceMana);
                 DamagePopManager.instance.CreateRecoverPop(ConsumableType.ManaPotion, -reduceMana, player.transform.position, player.transform);

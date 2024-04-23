@@ -16,7 +16,7 @@ public class BossLazerSpell : MonoBehaviour, ISpell
     {
         behaviour = BehaviourSpell.RotateAround;
         mycollider = GetComponent<Collider2D>();
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        target = GameObject.FindGameObjectWithTag("PlayerCTL").GetComponent<Transform>();
     }
     public void KickOff(ActiveAbility ability, Vector2 direction, Quaternion rot)
     {

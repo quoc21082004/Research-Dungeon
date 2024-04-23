@@ -7,6 +7,7 @@ using System;
 
 public class ItemHotKeyManager : Singleton<ItemHotKeyManager> , IHotKey
 {
+    public const string FILE_NAME = "SkillSet.json";
     public int NumOfHotKeyItem = 2;
     public Image[] hotKeyItemIcons;
     public TextMeshProUGUI[] hotKeyItemStack_txt;
@@ -82,20 +83,21 @@ public class ItemHotKeyManager : Singleton<ItemHotKeyManager> , IHotKey
             }
         }
     }
-
     public void UpdateCoolDown()
     {
         foreach (var type in (ConsumableType[])Enum.GetValues(typeof(ConsumableType)))
         {
-            consumableCDcounter[type] -= Time.deltaTime;
-            if (consumableCDcounter[type] < 0)
+            if (isConsumableonCD[type])
             {
-                consumableCDcounter[type] = 0;
-                isConsumableonCD[type] = false;
+                consumableCDcounter[type] -= Time.deltaTime;
+                if (consumableCDcounter[type] < 0)
+                {
+                    consumableCDcounter[type] = 0;
+                    isConsumableonCD[type] = false;
+                }
             }
         }
     }
-
     public bool IsHotKeyCoolDown(int numkey)
     {
         if (hotkeyItems[numkey] == null)
@@ -103,9 +105,5 @@ public class ItemHotKeyManager : Singleton<ItemHotKeyManager> , IHotKey
         else
             return isConsumableonCD[hotkeyItems[numkey].consumableType];
     }
-
-    public void UseHotKey(int numkey)
-    {
-        UseItem(hotkeyItems[numkey]);
-    }
+    public void UseHotKey(int numkey) => UseItem(hotkeyItems[numkey]);
 }

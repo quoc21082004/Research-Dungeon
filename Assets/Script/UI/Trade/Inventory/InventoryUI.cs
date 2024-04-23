@@ -26,7 +26,6 @@ public class InventoryUI : MonoBehaviour
     protected virtual void Awake()
     {
         inventory = PartyController.inventoryG;
-        //slots = itemsParent.GetComponentsInChildren<InventorySlot>();
         slots = itemsParent.GetComponentsInChildren<InventorySlot>().ToList();
         for (int i = 0; i < inventory.space; i++)
         {
@@ -54,8 +53,11 @@ public class InventoryUI : MonoBehaviour
             itemOptionsWindow.gameObject.SetActive(false);
         if (amtConfirmWindow != null)
             amtConfirmWindow.gameObject.SetActive(false);
-        UpdateUI();
+
+        PlayerPrefs.SetInt(Key_CurrentSortIndex, 0);
+        SortByAll(inventory.items);
         InitSortDropDown();
+        UpdateUI();
     }
     protected virtual void UpdateUI()
     {
@@ -97,9 +99,11 @@ public class InventoryUI : MonoBehaviour
     public void SortItem(int _selectOption) // item Sort Inventory
     {
         PlayerPrefs.SetInt(Key_CurrentSortIndex, _selectOption);
-        Debug.Log("123");
         switch(_selectOption)
         {
+            case 0:
+                SortByAll(inventory.items);
+                break;
             case 1:
                 SortByNumber(inventory.items);
                 break;
@@ -112,6 +116,12 @@ public class InventoryUI : MonoBehaviour
             default:
                 break;
         }
+    }
+    private void SortByAll(List<ItemSO> itemSlots)
+    {
+        AudioManager.instance.PlaySfx("Click");
+        itemSlots.Sort((s1, s2) => s1.itemNumber.CompareTo(s2.itemNumber));
+        UpdateUI();
     }
     private void SortByNumber(List<ItemSO> itemSlots)
     {
