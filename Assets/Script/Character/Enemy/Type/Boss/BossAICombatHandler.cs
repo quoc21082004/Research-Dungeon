@@ -91,13 +91,11 @@ public class BossAICombatHandler : MonoBehaviour
             yield return new WaitForSeconds(updateInterval);
         }
     }
-
     private IEnumerator EndCombat()
     {
         yield return new WaitForSeconds(1.5f);
         animator.Play("Death");
     }
-
     private void InitAbilities()
     {
         foreach (var handler in abilityHandlers)

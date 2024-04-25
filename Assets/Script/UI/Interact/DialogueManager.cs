@@ -9,6 +9,7 @@ using UnityEngine.EventSystems;
 
 public class DialogueManager : Singleton<DialogueManager>, IPointerClickHandler
 {
+    [SerializeField] public InteractiveUI interactUI;
     public bool IsUsing = false;
     private Action<DialogueObject> showDialogueAction;
     [SerializeField] GameObject dialogue;
@@ -29,6 +30,7 @@ public class DialogueManager : Singleton<DialogueManager>, IPointerClickHandler
     }
     public void ShowDialogue(DialogueObject dialogueObject)
     {
+        NoticeManager.instance.CloseNoticeInteract();
         IsUsing = true;
         if (showDialogueAction == null)
         {
@@ -64,8 +66,6 @@ public class DialogueManager : Singleton<DialogueManager>, IPointerClickHandler
             yield return new WaitUntil(() => wasPointerClick);
             yield return null;
         }
-        //dialogue_txt.text = string.Empty;
-        //name_txt.text = string.Empty;
         if (dialogueObject.options.Count > 0)
         {
             optionBox.ShowOption(dialogueObject);

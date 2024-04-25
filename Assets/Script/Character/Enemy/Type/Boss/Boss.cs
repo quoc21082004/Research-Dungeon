@@ -13,10 +13,7 @@ public class Boss : Enemy
         base.OnEnable();
         enemyHurt = GetComponent<EnemyHurt>();
     }
-    protected override void CheckDistance()
-    {
-        throw new System.NotImplementedException();
-    }
+    protected override void CheckDistance() { }
 
     private void Update()
     {

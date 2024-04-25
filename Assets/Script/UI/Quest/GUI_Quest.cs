@@ -36,7 +36,6 @@ public class GUI_Quest : MonoBehaviour , IGUI
     [SerializeField] private List<QuestBox> questBox;
     [SerializeField] private Transform contentQuest;
 
-    private Inventory userData;
     private QuestBox currentQuestBox;
     private bool canOpenPanel;
     private bool isAccept;
@@ -97,10 +96,11 @@ public class GUI_Quest : MonoBehaviour , IGUI
         canOpenPanel = false;
         questPanel.gameObject.SetActive(true);
         GUI_Input.playerInput.UI.OpenShop.Disable();
-        GUI_Input.playerInput.UI.OpenMap.Disable();
         InputManager.playerInput.Disable();
         ShowQuest();
     }
+    public void OpenQuestPanel() => OnPanelOpenEvent(default);
+    public void CloseQuestPanel() => OnPanelCloseEvent(default);
     public void OnPanelCloseEvent(InputAction.CallbackContext context)
     {
         if (canOpenPanel)
@@ -109,7 +109,6 @@ public class GUI_Quest : MonoBehaviour , IGUI
         questPanel.gameObject.SetActive(false);
         InputManager.playerInput.Enable();
         GUI_Input.playerInput.UI.OpenShop.Enable();
-        GUI_Input.playerInput.UI.OpenMap.Enable();
     }
     public void PanelCloseX()
     {
@@ -119,7 +118,6 @@ public class GUI_Quest : MonoBehaviour , IGUI
         questPanel.gameObject.SetActive(false);
         InputManager.playerInput.Enable();
         GUI_Input.playerInput.UI.OpenShop.Enable();
-        GUI_Input.playerInput.UI.OpenMap.Enable();
     }
 
     #region            Handle Accept - Cancel - Report

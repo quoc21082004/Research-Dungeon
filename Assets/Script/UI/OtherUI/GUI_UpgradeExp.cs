@@ -361,6 +361,6 @@ public class GUI_UpgradeExp : MonoBehaviour , IGUI
 
     public void UpdateDataGUI()
     {
-        throw new NotImplementedException();
+        Debug.Log("777");
     }
 }

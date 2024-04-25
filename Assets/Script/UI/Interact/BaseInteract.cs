@@ -4,25 +4,13 @@ public abstract class BaseInteractable : MonoBehaviour, IInteract
 {
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent<PlayerInteract>(out var interact))
-            PlayerInteract.Assign(this);
+        if (collision.gameObject.TryGetComponent<PlayerCTL>(out var player))
+            DialogueManager.instance.interactUI.OnEnterPlayer();
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent<PlayerInteract>(out var interact))
-            PlayerInteract.CancelAssign(this);
-    }
-    protected virtual void OnDisable()
-    {
-        PlayerInteract.CancelAssign(this);
-    }
-    public virtual void StartAssign()
-    {
-        //gameObject.SetActive(true);
-    }
-    public virtual void EndAssign()
-    {
-        //gameObject.SetActive(false);
+        if (collision.gameObject.TryGetComponent<PlayerCTL>(out var player))
+            DialogueManager.instance.interactUI.OnExitPlayer();
     }
     public abstract void Interact();
 }

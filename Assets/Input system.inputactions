@@ -244,15 +244,6 @@
                     "initialStateCheck": false
                 },
                 {
-                    "name": "OpenMap",
-                    "type": "Button",
-                    "id": "c6e609d4-36f1-4a5f-a745-0e11a22c4493",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "",
-                    "initialStateCheck": false
-                },
-                {
                     "name": "OpenShop",
                     "type": "Button",
                     "id": "aec0060e-3ce9-4022-a085-b489446aea67",
@@ -296,6 +287,15 @@
                     "processors": "",
                     "interactions": "",
                     "initialStateCheck": false
+                },
+                {
+                    "name": "OpenInteract",
+                    "type": "Button",
+                    "id": "c27c3c1b-9925-4c8e-a54c-2bcaceb65097",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "",
+                    "initialStateCheck": false
                 }
             ],
             "bindings": [
@@ -318,17 +318,6 @@
                     "processors": "",
                     "groups": "",
                     "action": "CloseMenu",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "d17e5b54-8c0d-4ead-b773-d0795669ee88",
-                    "path": "<Keyboard>/m",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "",
-                    "action": "OpenMap",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },
@@ -384,6 +373,17 @@
                     "processors": "",
                     "groups": "",
                     "action": "CloseBag",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "8ccac9f8-014e-47dd-84de-f700ebe79f15",
+                    "path": "<Keyboard>/e",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "OpenInteract",
                     "isComposite": false,
                     "isPartOfComposite": false
                 }

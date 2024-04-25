@@ -1,17 +1,9 @@
 using UnityEngine;
+using UnityEngine.Rendering;
 public class NPC : BaseInteractable
 {
     [SerializeField] private DialogueObject dialogueObject;
-    public override void Interact()
-    {
-        DialogueManager.instance.ShowDialogue(dialogueObject);
-    }
-    public override void StartAssign()
-    {
-        base.StartAssign();
-    }
-    public override void EndAssign()
-    {
-        base.EndAssign();
-    }
+    private void OnEnable() => DialogueManager.instance.interactUI.OnPanelOpenEvent += Interact;
+    private void OnDisable() => DialogueManager.instance.interactUI.OnPanelOpenEvent -= Interact;
+    public override void Interact() => DialogueManager.instance.ShowDialogue(dialogueObject);
 }

@@ -266,15 +266,6 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
                     ""initialStateCheck"": false
                 },
                 {
-                    ""name"": ""OpenMap"",
-                    ""type"": ""Button"",
-                    ""id"": ""c6e609d4-36f1-4a5f-a745-0e11a22c4493"",
-                    ""expectedControlType"": ""Button"",
-                    ""processors"": """",
-                    ""interactions"": """",
-                    ""initialStateCheck"": false
-                },
-                {
                     ""name"": ""OpenShop"",
                     ""type"": ""Button"",
                     ""id"": ""aec0060e-3ce9-4022-a085-b489446aea67"",
@@ -318,6 +309,15 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""OpenInteract"",
+                    ""type"": ""Button"",
+                    ""id"": ""c27c3c1b-9925-4c8e-a54c-2bcaceb65097"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -340,17 +340,6 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""CloseMenu"",
-                    ""isComposite"": false,
-                    ""isPartOfComposite"": false
-                },
-                {
-                    ""name"": """",
-                    ""id"": ""d17e5b54-8c0d-4ead-b773-d0795669ee88"",
-                    ""path"": ""<Keyboard>/m"",
-                    ""interactions"": """",
-                    ""processors"": """",
-                    ""groups"": """",
-                    ""action"": ""OpenMap"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 },
@@ -406,6 +395,17 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
                     ""processors"": """",
                     ""groups"": """",
                     ""action"": ""CloseBag"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""8ccac9f8-014e-47dd-84de-f700ebe79f15"",
+                    ""path"": ""<Keyboard>/e"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""OpenInteract"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -491,12 +491,12 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
         m_UI = asset.FindActionMap("UI", throwIfNotFound: true);
         m_UI_OpenMenu = m_UI.FindAction("OpenMenu", throwIfNotFound: true);
         m_UI_CloseMenu = m_UI.FindAction("CloseMenu", throwIfNotFound: true);
-        m_UI_OpenMap = m_UI.FindAction("OpenMap", throwIfNotFound: true);
         m_UI_OpenShop = m_UI.FindAction("OpenShop", throwIfNotFound: true);
         m_UI_OpenQuest = m_UI.FindAction("OpenQuest", throwIfNotFound: true);
         m_UI_CloseQuest = m_UI.FindAction("CloseQuest", throwIfNotFound: true);
         m_UI_OpenBag = m_UI.FindAction("OpenBag", throwIfNotFound: true);
         m_UI_CloseBag = m_UI.FindAction("CloseBag", throwIfNotFound: true);
+        m_UI_OpenInteract = m_UI.FindAction("OpenInteract", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -700,24 +700,24 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
     private List<IUIActions> m_UIActionsCallbackInterfaces = new List<IUIActions>();
     private readonly InputAction m_UI_OpenMenu;
     private readonly InputAction m_UI_CloseMenu;
-    private readonly InputAction m_UI_OpenMap;
     private readonly InputAction m_UI_OpenShop;
     private readonly InputAction m_UI_OpenQuest;
     private readonly InputAction m_UI_CloseQuest;
     private readonly InputAction m_UI_OpenBag;
     private readonly InputAction m_UI_CloseBag;
+    private readonly InputAction m_UI_OpenInteract;
     public struct UIActions
     {
         private @Inputsystem m_Wrapper;
         public UIActions(@Inputsystem wrapper) { m_Wrapper = wrapper; }
         public InputAction @OpenMenu => m_Wrapper.m_UI_OpenMenu;
         public InputAction @CloseMenu => m_Wrapper.m_UI_CloseMenu;
-        public InputAction @OpenMap => m_Wrapper.m_UI_OpenMap;
         public InputAction @OpenShop => m_Wrapper.m_UI_OpenShop;
         public InputAction @OpenQuest => m_Wrapper.m_UI_OpenQuest;
         public InputAction @CloseQuest => m_Wrapper.m_UI_CloseQuest;
         public InputAction @OpenBag => m_Wrapper.m_UI_OpenBag;
         public InputAction @CloseBag => m_Wrapper.m_UI_CloseBag;
+        public InputAction @OpenInteract => m_Wrapper.m_UI_OpenInteract;
         public InputActionMap Get() { return m_Wrapper.m_UI; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -733,9 +733,6 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
             @CloseMenu.started += instance.OnCloseMenu;
             @CloseMenu.performed += instance.OnCloseMenu;
             @CloseMenu.canceled += instance.OnCloseMenu;
-            @OpenMap.started += instance.OnOpenMap;
-            @OpenMap.performed += instance.OnOpenMap;
-            @OpenMap.canceled += instance.OnOpenMap;
             @OpenShop.started += instance.OnOpenShop;
             @OpenShop.performed += instance.OnOpenShop;
             @OpenShop.canceled += instance.OnOpenShop;
@@ -751,6 +748,9 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
             @CloseBag.started += instance.OnCloseBag;
             @CloseBag.performed += instance.OnCloseBag;
             @CloseBag.canceled += instance.OnCloseBag;
+            @OpenInteract.started += instance.OnOpenInteract;
+            @OpenInteract.performed += instance.OnOpenInteract;
+            @OpenInteract.canceled += instance.OnOpenInteract;
         }
 
         private void UnregisterCallbacks(IUIActions instance)
@@ -761,9 +761,6 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
             @CloseMenu.started -= instance.OnCloseMenu;
             @CloseMenu.performed -= instance.OnCloseMenu;
             @CloseMenu.canceled -= instance.OnCloseMenu;
-            @OpenMap.started -= instance.OnOpenMap;
-            @OpenMap.performed -= instance.OnOpenMap;
-            @OpenMap.canceled -= instance.OnOpenMap;
             @OpenShop.started -= instance.OnOpenShop;
             @OpenShop.performed -= instance.OnOpenShop;
             @OpenShop.canceled -= instance.OnOpenShop;
@@ -779,6 +776,9 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
             @CloseBag.started -= instance.OnCloseBag;
             @CloseBag.performed -= instance.OnCloseBag;
             @CloseBag.canceled -= instance.OnCloseBag;
+            @OpenInteract.started -= instance.OnOpenInteract;
+            @OpenInteract.performed -= instance.OnOpenInteract;
+            @OpenInteract.canceled -= instance.OnOpenInteract;
         }
 
         public void RemoveCallbacks(IUIActions instance)
@@ -859,11 +859,11 @@ public partial class @Inputsystem: IInputActionCollection2, IDisposable
     {
         void OnOpenMenu(InputAction.CallbackContext context);
         void OnCloseMenu(InputAction.CallbackContext context);
-        void OnOpenMap(InputAction.CallbackContext context);
         void OnOpenShop(InputAction.CallbackContext context);
         void OnOpenQuest(InputAction.CallbackContext context);
         void OnCloseQuest(InputAction.CallbackContext context);
         void OnOpenBag(InputAction.CallbackContext context);
         void OnCloseBag(InputAction.CallbackContext context);
+        void OnOpenInteract(InputAction.CallbackContext context);
     }
 }

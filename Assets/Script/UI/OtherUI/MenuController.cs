@@ -15,8 +15,9 @@ public class MenuController : Singleton<MenuController>
         GUI_Input.playerInput.UI.OpenBag.performed += OpenBag;
         GUI_Input.playerInput.UI.CloseBag.performed += CloseBag;
         _gameManager = GameManager.instance;
+
         GUI_Manager.SendReference(_gameManager);
-        playerdata = _gameManager.playerSO;
+        GUI_Manager.UpdateData();
     }
     private void UnRegisterEvent()
     {

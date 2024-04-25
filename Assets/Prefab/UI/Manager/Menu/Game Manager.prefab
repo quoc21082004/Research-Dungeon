@@ -644,6 +644,7 @@ GameObject:
   - component: {fileID: 3670842035632953928}
   - component: {fileID: 6526633285665804968}
   - component: {fileID: 3055637896845371733}
+  - component: {fileID: 6226681754993240190}
   m_Layer: 0
   m_Name: Game Manager
   m_TagString: Untagged
@@ -686,6 +687,7 @@ MonoBehaviour:
   level: 0
   playerSO: {fileID: 11400000, guid: 89136d1e70122974bb96d3540b6762a6, type: 2}
   upgradeSO: {fileID: 11400000, guid: 9c8f8094200fddd4992322dc64096fa6, type: 2}
+  equipUpgradeSO: {fileID: 11400000, guid: cb60bf920b7a0f446afd686e3ee97bf4, type: 2}
 --- !u!114 &1683588582820038376
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -877,6 +879,19 @@ MonoBehaviour:
   coinLoots:
   - {fileID: 11400000, guid: 78016be64f9e681428c9486a9f7a957e, type: 2}
   genrange: 1.5
+--- !u!114 &6226681754993240190
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1683588582820038374}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 981b684f2cdfba94b81caf2fd5ab3e28, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentEquipment: []
 --- !u!1 &8483616280675246411
 GameObject:
   m_ObjectHideFlags: 0
@@ -1051,6 +1066,9 @@ MonoBehaviour:
       type: 3}
     size: 0
   - prefab: {fileID: 637621609403637547, guid: d051764ae2b67704d9840f9e3bd925f7, type: 3}
+    size: 0
+  - prefab: {fileID: 7229345258284080847, guid: 1f54d21881ba068418eff12fa866508b,
+      type: 3}
     size: 0
   lootsPools:
   - prefab: {fileID: 7237565924620861604, guid: 095caaf3992da9e49836917bf2f803dd,

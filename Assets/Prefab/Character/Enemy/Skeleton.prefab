@@ -220,6 +220,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: db7700729581f024488424266f1e7b83, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemystat: {fileID: 11400000, guid: 0732abc1485e7254a984fe17f1bc2939, type: 2}
+  player: {fileID: 0}
+  enemyhurt: {fileID: 0}
   mySR: {fileID: 0}
   myanim: {fileID: 0}
   maxhealth: 0
@@ -229,12 +232,17 @@ MonoBehaviour:
   level: 0
   isDead: 0
   turnOnAlert: 0
-  enemystat: {fileID: 11400000, guid: 0732abc1485e7254a984fe17f1bc2939, type: 2}
+  mood: 0
   alertprefab: {fileID: 6789944096774670373, guid: ec2d11781d44f924b8b4f51916404c0d,
     type: 3}
   alertOffSet: {x: 0, y: 0.73, z: 0}
   knockTime: 0.8
-  mood: 0
+  OnTakeDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDieEvent:
+    m_PersistentCalls:
+      m_Calls: []
   ultiprefab: {fileID: 2975369991134033567, guid: ff9abb6e3aaddc74485f34a2b38464de,
     type: 3}
 --- !u!114 &1453440811698903284
@@ -249,7 +257,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 676830c525abeeb45a84b926d7bcf001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemy: {fileID: 6393467945594658051}
   thurst: 15
   OnStartCombat:
     m_PersistentCalls:
@@ -280,7 +287,7 @@ GameObject:
   m_Component:
   - component: {fileID: 366436383992035357}
   - component: {fileID: 2136835142090090240}
-  m_Layer: 16
+  m_Layer: 9
   m_Name: EnemyMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

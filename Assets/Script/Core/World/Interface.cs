@@ -29,8 +29,6 @@ public interface IHotKey
 public interface IInteract
 {
     void Interact();
-    void StartAssign();
-    void EndAssign();
 }
 public interface IGUI
 {

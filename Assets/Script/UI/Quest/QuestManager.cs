@@ -9,6 +9,7 @@ public class QuestManager : Singleton<QuestManager>
 {
     public int currentQuest;    
     public int maxQuest => 3;
+
     public List<QuestSetUp> questList = new List<QuestSetUp>();
 
     private void Start()

@@ -35,7 +35,6 @@ public class GUI_Shop : MonoBehaviour , IGUI
     {
         isShopOpen = true;
         ShopMenuUI.SetActive(true);
-        GUI_Input.playerInput.UI.OpenMap.Disable();
         InputManager.playerInput.Disable();
     }
     public void CloseShop()
@@ -43,7 +42,6 @@ public class GUI_Shop : MonoBehaviour , IGUI
         isShopOpen = false;
         ShopMenuUI.SetActive(false);
         InputManager.playerInput.Enable();
-        GUI_Input.playerInput.UI.OpenMap.Enable();
     }
     public void ShowBuyUI() => BuyUI.SetActive(true);
     public void HideBuyUI()
