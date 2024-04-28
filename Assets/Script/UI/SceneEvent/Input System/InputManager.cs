@@ -10,16 +10,8 @@ public class InputManager : Singleton<InputManager>
         base.Awake();
         playerInput = new Inputsystem();
     }
-    private void OnEnable()
-    {
-        playerInput.Enable();
-        playerInput.PlayerAbility.Enable();
-    }
-    private void OnDisable()
-    {
-        playerInput.Disable();
-        playerInput.PlayerAbility.Disable();
-    }
+    private void OnEnable() => playerInput.Enable();
+    private void OnDisable() => playerInput.Disable();
     public static void EnableInput() => playerInput.Enable();
     public static void DisableInput() => playerInput.Disable();
 }

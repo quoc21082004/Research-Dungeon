@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using JetBrains.Annotations;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -7,6 +8,8 @@ public class PlayerSO : ScriptableObject
 {
     public int MAX_LEVEL = 99;
     public BasicStats basicStats;
+    [Space]
+    public BasicMovement basicMovement;
     [Space]
     public BasicAttack basicAttack;
     [Space]
@@ -21,6 +24,14 @@ public class PlayerSO : ScriptableObject
 }
 
 #region Stats Full
+[System.Serializable] 
+public class BasicMovement
+{
+    public float baseSpeed;
+    public float runSpeed;
+    public float walkSpeed;
+    public float DashSpeed;
+}
 [System.Serializable]
 public class BasicAttack
 {
@@ -44,8 +55,6 @@ public class BasicStats
     public float health;
     public float mana;
     public float defense;
-    public float movementSpeed;
-    public float DashSpeed;
     public float healthRegen;
     public float manaRegen;
 }

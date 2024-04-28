@@ -113,7 +113,7 @@ public class GUI_UpgradeStats : MonoBehaviour
             PartyController.player.playerdata.otherStats.skillPoint -= 1;
             float upgradePerLevel = PartyController.player.playerdata.upgrade.hastelevel * 1.5f;
             hastelevel = PartyController.player.playerdata.upgrade.hastelevel;
-            PartyController.player.playerdata.basicStats.movementSpeed += 2f;
+            PartyController.player.playerdata.basicMovement.baseSpeed += 2f;
             PartyController.player.rangePickup += 0.15f;
             if (hastelevel == 4)
                 PartyController.player.playerdata.otherStats.skillPoint += 8;

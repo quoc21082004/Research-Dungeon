@@ -17,10 +17,13 @@ MonoBehaviour:
     health: 11600
     mana: 2480
     defense: 12521
-    movementSpeed: 130
-    DashSpeed: 5
     healthRegen: 73.799995
     manaRegen: 1
+  basicMovement:
+    baseSpeed: 10
+    runSpeed: 15
+    walkSpeed: 5
+    DashSpeed: 10
   basicAttack:
     wandDamage: 11964
     critChance: 66

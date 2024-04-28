@@ -44,7 +44,7 @@ public class GUI_PlayerStats : MonoBehaviour
         mp_txt.text = playerdata.basicStats.mana.ToString("F0");
         atk_txt.text = playerdata.basicAttack.wandDamage.ToString("F0");
         def_txt.text = playerdata.basicStats.defense.ToString("F0");
-        spd_txt.text = playerdata.basicStats.movementSpeed.ToString("F1");
+        spd_txt.text = playerdata.basicMovement.baseSpeed.ToString("F1");
         level_txt.text = playerdata.upgradeLevel.level.ToString("F0");
         // dmg
         DMG_txt.text = playerdata.extraBuff.percentDamage.ToString("F2") + "%";

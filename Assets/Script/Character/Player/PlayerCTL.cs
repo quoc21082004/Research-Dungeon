@@ -7,8 +7,10 @@ using UnityEngine.Events;
 public class PlayerCTL : MonoBehaviour
 {
     public const string FILE_NAME = "PlayerStatus";
-    SpriteRenderer mySR;
-    Rigidbody2D myrigid;
+
+    #region Info Player
+    [HideInInspector] public SpriteRenderer mySR;
+    [HideInInspector] public Rigidbody2D myrigid;
     Animator myanim;
     TrailRenderer mytrail;
     [HideInInspector] public PlayerHurt playerhurt;
@@ -16,20 +18,25 @@ public class PlayerCTL : MonoBehaviour
     [HideInInspector] public float maxhealth, maxmana, health, damage, defense, mana, speed;
     [HideInInspector] public bool isAlve = true;
     [HideInInspector] public PlayerSO playerdata;
-    public static bool isFace;
+
     public float dashSpeed, dashCD;
     bool isDash;
     Collider2D[] pickup;
     [HideInInspector] public float rangePickup = 1.2f;
-    Vector2 moveInput;
+    public MouseFollow mousefollow;
+    #endregion
+
+    private PlayerMovementStateMachine movementState; 
     private void Awake()
     {
+        movementState = new PlayerMovementStateMachine(this);
         mySR = GetComponent<SpriteRenderer>();
         myrigid = GetComponent<Rigidbody2D>();
         myanim = GetComponent<Animator>();
         playerhurt = GetComponentInParent<PlayerHurt>();
         playercombat = GetComponent<PlayerCombat>();
         mytrail = GetComponentInChildren<TrailRenderer>();
+        mousefollow = GetComponentInChildren<MouseFollow>();
     }
     private void OnEnable()
     {
@@ -39,6 +46,7 @@ public class PlayerCTL : MonoBehaviour
     }
     private void Start()
     {
+        movementState.ChangeState(movementState.IdleState);
         LoadPos();
     }
     private void OnApplicationQuit()
@@ -47,11 +55,14 @@ public class PlayerCTL : MonoBehaviour
     }
     private void Update()
     {
+        movementState.HandleInput();
+        movementState.Update();
+
         maxhealth = playerdata.basicStats.health;
         maxmana = playerdata.basicStats.mana;
         defense = playerdata.basicStats.defense;
         damage = playerdata.basicAttack.wandDamage;
-        speed = playerdata.basicStats.movementSpeed;
+        speed = playerdata.basicMovement.baseSpeed;
         if (isAlve)
         {
             PickUp();
@@ -62,18 +73,17 @@ public class PlayerCTL : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        Move();
-        FlipCharacter();
-        if (health >= playerdata.basicStats.health)
+        movementState.PhysicUpdate();
+        /*if (health >= playerdata.basicStats.health)
             health = playerdata.basicStats.health;
         if (mana >= playerdata.basicStats.mana)
-            mana = playerdata.basicStats.mana;
+            mana = playerdata.basicStats.mana;*/
     }
 
     #region move & flip
     private void Move()
     {
-        moveInput = InputManager.playerInput.Player.Move.ReadValue<Vector2>();
+        /*moveInput = InputManager.playerInput.Player.Move.ReadValue<Vector2>();
         if ((moveInput.x != 0 | moveInput.y != 0)) 
         {
             myanim.SetFloat("MoveX", moveInput.x);
@@ -85,25 +95,11 @@ public class PlayerCTL : MonoBehaviour
         {
             myanim.SetBool("Walking", false);
             myrigid.velocity = Vector2.zero;
-        }
-    }
-    private void FlipCharacter()
-    {
-        Vector3 mousePos = Input.mousePosition;
-        Vector3 playerScreenShot = Camera.main.WorldToScreenPoint(transform.position);
-        if (mousePos.x < playerScreenShot.x)
-        {
-            mySR.flipX = true;
-            isFace = true;
-        }
-        else
-        {
-            mySR.flipX = false;
-            isFace = false;
-        }
+        }*/
     }
     public void SetPosition(Vector3 cords, Vector2 direction)
     {
+        Vector2 moveInput = transform.position;
         Vector2 currentMove = new Vector2(moveInput.x, moveInput.y);
         transform.position = cords;
         currentMove = direction;
