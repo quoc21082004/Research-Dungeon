@@ -12,7 +12,7 @@ public class UpgradeNoticeManager : Singleton<UpgradeNoticeManager>
     [SerializeField] TextBar textBarprefab;
     [SerializeField] Transform textBarContent;
     [SerializeField] Button confirm_btn;
-    public int MAX_ATTRIBUTE;  // hp , mp , atk , def , dmgx
+    public int MAX_ATTRIBUTE;
     public List<TextBar> textBarList;
 
     private void OnDisable()
@@ -20,7 +20,7 @@ public class UpgradeNoticeManager : Singleton<UpgradeNoticeManager>
         confirm_btn.onClick.RemoveListener(DisableUpgradeNotice);
         textBarList.ForEach(x => x.gameObject.SetActive(false));
     }
-    public void SetLevelText(string _level) => characterLvl_txt.text = "Lv." + _level;
+    public void SetLevelText(string _level) => characterLvl_txt.text = $"Lv.{_level}";
     public void CreateNoticeBar(int _index, string _titleAttribute, string _value1, string _value2)
     {
         textBarList[_index].SetTitleText(_titleAttribute);

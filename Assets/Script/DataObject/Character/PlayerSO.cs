@@ -29,8 +29,8 @@ public class BasicMovement
 {
     public float baseSpeed;
     public float runSpeed;
-    public float walkSpeed;
-    public float DashSpeed;
+    public float dashSpeed;
+    public JumpData jumpData;
 }
 [System.Serializable]
 public class BasicAttack
@@ -81,6 +81,14 @@ public class ExtraBuff
     public float percentDamage;
     public float extraSpeedMove;
 }
+#endregion
 
-
+#region Movement Data
+[System.Serializable]
+public class JumpData
+{
+    [SerializeField] public Vector3 standardForce;
+    [SerializeField] public Vector3 mediumForce;
+    [SerializeField] public Vector3 hardForce;
+}
 #endregion

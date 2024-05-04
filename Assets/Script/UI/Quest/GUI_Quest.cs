@@ -43,8 +43,13 @@ public class GUI_Quest : MonoBehaviour , IGUI
 
     private void Start()
     {
-        foreach (var _questbox in questBox)
-            _questbox.OnQuestSelectEvent -= OnSelectQuest;
+        for (int i = 0; i < quests.Count; i++)
+        {
+            var _questbox = PoolManager.instance.Release(questBoxprefab.gameObject);
+            _questbox.transform.SetParent(contentQuest);
+        }
+        questBox = contentQuest.GetComponentsInChildren<QuestBox>().ToList();
+        questBox.ForEach(_questbox => _questbox.OnQuestSelectEvent -= OnSelectQuest);
     }
     private void OnDestroy()
     {
@@ -207,13 +212,7 @@ public class GUI_Quest : MonoBehaviour , IGUI
         questBox.ForEach(_questbox => _questbox.gameObject.SetActive(false));
         itemReward.ForEach(_itemreward => _itemreward.gameObject.SetActive(false));
         itemrequire.gameObject.SetActive(false);
-
-        for (int i = 0; i < quests.Count; i++)
-        {
-            var questbox = PoolManager.instance.Release(questBoxprefab.gameObject);
-            questbox.transform.SetParent(contentQuest);
-        }
-        questBox = contentQuest.GetComponentsInChildren<QuestBox>().ToList();
+        questBox.ForEach(x => x.gameObject.SetActive(true));
         int count = 0;
         foreach (var _questbox in questBox)
         {

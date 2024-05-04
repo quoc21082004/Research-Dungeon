@@ -22,8 +22,7 @@ MonoBehaviour:
   basicMovement:
     baseSpeed: 10
     runSpeed: 15
-    walkSpeed: 2
-    DashSpeed: 12
+    dashSpeed: 25
   basicAttack:
     wandDamage: 250
     critChance: 66

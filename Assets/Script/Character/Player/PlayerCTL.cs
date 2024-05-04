@@ -8,55 +8,64 @@ public class PlayerCTL : MonoBehaviour
 {
     public const string FILE_NAME = "PlayerStatus";
 
-    #region Info Player
-    [HideInInspector] public SpriteRenderer mySR;
-    [HideInInspector] public Rigidbody2D myrigid;
-    Animator myanim;
-    TrailRenderer mytrail;
-    [HideInInspector] public PlayerHurt playerhurt;
-    [HideInInspector] public PlayerCombat playercombat;
-    [HideInInspector] public float maxhealth, maxmana, health, damage, defense, mana, speed;
-    [HideInInspector] public bool isAlve = true;
+    #region Component Method
+    [HideInInspector] public SpriteRenderer mySR { get; private set; }
+    [HideInInspector] public Rigidbody2D myrigid { get; private set; }
+    [HideInInspector] public Animator myanim { get; private set; }
+    [HideInInspector] public PlayerHurt playerhurt { get; private set; }
+    [HideInInspector] public PlayerCombat playercombat { get; private set; }
     [HideInInspector] public PlayerSO playerdata;
+    [HideInInspector] public MouseFollow mousefollow { get; private set; }
 
-    public float dashSpeed, dashCD;
-    bool isDash;
-    Collider2D[] pickup;
-    [HideInInspector] public float rangePickup = 1.2f;
-    public MouseFollow mousefollow;
+    public PlayerStateMachine stateMachine { get; private set; }
+    public IdleState idleState { get; private set; }
+    public MoveState moveState { get; private set; }
+    public SprintState sprintState { get; private set; }
+    public DashState dashState { get; private set; }
     #endregion
 
-    private PlayerMovementStateMachine movementState; 
-    private void Awake()
-    {
-        movementState = new PlayerMovementStateMachine(this);
-        mySR = GetComponent<SpriteRenderer>();
-        myrigid = GetComponent<Rigidbody2D>();
-        myanim = GetComponent<Animator>();
-        playerhurt = GetComponentInParent<PlayerHurt>();
-        playercombat = GetComponent<PlayerCombat>();
-        mytrail = GetComponentInChildren<TrailRenderer>();
-        mousefollow = GetComponentInChildren<MouseFollow>();
-    }
+    #region Variable 
+    public PlayerAnimationData animData;
+    public GameObject dustprefab;
+    Collider2D[] pickup;
+    [HideInInspector] public float rangePickup = 1.2f;
+    [HideInInspector] public float maxhealth, maxmana, health, damage, defense, mana, speed;
+    [HideInInspector] public bool isAlve = true;
+    #endregion
+
+    #region MonoBehaviour Method
     private void OnEnable()
     {
         playerdata = GameManager.instance.playerSO;
         health = playerdata.basicStats.health;
         mana = playerdata.basicStats.mana;
+
+    }
+    private void Awake()
+    {
+        stateMachine = new PlayerStateMachine();
+        idleState = new IdleState(this, stateMachine, "Idle");
+        moveState = new MoveState(this, stateMachine, "Move");
+        sprintState = new SprintState(this, stateMachine, "Sprint");
+        dashState = new DashState(this, stateMachine, "Dash");
+        animData.InitializeAnimation();
+
+        mySR = GetComponent<SpriteRenderer>();
+        myrigid = GetComponent<Rigidbody2D>();
+        myanim = GetComponent<Animator>();
+        playerhurt = GetComponentInParent<PlayerHurt>();
+        playercombat = GetComponent<PlayerCombat>();
+        mousefollow = GetComponentInChildren<MouseFollow>();
     }
     private void Start()
     {
-        movementState.ChangeState(movementState.IdleState);
-        LoadPos();
-    }
-    private void OnApplicationQuit()
-    {
-        SavePos();
+        stateMachine.Initialize(idleState);
+        stateMachine.ChangeState(idleState);
     }
     private void Update()
     {
-        movementState.HandleInput();
-        movementState.Update();
+        stateMachine.HandleInput();
+        stateMachine.Update();
 
         maxhealth = playerdata.basicStats.health;
         maxmana = playerdata.basicStats.mana;
@@ -66,66 +75,19 @@ public class PlayerCTL : MonoBehaviour
         if (isAlve)
         {
             PickUp();
-            Dash();
             playerhurt.RegenRecover();
             playercombat.FindEnemy();
         }
     }
     private void FixedUpdate()
     {
-        movementState.PhysicUpdate();
+        stateMachine.PhysicUpdate();
         /*if (health >= playerdata.basicStats.health)
             health = playerdata.basicStats.health;
         if (mana >= playerdata.basicStats.mana)
             mana = playerdata.basicStats.mana;*/
     }
 
-    #region move & flip
-    private void Move()
-    {
-        /*moveInput = InputManager.playerInput.Player.Move.ReadValue<Vector2>();
-        if ((moveInput.x != 0 | moveInput.y != 0)) 
-        {
-            myanim.SetFloat("MoveX", moveInput.x);
-            myanim.SetFloat("MoveY", moveInput.y);
-            myanim.SetBool("Walking", true);
-            myrigid.velocity = (moveInput * speed * Time.deltaTime);
-        }
-        else if (moveInput.x == 0 && moveInput.y == 0) 
-        {
-            myanim.SetBool("Walking", false);
-            myrigid.velocity = Vector2.zero;
-        }*/
-    }
-    public void SetPosition(Vector3 cords, Vector2 direction)
-    {
-        Vector2 moveInput = transform.position;
-        Vector2 currentMove = new Vector2(moveInput.x, moveInput.y);
-        transform.position = cords;
-        currentMove = direction;
-    }
-    #endregion
-
-    #region Dash
-    private void Dash()
-    {
-        if (Input.GetKeyDown(KeyCode.Space) && !isDash)
-        {
-            isDash = true;
-            speed *= dashSpeed;
-            mytrail.emitting = true;
-            StartCoroutine(EndDashRoutine());
-        }
-    }
-    private IEnumerator EndDashRoutine()
-    {
-        float dashTime = 0.2f;
-        yield return new WaitForSeconds(dashTime);
-        speed = speed / 2;
-        yield return new WaitForSeconds(dashCD);
-        mytrail.emitting = false;
-        isDash = false;
-    }
     #endregion
 
     #region PickUp
@@ -154,6 +116,12 @@ public class PlayerCTL : MonoBehaviour
         Vector3 afterPos = SaveLoadHandler.LoadFromFile<Vector3>(FILE_NAME);
         transform.position = afterPos;
     }
+    public void SetPosition(Vector3 cords, Vector2 direction)
+    {
+        Vector2 moveInput = transform.position;
+        Vector2 currentMove = new Vector2(moveInput.x, moveInput.y);
+        transform.position = cords;
+        currentMove = direction;
+    }
     #endregion
 }
-
