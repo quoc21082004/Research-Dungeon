@@ -8,7 +8,7 @@ public class PlayerBuilet : MonoBehaviour
     float speed;
     public AttackSO baseAttack;
     [SerializeField] GameObject damageBurstFX;
-    float critRate, critdamage, percentageDamage, wandDamage , rand;
+    float critRate, critdamage, percentageDamage, wandDamage, rand;
     private void OnEnable()
     {
         myrigd = GetComponent<Rigidbody2D>();
@@ -16,7 +16,7 @@ public class PlayerBuilet : MonoBehaviour
         rand = Random.Range(0f, 101f);
         critRate = PartyController.player.playerdata.basicAttack.critChance;
         critdamage = Random.Range(PartyController.player.playerdata.basicAttack.minCritDamage, PartyController.player.playerdata.basicAttack.maxCritDamage);
-        percentageDamage = PartyController.player.playerdata.extraBuff.percentDamage;
+        percentageDamage = PartyController.player.playerdata.basicAttack.percentDamage;
         wandDamage = PartyController.player.playerdata.basicAttack.wandDamage + baseAttack.baseDamage;
     }
     private void FixedUpdate()
@@ -28,21 +28,24 @@ public class PlayerBuilet : MonoBehaviour
     {
         if (collision.gameObject.TryGetComponent<EnemyHurt>(out var cos))
         {
-            float totaldamage = wandDamage * critdamage;
-            if (collision.gameObject.TryGetComponent<Enemy>(out Enemy enemy))
+            float total = rand < critRate ? wandDamage * critdamage + (wandDamage * percentageDamage) / 100 : wandDamage + (wandDamage * percentageDamage) / 100;
+            IDamagable damage = collision.gameObject.GetComponent<IDamagable>();
+            if (damage != null)
+                damage.TakeDamage(total, rand < critRate);
+            /*if (collision.gameObject.TryGetComponent<Enemy>(out Enemy enemy))
             {
                 if (rand < critRate)
                     enemy.gameObject.GetComponent<EnemyHurt>().TakeDamage(totaldamage + (totaldamage * percentageDamage) / 100, true);
                 else
                     enemy.gameObject.GetComponent<EnemyHurt>().TakeDamage(wandDamage + (wandDamage * percentageDamage) / 100, false);
-            }
+            }*/
             AssetManager.instance.assetData.SpawnBloodSfx(collision.transform);
-            GameObject clone = PoolManager.instance.Release(damageBurstFX, collision.transform.position, Quaternion.identity);
+            PoolManager.instance.Release(damageBurstFX, collision.transform.position, Quaternion.identity);
             gameObject.SetActive(false);
         }
         else if (collision.gameObject.CompareTag("Wall") && !collision.gameObject.CompareTag("Enemy"))
         {
-            GameObject clone = PoolManager.instance.Release(damageBurstFX, transform.position, Quaternion.identity);
+            PoolManager.instance.Release(damageBurstFX, transform.position, Quaternion.identity);
             gameObject.SetActive(false);
         }
     }

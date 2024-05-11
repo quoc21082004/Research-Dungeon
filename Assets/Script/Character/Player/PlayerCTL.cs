@@ -4,19 +4,21 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Events;
 
-public class PlayerCTL : MonoBehaviour
+public class PlayerCTL : MonoBehaviour 
 {
     public const string FILE_NAME = "PlayerStatus";
 
     #region Component Method
-    [HideInInspector] public SpriteRenderer mySR { get; private set; }
     [HideInInspector] public Rigidbody2D myrigid { get; private set; }
+    [HideInInspector] public SpriteRenderer mySR { get; private set; }
     [HideInInspector] public Animator myanim { get; private set; }
     [HideInInspector] public PlayerHurt playerhurt { get; private set; }
     [HideInInspector] public PlayerCombat playercombat { get; private set; }
     [HideInInspector] public PlayerSO playerdata;
     [HideInInspector] public MouseFollow mousefollow { get; private set; }
+    #endregion
 
+    #region State Machine
     public PlayerStateMachine stateMachine { get; private set; }
     public IdleState idleState { get; private set; }
     public MoveState moveState { get; private set; }
@@ -25,24 +27,27 @@ public class PlayerCTL : MonoBehaviour
     #endregion
 
     #region Variable 
+    public StatusHandle Health = new();
+    public StatusHandle Mana = new();
+
     public PlayerAnimationData animData;
-    public GameObject dustprefab;
+    public ParticleSystem dustprefab;
     Collider2D[] pickup;
     [HideInInspector] public float rangePickup = 1.2f;
-    [HideInInspector] public float maxhealth, maxmana, health, damage, defense, mana, speed;
     [HideInInspector] public bool isAlve = true;
     #endregion
 
-    #region MonoBehaviour Method
-    private void OnEnable()
-    {
-        playerdata = GameManager.instance.playerSO;
-        health = playerdata.basicStats.health;
-        mana = playerdata.basicStats.mana;
-
-    }
+    #region Main Method
     private void Awake()
     {
+        playerdata = GameManager.instance.playerSO;
+
+        var _health = Mathf.CeilToInt(playerdata.basicStats.health);
+        Health.InitValue(_health, _health);
+
+        var _mana = Mathf.CeilToInt(playerdata.basicStats.mana);
+        Mana.InitValue(_mana, _mana);
+
         stateMachine = new PlayerStateMachine();
         idleState = new IdleState(this, stateMachine, "Idle");
         moveState = new MoveState(this, stateMachine, "Move");
@@ -50,8 +55,8 @@ public class PlayerCTL : MonoBehaviour
         dashState = new DashState(this, stateMachine, "Dash");
         animData.InitializeAnimation();
 
-        mySR = GetComponent<SpriteRenderer>();
         myrigid = GetComponent<Rigidbody2D>();
+        mySR = GetComponent<SpriteRenderer>();
         myanim = GetComponent<Animator>();
         playerhurt = GetComponentInParent<PlayerHurt>();
         playercombat = GetComponent<PlayerCombat>();
@@ -66,12 +71,6 @@ public class PlayerCTL : MonoBehaviour
     {
         stateMachine.HandleInput();
         stateMachine.Update();
-
-        maxhealth = playerdata.basicStats.health;
-        maxmana = playerdata.basicStats.mana;
-        defense = playerdata.basicStats.defense;
-        damage = playerdata.basicAttack.wandDamage;
-        speed = playerdata.basicMovement.baseSpeed;
         if (isAlve)
         {
             PickUp();
@@ -82,10 +81,6 @@ public class PlayerCTL : MonoBehaviour
     private void FixedUpdate()
     {
         stateMachine.PhysicUpdate();
-        /*if (health >= playerdata.basicStats.health)
-            health = playerdata.basicStats.health;
-        if (mana >= playerdata.basicStats.mana)
-            mana = playerdata.basicStats.mana;*/
     }
 
     #endregion
@@ -124,4 +119,5 @@ public class PlayerCTL : MonoBehaviour
         currentMove = direction;
     }
     #endregion
+
 }

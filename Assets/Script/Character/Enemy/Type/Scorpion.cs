@@ -1,9 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.UI;
-using UnityEngine.AI;
-
 public class Scorpion : EnemyRange
 {
     public Transform[] builetPos;
@@ -31,7 +27,7 @@ public class Scorpion : EnemyRange
         Direction();
         foreach (var item in builetPos)
         {
-            builetprefab.gameObject.GetComponent<Damage>().realdamage = enemyhurt.CaculateDMG(damage) / 2.5f;
+            builetprefab.gameObject.GetComponent<EnemyBuilet>().realdamage =damage / 2.5f;
             GameObject clone = PoolManager.instance.Release(builetprefab, item.transform.position, item.transform.rotation);
             Rigidbody2D crb = clone.GetComponent<Rigidbody2D>();
             crb.AddForce(item.up * builetspeed, ForceMode2D.Impulse);
@@ -45,12 +41,5 @@ public class Scorpion : EnemyRange
             Attack();
             yield return new WaitForSeconds(0.2f);
         }
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, alertrange);
     }
 }

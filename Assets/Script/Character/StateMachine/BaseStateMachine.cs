@@ -11,9 +11,7 @@ public class BaseStateMachine : IState
     protected Vector2 movementInput;
     protected float speedModifier = 1f;
     protected float startTime;
-
     protected bool shouldWalk;
-    protected Vector3 currentJumpForce;
     #endregion
 
 
@@ -69,14 +67,8 @@ public class BaseStateMachine : IState
     #endregion
 
     #region Resurb Method
-    public void StartAnimation(int hashAnimation)
-    {
-        player.myanim.SetBool(hashAnimation, true);
-    }
-    public void StopAnimation(int hasAnimation)
-    {
-        player.myanim.SetBool(hasAnimation, false);
-    }
+    public void StartAnimation(int hashAnimation) => player.myanim.SetBool(hashAnimation, true);
+    public void StopAnimation(int hasAnimation) => player.myanim.SetBool(hasAnimation, false);
     protected void ReadMovementInput() => movementInput = InputManager.playerInput.Player.Move.ReadValue<Vector2>();
     protected void Move()
     {
@@ -101,9 +93,9 @@ public class BaseStateMachine : IState
     }
     protected float GetMovementSpeed()
     {
-        return player.speed * speedModifier;
+        return player.playerdata.basicMovement.baseSpeed * speedModifier;
     }
-    protected void FlipCharacter()
+    protected void FlipCharacter()  // flip according mouse
     {
         Vector3 mousePos = Input.mousePosition;
         Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(player.transform.position);

@@ -282,7 +282,7 @@ GameObject:
   m_Component:
   - component: {fileID: 9104433113427795734}
   - component: {fileID: 7537787797832240017}
-  m_Layer: 9
+  m_Layer: 3
   m_Name: EnemyMap
   m_TagString: Untagged
   m_Icon: {fileID: 0}

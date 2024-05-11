@@ -14,18 +14,21 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MAX_LEVEL: 99
   basicStats:
-    health: 11600
-    mana: 2480
-    defense: 12521
-    healthRegen: 73.799995
-    manaRegen: 1
+    health: 12400
+    mana: 2720
+    defense: 230
+    healthRegen: 2
+    manaRegen: 2
   basicMovement:
     baseSpeed: 10
     runSpeed: 15
-    walkSpeed: 5
-    DashSpeed: 10
+    dashSpeed: 20
+    jumpData:
+      standardForce: {x: 0, y: 0, z: 0}
+      mediumForce: {x: 0, y: 0, z: 0}
+      hardForce: {x: 0, y: 0, z: 0}
   basicAttack:
-    wandDamage: 11964
+    wandDamage: 230
     critChance: 66
     minCritDamage: 3.499999
     maxCritDamage: 6.2500014
@@ -34,18 +37,18 @@ MonoBehaviour:
   otherStats:
     damageReduction: 5.200002
     skillPoint: 46
-    gold: 965000
+    gold: 527200
   upgradeLevel:
-    level: 13
-    exp: 33
-    expToLvl: 19250
+    level: 4
+    exp: 1138
+    expToLvl: 3732
   extraBuff:
     extraExp: 12
-    percentDamage: 9
+    percentDamage: 13
     extraSpeedMove: 1.2
   upgrade:
-    powerlevel: 15
+    powerlevel: 0
     magiclevel: 0
-    hastelevel: 15
-    vitalitylevel: 15
+    hastelevel: 0
+    vitalitylevel: 0
     greedlevel: 0

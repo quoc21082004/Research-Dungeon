@@ -47,20 +47,12 @@ public class GUI_PlayerStats : MonoBehaviour
         spd_txt.text = playerdata.basicMovement.baseSpeed.ToString("F1");
         level_txt.text = playerdata.upgradeLevel.level.ToString("F0");
         // dmg
-        DMG_txt.text = playerdata.extraBuff.percentDamage.ToString("F2") + "%";
+        DMG_txt.text = playerdata.basicAttack.percentDamage.ToString("F2") + "%";
         crit_txt.text = playerdata.basicAttack.critChance.ToString("F2") + "%";
         critDMG_txt.text = playerdata.basicAttack.maxCritDamage.ToString("F2") + "%";
         atkSpd_txt.text = playerdata.basicAttack.attackSpeed.ToString("F2");
         // regen
         hpRegen_txt.text = playerdata.basicStats.healthRegen.ToString("F2") + "%";
         mpRegen_txt.text = playerdata.basicStats.manaRegen.ToString("F2") + "%";
-        // level upgrade
-
-        power_txt.text = playerdata.upgrade.powerlevel.ToString();
-        magic_txt.text = playerdata.upgrade.magiclevel.ToString();
-        vitality_txt.text = playerdata.upgrade.vitalitylevel.ToString();
-        haste_txt.text = playerdata.upgrade.hastelevel.ToString();
-        greed_txt.text = playerdata.upgrade.greedlevel.ToString();
-
     }
 }

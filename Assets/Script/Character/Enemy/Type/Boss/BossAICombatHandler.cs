@@ -75,7 +75,7 @@ public class BossAICombatHandler : MonoBehaviour
     {
         allowAbilityUseTime = Time.time;
         currentAbility = 0;
-        while (bossStats.health > 0f)
+        while (bossStats.Health.currentValue > 0f)
         {
             yield return AbilityUseCoroutine(workFlowState1);
             yield return new WaitForSeconds(updateInterval);

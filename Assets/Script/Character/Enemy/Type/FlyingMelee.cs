@@ -28,42 +28,33 @@ public class FlyingMelee : EnemyMelee
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "PlayerCTL")
+        if (collision.gameObject.TryGetComponent<PlayerCTL>(out var player))
         {
-            if (collision.gameObject.TryGetComponent<PlayerCTL>(out PlayerCTL player))
-            {
-                player.GetComponent<PlayerHurt>().TakeDamage(damage, false);
-            }
+            IDamagable _damage = collision.gameObject.GetComponent<IDamagable>();
+            if (_damage != null)
+                _damage.TakeDamage(damage, false);
         }
     }
     private void OnTriggerStay2D(Collider2D collision)
     {
-        if (collision.gameObject.tag == "PlayerCTL")
+        if (collision.gameObject.TryGetComponent<PlayerCTL>(out var player))
         {
-            if (collision.gameObject.TryGetComponent<PlayerCTL>(out PlayerCTL player))
+            IDamagable _damage = collision.gameObject.GetComponent<IDamagable>();
+            if (_damage != null)
+            {
                 if (isAttack)
                     if (!isDMG)
                     {
                         isDMG = true;
-                        player.GetComponent<PlayerHurt>().TakeDamage(enemyhurt.CaculateDMG(damage), false);
+                        _damage.TakeDamage(damage, false);
                         StartCoroutine(dmgCD());
                     }
+            }
         }
     }
     IEnumerator dmgCD()
     {
         yield return new WaitForSeconds(0.3f);
         isDMG = false;
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, alertrange);
-    }
-    protected override void UntimateEnemyMelee()
-    {
-
     }
 }

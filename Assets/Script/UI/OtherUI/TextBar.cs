@@ -13,5 +13,4 @@ public class TextBar : MonoBehaviour
     public void SetValueBefore(string _value) => valuebefore_txt.text = _value;
     public void SetValueAfter(string _value) => valueafter_txt.text = _value;
 
-
 }

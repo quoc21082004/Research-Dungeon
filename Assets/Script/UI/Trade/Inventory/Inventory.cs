@@ -1,15 +1,13 @@
 ﻿using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
-using System.Linq;
 using System;
 [System.Serializable]
 public class Inventory 
 {
-    public delegate void OnItemChanged();
-    public OnItemChanged onItemChangedCallBack;
+    public event Action OnItemChangeCallBack;
     public int space = 24;
-    public int Gold;
+    public int Gold { get; set; }
+    public event Action<int> OnGoldChangeEvent;
     public List<ItemSO> items = new List<ItemSO>();
     public bool AddItem(ItemSO item, int amount)
     {
@@ -26,8 +24,7 @@ public class Inventory
             items.Add(MonoBehaviour.Instantiate(item));       // add item into list
             items.Sort((x1, x2) => x1.itemNumber.CompareTo(x2.itemNumber)); // sort item number 
         }
-        if (onItemChangedCallBack != null)
-            onItemChangedCallBack.Invoke();
+        OnItemChangeCallBack?.Invoke();
         return true;
     }
     public void Remove(ItemSO itemSO, int amt)
@@ -47,10 +44,7 @@ public class Inventory
             MonoBehaviour.Destroy(itemInInventory);
             items.Sort((x1, x2) => x1.itemNumber.CompareTo(x2.itemNumber));
         }
-        if (onItemChangedCallBack != null)
-        {
-            onItemChangedCallBack.Invoke();
-        }
+        OnItemChangeCallBack?.Invoke();
     }
     public void Remove(ItemSO itemSO, bool toDestroy)
     {
@@ -58,17 +52,10 @@ public class Inventory
         items.Remove(itemInventory);
         items.Sort((x1, x2) => x1.itemNumber.CompareTo(x2.itemNumber));
         if (toDestroy)
-        {
             MonoBehaviour.Destroy(itemInventory);
-        }
-        if (onItemChangedCallBack != null)      
-            onItemChangedCallBack.Invoke();         // nothing but when += value will = += function
+        OnItemChangeCallBack?.Invoke();
     }
-    public void LoadInventory()
-    {
-        if (onItemChangedCallBack != null)
-            onItemChangedCallBack.Invoke();
-    }
+    public void LoadInventory() => OnItemChangeCallBack?.Invoke();
     public int GetItemAmt(ItemSO item)
     {
         if (items.Find(x => x.itemNumber == item.itemNumber) == null)
@@ -80,5 +67,10 @@ public class Inventory
     public ItemSO GetItem(int itemnumber)
     {
         return items.Find(x => x.itemNumber == itemnumber);
+    }
+    public void IncreaseGold(int _amount)
+    {
+        Gold = Mathf.Clamp(Gold + _amount, 0, Int32.MaxValue);
+        OnGoldChangeEvent?.Invoke(Gold);
     }
 }

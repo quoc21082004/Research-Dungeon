@@ -1,3 +1,4 @@
+
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -5,7 +6,7 @@ using TMPro;
 using UnityEngine.UI;
 using System;
 
-public class SpellHotKeyManager : Singleton<SpellHotKeyManager> , IHotKey
+public class SpellHotKeyManager : Singleton<SpellHotKeyManager>, IHotKey
 {
     public const string FILE_NAME = "SkillSet.json";
     public int NumOfHotKeySpell = 4;
@@ -107,7 +108,7 @@ public class SpellHotKeyManager : Singleton<SpellHotKeyManager> , IHotKey
             {
                 if (skillbarDisplay != null)
                 {
-                    while (delayTime < 0.6f)  
+                    while (delayTime < 0.6f)
                     {
                         delayTime += Time.deltaTime;
                         castDelay_img.fillAmount = delayTime / spell.spell.baseCastDelay;

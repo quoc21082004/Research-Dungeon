@@ -17,10 +17,10 @@ public class Boss : Enemy
 
     private void Update()
     {
-        if (!canUse)
+        if (!canUse && Health.currentValue <= (Health.maxValue / 30f))
         {
             canUse = true;
-            enemyHurt.onEnemyEvent += BossSpawnEnemy;
+            BossSpawnEnemy();
         }
     }
     private void BossSpawnEnemy()

@@ -35,7 +35,7 @@ public class PosionZone : MonoBehaviour, ISpell
     private IEnumerator StartPrepare()
     {
         yield return new WaitForSeconds(prepareTime);
-        myanim.Play("PoionZoneDamage");
+        myanim.Play("PoisonZoneDamage");
         var endTime = Time.time + durationTime;
         while (Time.time <= endTime) 
         {

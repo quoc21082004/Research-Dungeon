@@ -17,7 +17,7 @@ public class ShopInventoryUI : InventoryUI
             spawnSlot.transform.SetParent(itemsParent);
             spawnSlot.transform.localScale = new Vector3(1f, 1f, 1f);
         }
-        inventory.onItemChangedCallBack += UpdateUI;
+        inventory.OnItemChangeCallBack += UpdateUI;
     }
     protected override void UpdateUI()
     {

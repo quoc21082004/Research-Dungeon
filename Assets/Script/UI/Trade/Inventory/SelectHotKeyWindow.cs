@@ -1,9 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
-using System;
+﻿using UnityEngine;
+
 
 public class SelectHotKeyWindow : MonoBehaviour
 {
@@ -13,6 +9,7 @@ public class SelectHotKeyWindow : MonoBehaviour
     InventorySlot[] slotsSpell;
     bool isPotion, isBookSpell;
 
+    #region Main Mathod
     private void OnEnable()
     {
         if (slotsItem == null)
@@ -46,7 +43,6 @@ public class SelectHotKeyWindow : MonoBehaviour
     }
     private void Update()
     {
-                                        // Item Hot Key
         if (isPotion)
         {
             if (Input.GetKeyDown(KeyCode.X))
@@ -54,7 +50,6 @@ public class SelectHotKeyWindow : MonoBehaviour
             if (Input.GetKeyDown(KeyCode.C))
                 SelectSlotHotKeyItem(1);
         }
-                                        // Spell Hot Key
         if (isBookSpell)
         {
             if (Input.GetKeyDown(KeyCode.Alpha1))
@@ -67,6 +62,9 @@ public class SelectHotKeyWindow : MonoBehaviour
                 SelectSlotHotKeySpell(3);
         }
     }
+    #endregion
+
+    #region Resurb Method
     public void SelectSlotHotKeyItem(int NumKey)
     {
         AudioManager.instance.PlaySfx("Click");
@@ -94,4 +92,5 @@ public class SelectHotKeyWindow : MonoBehaviour
         GetComponentInParent<InventoryUI>().itemOptionsWindow.selectSlotbtn.Select();
         GetComponentInParent<InventoryUI>().itemOptionsWindow.selectSlotbtn.OnSelect(null);
     }
+    #endregion
 }

@@ -2,7 +2,7 @@ using System;
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
-// use when have  function similar
+
 public interface IItem      
 {
     void Destroy();
@@ -30,8 +30,15 @@ public interface IInteract
 {
     void Interact();
 }
+public interface ISkill
+{
+    void UseSkill1();
+    void UseSkill2();
+    void UseSkill3();
+    void UseSkill4();
+}
 public interface IGUI
 {
-    public void GetReference(GameManager _gameManager);
-    public void UpdateDataGUI();
+     void GetReference(GameManager _gameManager);
+     void UpdateDataGUI();
 }

@@ -385,6 +385,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemystat: {fileID: 11400000, guid: a96398831fc17514ca456470c0622015, type: 2}
+  player: {fileID: 0}
+  enemyhurt: {fileID: 0}
   mySR: {fileID: 0}
   myanim: {fileID: 0}
   maxhealth: 0
@@ -399,6 +401,12 @@ MonoBehaviour:
     type: 3}
   alertOffSet: {x: 0, y: 0.87, z: 0}
   knockTime: 0
+  OnTakeDamageEvent:
+    m_PersistentCalls:
+      m_Calls: []
+  OnDieEvent:
+    m_PersistentCalls:
+      m_Calls: []
   monsterprefab:
   - {fileID: 3383540492465960013, guid: 99a3b1e34c2deca4eaf64948a9a88b5e, type: 3}
   prefabPos:

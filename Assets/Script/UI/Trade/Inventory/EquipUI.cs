@@ -18,7 +18,7 @@ public class EquipUI : InventoryUI
             spawnSlot.transform.localScale = new Vector3(1f, 1f, 1f);
         }
         slots = itemsParent.GetComponentsInChildren<InventorySlot>().ToList();
-        inventory.onItemChangedCallBack += UpdateUI;
+        inventory.OnItemChangeCallBack += UpdateUI;
     }
     protected override void OnEnable() => EquipmentManager.instance.OnEquipItem += Equip;
     protected override void UpdateUI()

@@ -1,17 +1,16 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
 
 [CreateAssetMenu]
 public class EnemySO: ScriptableObject 
 {
-    [Header("Stats Enemy")]
-    public float heath;
-    public float damage;
-    public float defense;
-    public float attackTimer;
-    public float alertRange;
-    public float range;
+    [Header("Stats Modifier")]
+    [SerializeField] private int HP;
+    [SerializeField] private int DEF;
+    [SerializeField] private int defense;
+    [SerializeField] private float attackTimer;
+    [SerializeField] private float alertRange;
+    [SerializeField] private float range;
     public float builetSpeed;
     [Space]
     [SerializeField] public TypeEnemy Type;
@@ -23,12 +22,18 @@ public class EnemySO: ScriptableObject
     [SerializeField] public int expReward;
     [Space]
     public GrowStat growstats;
-    
+
+    // Function
+    public int GetHP() => HP;
 }
 [System.Serializable]
 public class GrowStat
 {
-    public float healthGrow;
-    public float damageGrow;
-    public float defenseGrow;
+    [SerializeField] private int healthGrow;
+    [SerializeField] private int damageGrow;
+    [SerializeField] private int defenseGrow;
+
+    public int GetHealthGrown() => healthGrow;
+    public int GetDamageGrown() => damageGrow;
+    public int GetDefenseGrown() => defenseGrow;
 }

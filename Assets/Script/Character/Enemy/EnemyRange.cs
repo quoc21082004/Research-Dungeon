@@ -6,12 +6,17 @@ public abstract class EnemyRange : Enemy
     protected float distance;
     protected float moveRange;
     public GameObject ultiprefab;
+
+    #region Main Method
     protected override void OnEnable()
     {
         base.OnEnable();
         canUse = false;
         mood = EnemyMood.Normal;
     }
+    #endregion
+
+    #region Resurb Method
     protected override void CheckDistance()
     {
         bool checkDistance = true ? player != null : player == null;
@@ -63,7 +68,7 @@ public abstract class EnemyRange : Enemy
         Quaternion ultirotation = Quaternion.Euler(0f, 0f, angle);
         if (PoolManager.instance.Release(ultiprefab, transform.position, ultirotation).TryGetComponent<ISpell>(out var spell))
             spell.KickOff(ability, player.transform.position, Quaternion.identity);
-        // recover cd
-        float CDTime = Time.time + 15f;
     }
+    #endregion
+
 }

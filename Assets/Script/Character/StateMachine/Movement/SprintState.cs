@@ -19,9 +19,9 @@ public class SprintState : BaseStateMachine
         base.Enter();
         StartAnimation(player.animData.sprintParameterHash);
         player.dustprefab.gameObject.SetActive(true);
+        player.dustprefab.Play();
         startTime = Time.time;
         speedModifier = playerdata.basicMovement.runSpeed;
-        currentJumpForce = player.playerdata.basicMovement.jumpData.hardForce;
     }
     public override void Exit()
     {

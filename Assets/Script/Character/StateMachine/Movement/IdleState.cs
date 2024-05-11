@@ -15,7 +15,6 @@ public class IdleState : BaseStateMachine
         base.Enter();
         StartAnimation(player.animData.idleParameterHash);
         speedModifier = 0;
-        currentJumpForce = player.playerdata.basicMovement.jumpData.standardForce;
         ResetVelocity();
     }
 

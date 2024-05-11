@@ -13,6 +13,10 @@ public class EnemySpawn : Enemy
     public float spawnDelay;
     public float spawnRange;
     int currentMonster = 0;
+    public override void Start()
+    {
+
+    }
     public void SpawnEnemy()
     {
         StartCoroutine(SpawnCoroutine());

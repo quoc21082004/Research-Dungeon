@@ -1,19 +1,15 @@
 using UnityEngine;
 using UnityEngine.UI;
 using Cinemachine;
-using TMPro;
 using UnityEngine.Events;
 using DG.Tweening;
 using System.Collections;
-using System;
-using JetBrains.Annotations;
-using UnityEngine.SceneManagement;
+
 public class CutSceneController : MonoBehaviour
 {
     [SerializeField] Animator fadingAnim;
     [SerializeField] Transform objectMove;
     [SerializeField] DialogueObject[] dialogueStore;
-    [SerializeField] Image fade_img;
     [SerializeField] CinemachineVirtualCamera virtualCineCamera;
     [SerializeField] UnityEvent[] cutSceneEvent;
 

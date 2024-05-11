@@ -1,8 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.InteropServices.WindowsRuntime;
 using UnityEngine;
-using UnityEngine.AI;
 public class Bat : EnemyRange
 {
     public GameObject builetprefab;
@@ -24,7 +21,7 @@ public class Bat : EnemyRange
     {
         foreach (var direct in builetPos)
         {
-            builetprefab.gameObject.GetComponent<Damage>().realdamage = enemyhurt.CaculateDMG(damage) / 4f;
+            builetprefab.gameObject.GetComponent<EnemyBuilet>().realdamage = damage/ 4f;
             clone = PoolManager.instance.Release(builetprefab, direct.position, direct.rotation);
             Rigidbody2D crb = clone.GetComponent<Rigidbody2D>();
             crb.AddForce(direct.up * builetspeed, ForceMode2D.Impulse);
@@ -46,18 +43,11 @@ public class Bat : EnemyRange
         Direction();
         myagent.enabled = false;
         yield return new WaitForSeconds(0.5f);
-        for (int i = 0; i < 3; i++) 
+        for (int i = 0; i < 3; i++)
         {
             Attack();
             yield return new WaitForSeconds(0.2f);
         }
         myagent.enabled = true;
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, alertrange);
     }
 }

@@ -1,7 +1,5 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.AI;
 public class Skeleton : EnemyMelee
 {
     protected override void Awake()
@@ -20,20 +18,21 @@ public class Skeleton : EnemyMelee
         yield return new WaitForSeconds(0.15f);
         myanim.SetTrigger("Attack");
         if (distance <= range)
-            player.gameObject.GetComponent<PlayerHurt>().TakeDamage(enemyhurt.CaculateDMG(damage), false);
+        {
+            IDamagable _damage = player.GetComponent<IDamagable>();
+            if (_damage != null)
+                _damage.TakeDamage(damage, false);
+        }
         yield return new WaitForSeconds(1f);
         isAttack = false;
     }
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "PlayerCTL")
-            collision.gameObject.GetComponent<PlayerHurt>().TakeDamage(damage, false);
-    }
-    void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(this.transform.position, range);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(this.transform.position, alertrange);
+        if (collision.gameObject.TryGetComponent<PlayerCTL>(out var player))
+        {
+            IDamagable _damage = collision.gameObject.GetComponent<IDamagable>();
+            if (_damage != null)
+                _damage.TakeDamage(damage, false);
+        }
     }
 }

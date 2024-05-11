@@ -1,9 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
-using Newtonsoft.Json;
-using UnityEngine.UI;
+﻿using UnityEngine;
 [CreateAssetMenu(fileName = "Shop Item", menuName = "Shop/Mobs Item")]
 public class ItemSO : ScriptableObject
 {

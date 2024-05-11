@@ -27,18 +27,11 @@ public class LittleRange : EnemyRange
     protected override IEnumerator attackDelay()
     {
         Direction();
-        builetprefab.gameObject.GetComponent<Damage>().realdamage = enemyhurt.CaculateDMG(damage)/1.5f;
+        builetprefab.gameObject.GetComponent<EnemyBuilet>().realdamage = damage/ 1.5f;
         GameObject clone = PoolManager.instance.Release(builetprefab, MuzzlePoint.position, MuzzlePoint.rotation);
         Rigidbody2D crb = clone.GetComponent<Rigidbody2D>();
         crb.AddForce(MuzzlePoint.up * builetspeed, ForceMode2D.Impulse);
         crb.velocity = Vector2.ClampMagnitude(crb.velocity, builetspeed);
         yield return null;
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, alertrange);
     }
 }

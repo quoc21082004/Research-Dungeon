@@ -8,6 +8,7 @@ using System.Linq;
 
 public class GUI_Enchance : MonoBehaviour , IGUI
 {
+    #region Variable
     const int defaultSlot = -1;
     int currentEquipIndex;
     private int equiptmentSlot;
@@ -34,6 +35,9 @@ public class GUI_Enchance : MonoBehaviour , IGUI
     private bool canUpgrade;
     private int increaseAtk => currentSelectEquipment.level + 5;
     private int increaseArmor => currentSelectEquipment.level + 3;
+    #endregion
+
+    #region Main Method
     private void Awake()
     {
         equipmentUpgradeSO = GameManager.instance.equipUpgradeSO;
@@ -65,6 +69,9 @@ public class GUI_Enchance : MonoBehaviour , IGUI
     }
     private void OnEnable() => RegisterEvent();
     private void OnDisable() => UnRegisterEvent();
+    #endregion
+
+    #region Resurb Method
     private void RegisterEvent()
     {
         GUI_Manager.AddGUI(this);
@@ -118,7 +125,6 @@ public class GUI_Enchance : MonoBehaviour , IGUI
         accept_btn.onClick.RemoveListener(OnClickUpgradeButton);
         cancel_btn.onClick.RemoveListener(OnClickCancelButton);
         currentSelectEquipment.ClearSlot();
-
         costUpgrade = 0;
     }
     private void UpdateDataEC()
@@ -186,6 +192,7 @@ public class GUI_Enchance : MonoBehaviour , IGUI
         var currentArmor = EquipmentManager.instance.currentEquipment[currentEquipIndex].armorModifier + increaseArmor;
 
         #region Upgrade Notice
+
         UpgradeNoticeManager.instance.MAX_ATTRIBUTE = 2;
         UpgradeNoticeManager.instance.SpawnNoticeUpgrade();
         UpgradeNoticeManager.instance.SetLevelText(currentLvl.ToString());
@@ -207,6 +214,7 @@ public class GUI_Enchance : MonoBehaviour , IGUI
         UpdateDataEC();
         yield return null;
     }
+    #endregion
 
     #region Set
     private void SetCoinText()
@@ -231,9 +239,11 @@ public class GUI_Enchance : MonoBehaviour , IGUI
     private void SetBarProgressLevel() => expProgressSlider.value = currentSelectEquipment.level <= equipmentUpgradeSO.MAX_LEVEL ? currentSelectEquipment.level : expProgressSlider.maxValue;
     #endregion
 
+    #region Interface Method
     public void GetReference(GameManager _gameManager) { }
     public void UpdateDataGUI()
     {
 
     }
+    #endregion
 }

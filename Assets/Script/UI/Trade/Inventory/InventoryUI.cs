@@ -33,7 +33,7 @@ public class InventoryUI : MonoBehaviour
             spawnSlot.transform.SetParent(itemsParent);
             spawnSlot.transform.localScale = new Vector3(1f, 1f, 1f);
         }
-        inventory.onItemChangedCallBack += UpdateUI;
+        inventory.OnItemChangeCallBack += UpdateUI;
     }
     protected virtual void OnEnable()
     {
@@ -44,7 +44,7 @@ public class InventoryUI : MonoBehaviour
         if (inventory == null || inventory != PartyController.inventoryG)
         {
             inventory = PartyController.inventoryG;
-            inventory.onItemChangedCallBack += UpdateUI;
+            inventory.OnItemChangeCallBack += UpdateUI;
         }
         slots = itemsParent.GetComponentsInChildren<InventorySlot>().ToList();
         slots.ForEach(x1 => x1.gameObject.SetActive(true));

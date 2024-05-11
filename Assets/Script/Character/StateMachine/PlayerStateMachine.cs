@@ -3,10 +3,9 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class PlayerStateMachine
+public class PlayerStateMachine 
 {
     public IState currentState;
-
     public void Initialize(IState _startState)
     {
         currentState = _startState;

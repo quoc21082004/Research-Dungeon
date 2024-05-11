@@ -5,7 +5,6 @@ using UnityEngine.InputSystem;
 
 public class PlayerCombat : ActiveAbility 
 {
-    PlayerCTL player;
     public static Transform muzzlePoint;
     public GameObject fireballprefab;
     bool isAttack = false;
@@ -13,17 +12,18 @@ public class PlayerCombat : ActiveAbility
     public float rangeOfAim;
     Collider2D[] findEnemy;
     public Transform aimPos, muzzleFind;
+
+    #region Main Method
     private void OnEnable()
     {
         muzzlePoint = GameObject.FindGameObjectWithTag("Muzzle").GetComponent<Transform>();
-        player = GameObject.Find("Player").GetComponent<PlayerCTL>();
         mouseFollow = GetComponentInChildren<MouseFollow>();
         RegisterEvent();
     }
-    private void OnDisable()
-    {
-        UnRegisterEvent();
-    }
+    private void OnDisable() => UnRegisterEvent();
+    #endregion
+
+    #region Resurb Method
     private void RegisterEvent()
     {
         var abilityInput = InputManager.playerInput.PlayerAbility;
@@ -98,8 +98,9 @@ public class PlayerCombat : ActiveAbility
         if (!SpellHotKeyManager.instance.IsHotKeyCoolDown(3))
             SpellHotKeyManager.instance.UseHotKey(3);
     }
+    #endregion
 
-    #region LF Enemy
+    #region Looking For Enemy
     public void FindEnemy()
     {
         findEnemy = Physics2D.OverlapCircleAll(transform.position, rangeOfAim, LayerMaskHelper.layerMaskEnemy);

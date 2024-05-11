@@ -1,8 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿
+using System.Collections;
 using UnityEngine;
-using UnityEngine.AI;
-
 public class Boar : Enemy
 {
     float Distance;
@@ -54,22 +52,14 @@ public class Boar : Enemy
 
     private void OnCollisionEnter2D(Collision2D collision)
     {
-        if (collision.gameObject.tag == "PlayerCTL")
+        if (collision.gameObject.tag == "Player")
         {
-            if (collision.gameObject.TryGetComponent<PlayerCTL>(out PlayerCTL player))
+            if (collision.gameObject.TryGetComponent<PlayerCTL>(out var player))
             {
                 player.GetComponent<PlayerHurt>().TakeDamage(2, false);
             }
         }
     }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, range);
-        Gizmos.color = Color.blue;
-        Gizmos.DrawWireSphere(transform.position, alertrange);
-    }
-
     protected override void CheckDistance()
     {
         throw new System.NotImplementedException();

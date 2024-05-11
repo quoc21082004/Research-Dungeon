@@ -16,7 +16,6 @@ public class MoveState : BaseStateMachine
         base.Enter();
         StartAnimation(player.animData.moveParameterHash);
         speedModifier = player.playerdata.basicMovement.baseSpeed;
-        currentJumpForce = player.playerdata.basicMovement.jumpData.mediumForce;
     }
     public override void Exit()
     {

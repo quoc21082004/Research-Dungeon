@@ -68,7 +68,7 @@ public class DamageZoneSpell : MonoBehaviour, ISpell
         {
             if (collider.gameObject.TryGetComponent<PlayerCTL>(out PlayerCTL player))
             {
-                player.mana = Mathf.Min(player.maxmana, player.mana - reduceMana);
+                //player.mana = Mathf.Min(player.maxmana, player.mana - reduceMana);
                 DamagePopManager.instance.CreateRecoverPop(ConsumableType.ManaPotion, -reduceMana, player.transform.position, player.transform);
             }
         }

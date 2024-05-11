@@ -19,17 +19,16 @@ public class DashState : BaseStateMachine
     {
         base.Enter();
         StartAnimation(player.animData.dashParameterHash);
-        startTime = Time.time;
-        speedModifier = dashSpeed;
-        currentJumpForce = player.playerdata.basicMovement.jumpData.hardForce;
-        Dash();
+        speedModifier = dashSpeed * 1.5f;
         player.dustprefab.gameObject.SetActive(true);
+        player.dustprefab.Play();
+        Dash();
         UpdateConsectiveDash();
     }
     public override void Exit()
     {
         base.Exit();
-        StopAnimation(player.animData.sprintParameterHash);
+        StopAnimation(player.animData.dashParameterHash);
         player.dustprefab.gameObject.SetActive(false);
     }
     public override void Update()

@@ -1,39 +1,47 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.InputSystem;
 
 public class GameManager : Singleton<GameManager>
 {
     public const string FILE_NAME = "PlayerStat.json";
     [HideInInspector] public float exp, exptolevel;
     [HideInInspector] public int level;
+
+    // SO
     public PlayerSO playerSO;
     public CharacterUpgradeSO upgradeSO;
     public EquipmentUpgradeSO equipUpgradeSO;
+    public GUI_PlayerStatus playerHUD;
+
     private void OnEnable()
     {
-        exp = PlayerPrefs.GetFloat("Exp"); 
-        exptolevel = PlayerPrefs.GetFloat("Explevelup");
-        level = PlayerPrefs.GetInt("level");
+        level = playerSO.upgradeLevel.level;
+        exp = playerSO.upgradeLevel.exp;
+        exptolevel = upgradeSO.Data[level].expToLvl;
     }
+
+    #region Level
     public void LevelUp()
     {
         var playerdata = PartyController.player.playerdata;
         exp = exp - exptolevel;
-        PartyController.player.playerdata.otherStats.skillPoint += 1;
-        playerdata.upgradeLevel.expToLvl = playerdata.upgradeLevel.expToLvl * 1.2f;
-        playerdata.upgradeLevel.level++;
+        playerdata.otherStats.skillPoint += 1;
+        level++;
+        exptolevel = upgradeSO.GetNextLevel(level);
     }
     public void AddExperience(float expToAdd)
     {
         var playerdata = PartyController.player.playerdata;
-        exp = expToAdd + expToAdd + (expToAdd * PlayerPrefs.GetFloat("extraExp") / 100);
+        exp = expToAdd + expToAdd;
         while (exp >= exptolevel)
             LevelUp();
-        exptolevel = playerdata.upgradeLevel.expToLvl;
+        //exptolevel = playerdata.upgradeLevel.expToLvl;
+        //exp = playerdata.upgradeLevel.exp;
+        exptolevel = upgradeSO.Data[level].expToLvl;
         exp = playerdata.upgradeLevel.exp;
     }
     public void RespawnAfterDie(float lostexp) => exp -= (int)((exp * lostexp) / 100);
+    #endregion
+   
 }

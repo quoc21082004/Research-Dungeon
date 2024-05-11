@@ -389,7 +389,7 @@ GameObject:
   - component: {fileID: 349807727}
   - component: {fileID: 349807729}
   - component: {fileID: 349807730}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Design Inside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -3155,7 +3155,7 @@ GameObject:
   - component: {fileID: 553933568}
   - component: {fileID: 553933569}
   - component: {fileID: 553933570}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Wall
   m_TagString: Wall
   m_Icon: {fileID: 0}
@@ -11855,7 +11855,7 @@ GameObject:
   - component: {fileID: 633385599}
   - component: {fileID: 633385601}
   - component: {fileID: 633385602}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ground Inside
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -18391,7 +18391,7 @@ GameObject:
   - component: {fileID: 1778493173}
   - component: {fileID: 1778493175}
   - component: {fileID: 1778493176}
-  m_Layer: 0
+  m_Layer: 7
   m_Name: Ground
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -42896,7 +42896,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 4, y: 4}
+    oldSize: {x: 4, y: 4.0078125}
     newSize: {x: 4, y: 4}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -43108,6 +43108,16 @@ PrefabInstance:
       propertyPath: OnStageStart.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
       objectReference: {fileID: 1130090184}
+    - target: {fileID: 4788820488313957231, guid: 1b728d484c63894448b90322bb5a2671,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 14
+      objectReference: {fileID: 0}
+    - target: {fileID: 4788820488313957231, guid: 1b728d484c63894448b90322bb5a2671,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -5.6
+      objectReference: {fileID: 0}
     - target: {fileID: 8120289598122646052, guid: 1b728d484c63894448b90322bb5a2671,
         type: 3}
       propertyPath: m_Name

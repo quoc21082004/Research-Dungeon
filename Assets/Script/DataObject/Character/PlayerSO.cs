@@ -1,7 +1,4 @@
-﻿using JetBrains.Annotations;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "CharacterSO",menuName = "CharacterSO/Character")]
 public class PlayerSO : ScriptableObject 
@@ -16,11 +13,6 @@ public class PlayerSO : ScriptableObject
     public OtherStats otherStats;
     [Space]
     public UpgradeLevelData upgradeLevel;
-    [Space]
-    public ExtraBuff extraBuff;
-    [Space]
-    public Upgrade upgrade;
-
 }
 
 #region Stats Full
@@ -30,7 +22,6 @@ public class BasicMovement
     public float baseSpeed;
     public float runSpeed;
     public float dashSpeed;
-    public JumpData jumpData;
 }
 [System.Serializable]
 public class BasicAttack
@@ -39,8 +30,9 @@ public class BasicAttack
     public float critChance;
     public float minCritDamage;
     public float maxCritDamage;
-    public float attackSpeed;
     public float builetSpeed;
+    public float attackSpeed;
+    public float percentDamage;
 }
 [System.Serializable]
 public class OtherStats
@@ -64,31 +56,5 @@ public class UpgradeLevelData
     public int level;
     public float exp;
     public float expToLvl;
-}
-[System.Serializable]
-public class Upgrade
-{
-    public int powerlevel;
-    public int magiclevel;
-    public int hastelevel;
-    public int vitalitylevel;
-    public int greedlevel;
-}
-[System.Serializable]
-public class ExtraBuff
-{
-    public float extraExp;
-    public float percentDamage;
-    public float extraSpeedMove;
-}
-#endregion
-
-#region Movement Data
-[System.Serializable]
-public class JumpData
-{
-    [SerializeField] public Vector3 standardForce;
-    [SerializeField] public Vector3 mediumForce;
-    [SerializeField] public Vector3 hardForce;
 }
 #endregion
