@@ -1,52 +1,68 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+using DG.Tweening;
 
-public class GUI_PlayerStatus : MonoBehaviour
+public class GUI_PlayerStatus : MonoBehaviour, IGUI
 {
-    [Header("STATUS")]
-    public PlayerCTL player;
-    float currenthp, maxhp, percentage_hp;
-    [SerializeField] private Image fill_hp;
-    [SerializeField] private TextMeshProUGUI hp_text;
-    float currentmp, maxmp, percentage_mp;
-    [SerializeField] private Image fill_mp;
-    [SerializeField] private TextMeshProUGUI mp_text;
-    float currentexp, maxexp, percentage_exp;
-    [SerializeField] private Image fill_exp;
-    [SerializeField] private TextMeshProUGUI exp_text;
-
-    private void Update()
+    [SerializeField] public PlayerCTL player;
+    [SerializeField] private ProgressBar healthBar;
+    [SerializeField] private ProgressBar manaBar;
+    [SerializeField] private TextMeshProUGUI level_txt;
+    [SerializeField] private Slider expProgress;
+    #region Main Method
+    private void Start()
     {
-        if (PartyController.player == null)
-            return;
-        else
+        if (player == null)
             player = PartyController.player.GetComponent<PlayerCTL>();
+        expProgress.minValue = 0;
+    }
+    private void OnEnable() => RegisterEvent();
+    private void OnDisable() => UnRegisterEvent();
+    #endregion
 
-        ReadStats();
-        fillImage();
-    }
-    private void ReadStats()
+    #region Resurb Method
+    private void RegisterEvent()
     {
-        maxhp = player.maxhealth;
-        maxmp = player.maxmana;
-        maxexp = GameManager.instance.exptolevel;
-        currenthp = PartyController.player.health;
-        currentmp = PartyController.player.mana;
-        currentexp = GameManager.instance.exp;
+        if (!player) return;
+        var _gameManager = GameManager.instance;
+        var _currentLevel = _gameManager.level;
+        level_txt.text = $"Lv.{_currentLevel}";
+        expProgress.value = _gameManager.exp;
+        expProgress.maxValue = _gameManager.upgradeSO.GetNextLevel(_currentLevel);
+
+        player.Health.OnInitValueEvent += healthBar.OnInitValue;
+        player.Health.OnMaxValueChangeEvent += healthBar.OnMaxValueChange;
+        player.Health.OnValueChangeEvent += healthBar.OnCurrentValueChange;
+
+        player.Mana.OnInitValueEvent += manaBar.OnInitValue;
+        player.Mana.OnMaxValueChangeEvent += manaBar.OnMaxValueChange;
+        player.Mana.OnValueChangeEvent += manaBar.OnCurrentValueChange;
     }
-    private void fillImage()
+    private void UnRegisterEvent()
     {
-        percentage_hp = currenthp / maxhp;
-        fill_hp.fillAmount = percentage_hp;
-        hp_text.text = "" + currenthp.ToString("F0") + " / " + maxhp.ToString("F0");
-        percentage_mp = currentmp / maxmp;
-        fill_mp.fillAmount = percentage_mp;
-        mp_text.text = "" + currentmp.ToString("F0") + " / " + maxmp.ToString("F0");
-        percentage_exp = currentexp / maxexp;
-        fill_exp.fillAmount = percentage_exp;
-        exp_text.text = "" + currentexp.ToString("F0") + " / " + maxexp.ToString("F0");
+        if (!player) return;
+        player.Health.OnInitValueEvent -= healthBar.OnInitValue;
+        player.Health.OnMaxValueChangeEvent -= healthBar.OnMaxValueChange;
+        player.Health.OnValueChangeEvent -= healthBar.OnCurrentValueChange;
+
+        player.Mana.OnInitValueEvent -= manaBar.OnInitValue;
+        player.Mana.OnMaxValueChangeEvent -= manaBar.OnMaxValueChange;
+        player.Mana.OnValueChangeEvent -= manaBar.OnCurrentValueChange;
     }
+    #endregion
+
+    public void OpenHUD() => gameObject.SetActive(true);
+    public void CloseHUD() => gameObject.SetActive(false);
+   
+    #region Interface Method
+    public void GetReference(GameManager _gameManager)
+    {
+    }
+    public void UpdateDataGUI()
+    {
+    }
+    #endregion
+
 }
