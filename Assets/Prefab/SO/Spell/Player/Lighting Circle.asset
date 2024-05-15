@@ -19,12 +19,12 @@ MonoBehaviour:
     AbilityIcon: {fileID: 1357552934, guid: acd9da3fff2ff15498ef9316d886c158, type: 3}
     Rarity: 0
   type: 0
-  isUnlock: 1
+  isUnlock: 0
   learnCost: 1400
   baseCastDelay: 0.5
   baseCostMana: 50
   baseCoolDown: 10
   maxUseRange: 6
-  baseDamage: 2300
+  baseDamage: 750
   spellPrefab: {fileID: 6796607226110293606, guid: 3ea32a557750cf04cbe4db9760b72ac6,
     type: 3}

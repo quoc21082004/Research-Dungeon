@@ -167,7 +167,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   minspeed: 0.3
   maxspeed: 0.6
-  rand: 0
+  coinprefab: {fileID: 7237565924620861604}
+  rand: 14
 --- !u!210 &1549071391
 SortingGroup:
   m_ObjectHideFlags: 0

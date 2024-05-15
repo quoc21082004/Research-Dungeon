@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
 [CreateAssetMenu(fileName = "Shop Item", menuName = "Shop/Mobs Item")]
 public class ItemSO : ScriptableObject
 {
@@ -38,7 +39,8 @@ public class ItemSO : ScriptableObject
     }
     public void LearnForGold(int learncost)
     {
-        PartyController.IncreaseCoin(-learncost);
+        PartyController.inventoryG.IncreaseCoin(-learncost);
+        //PartyController.IncreaseCoin(-learncost);
         PartyController.inventoryG.LoadInventory();
     }
 

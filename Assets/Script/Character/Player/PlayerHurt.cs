@@ -26,10 +26,10 @@ public class PlayerHurt : MonoBehaviour , IDamagable
     }
     public float CaculateDMG(float amount, bool isCrit)
     {
-        var _def = player.playerdata.basicStats.defense;
+        var _def = player.playerdata.basicStats.GetDef();
         var _critDef = isCrit ? Random.Range(0, _def * 0.5f) : _def;
         var _finalDmg = (int)Mathf.Max(0, amount - Mathf.Max(0, _critDef));
-        _finalDmg = Mathf.Max(0, (int)(_finalDmg / player.playerdata.otherStats.damageReduction));
+        _finalDmg = Mathf.Max(0, (int)(_finalDmg / player.playerdata.basicStats.GetDamageReduce()));
         return Mathf.CeilToInt(_finalDmg);
     }
     private void Dead()
@@ -54,7 +54,7 @@ public class PlayerHurt : MonoBehaviour , IDamagable
     }
     IEnumerator hpRegen()
     {
-        var _healthRegen = player.playerdata.basicStats.healthRegen;
+        var _healthRegen = player.playerdata.basicStats.GetHealthRegen();
         isHealthRegen = true;
         player.Health.Increase((int)_healthRegen);
         AssetManager.instance.assetData.SpawnRecoverEffect(ConsumableType.HealthPotion, transform.position, PartyController.player.transform);
@@ -63,7 +63,7 @@ public class PlayerHurt : MonoBehaviour , IDamagable
     }
     IEnumerator mpRegen()
     {
-        var _manaRegen = player.playerdata.basicStats.manaRegen;
+        var _manaRegen = player.playerdata.basicStats.GetManaRegen();
         isManaRegen = true;
         player.Mana.Increase(Mathf.CeilToInt(_manaRegen));
         AssetManager.instance.assetData.SpawnRecoverEffect(ConsumableType.ManaPotion, transform.position, PartyController.player.transform);

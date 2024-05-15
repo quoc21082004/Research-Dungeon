@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class PosionZone : MonoBehaviour, ISpell
 {
@@ -27,9 +28,10 @@ public class PosionZone : MonoBehaviour, ISpell
     }
     private float CaculateDamage()
     {
-        critDamage = Random.Range(PartyController.player.playerdata.basicAttack.minCritDamage, PartyController.player.playerdata.basicAttack.maxCritDamage);
+        var _playerSO = PartyController.player.playerdata.basicAttack;
+        critDamage = _playerSO.GetCritDMG();
         float ratePercent = Random.Range(150f, 170f);
-        float totalDamage = (((abilitySpell.skillInfo.baseDamage + PartyController.player.playerdata.basicAttack.wandDamage * ratePercent) / 100)) * Random.Range(1.75f, 2.5f);
+        float totalDamage = (((abilitySpell.skillInfo.baseDamage + _playerSO.GetDamage() * ratePercent) / 100)) * Random.Range(1.75f, 2.5f);
         return totalDamage;
     }
     private IEnumerator StartPrepare()
@@ -44,11 +46,11 @@ public class PosionZone : MonoBehaviour, ISpell
             {
                 if (collider.gameObject.TryGetComponent<EnemyHurt>(out var enemy))
                 {
-                    bool isCrit = PartyController.player.playerdata.basicAttack.critChance > Random.Range(0, 101) ? true : false;
-                    if (isCrit)
-                        enemy.TakeDamage(CaculateDamage() * critDamage, isCrit);
-                    else
-                        enemy.TakeDamage(CaculateDamage(), isCrit);
+                    bool isCrit = PartyController.player.playerdata.basicAttack.GetCrit() > Random.Range(0, 101) ? true : false;
+                    float totalDMG = isCrit ? CaculateDamage() * critDamage : CaculateDamage();
+                    IDamagable damage = collider.gameObject.GetComponent<IDamagable>();
+                    if (damage != null)
+                        damage.TakeDamage(totalDMG, isCrit);
                 }
             }
             yield return new WaitForSeconds(damageTimeEclipse);

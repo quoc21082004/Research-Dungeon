@@ -19,12 +19,12 @@ public abstract class Enemy : MonoBehaviour
     #endregion
 
     #region Variable
-    public EnemySO enemystat;
+    public EnemySO enemySO;
     protected float timer, alertrange, attacktimer, range, builetspeed;
     protected bool isBoss, isAlert, isAttack, isWithIn;
     public float knockTime;
     protected bool canUse;
-    [HideInInspector] public float damage, defense, level;
+    [HideInInspector] public int damage, defense, level;
     [HideInInspector] public bool isDead, turnOnAlert;
     [HideInInspector] public EnemyMood mood;
     #endregion
@@ -32,34 +32,30 @@ public abstract class Enemy : MonoBehaviour
     #region Main Method
     public virtual void Start()
     {
-        myagent = GetComponent<NavMeshAgent>();
         myagent.updateRotation = false;
         myagent.updateUpAxis = false;
     }
-    protected virtual void OnEnable()
-    {
-        enemyhurt = GetComponent<EnemyHurt>();
-        level = (int)Random.Range(GameManager.instance.level - 3, GameManager.instance.level + 3);
-        Health.InitValue((int)(enemystat.heath + (level * enemystat.growstats.healthGrow)), (int)(enemystat.heath + (level * enemystat.growstats.healthGrow)));
-        defense = enemystat.defense + (level * enemystat.growstats.defenseGrow);
-        damage = enemystat.damage + (level * enemystat.growstats.damageGrow);
-    }
     protected virtual void Awake()
     {
+        myagent = GetComponent<NavMeshAgent>();
         ability = GetComponent<ActiveAbility>();
         player = PartyController.player;
         myanim = GetComponent<Animator>();
         mySR = GetComponent<SpriteRenderer>();
         enemyUI = GetComponentInChildren<EnemyUI>();
         myrigid = GetComponent<Rigidbody2D>();
-
-        attacktimer = enemystat.attackTimer;
-        alertrange = enemystat.alertRange;
-        range = enemystat.range;
-        builetspeed = enemystat.builetSpeed;
-        isDead = enemystat.isDead;
-        isAlert = enemystat.isAlert;
-        isAttack = enemystat.isAttack;
+        enemyhurt = GetComponent<EnemyHurt>();
+    }
+    protected virtual void OnEnable()
+    {
+        level = Random.Range(GameManager.instance.level + 1, GameManager.instance.level + 8);
+        Health.InitValue(enemySO.GetHP() + (level * enemySO.GetGrowStat().GetHealthGrown()), enemySO.GetDef() + (level * enemySO.GetGrowStat().GetDefenseGrown()));
+        defense = enemySO.GetDef() + (level * enemySO.GetGrowStat().GetDefenseGrown());
+        damage = enemySO.GetHP() + (level * enemySO.GetGrowStat().GetDamageGrown());
+        attacktimer = enemySO.GetAttackTimer();
+        alertrange = enemySO.GetAlertRange();
+        range = enemySO.GetRange();
+        builetspeed = enemySO.GetBuiletSpeed();
     }
     #endregion
 

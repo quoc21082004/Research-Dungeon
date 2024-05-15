@@ -12,17 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed2b0070e44b634187bec0e7cc79647, type: 3}
   m_Name: FlyingMelee
   m_EditorClassIdentifier: 
-  heath: 5000
-  damage: 200
-  defense: 12
+  HP: 9000
+  Def: 250
+  Damage: 125
   attackTimer: 3
   alertRange: 80
   range: 2
   builetSpeed: 0
-  Type: 0
-  isDead: 0
-  isAlert: 0
-  isAttack: 0
+  Type: 3
   goldReward: 0
   expReward: 0
   growstats:

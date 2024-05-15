@@ -1,8 +1,5 @@
-using JetBrains.Annotations;
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
 public class LightingSpell : MonoBehaviour, ISpell
 {
     private ActiveAbility activeAbility;
@@ -15,8 +12,9 @@ public class LightingSpell : MonoBehaviour, ISpell
     float critDamage;
     private float CaculateDamage()
     {
-        critDamage = Random.Range(PartyController.player.playerdata.basicAttack.minCritDamage, PartyController.player.playerdata.basicAttack.maxCritDamage);
-        float totalDamage = ((activeAbility.skillInfo.baseDamage + PartyController.player.playerdata.basicAttack.wandDamage) * Random.Range(150f, 200f)) / 100;
+        var _playerSO = PartyController.player.playerdata.basicAttack;
+        critDamage = _playerSO.GetCritDMG();
+        float totalDamage = ((activeAbility.skillInfo.baseDamage + _playerSO.GetDamage() * Random.Range(150f, 200f)) / 100);
         return totalDamage;
     }
     public void KickOff(ActiveAbility ability, Vector2 direction, Quaternion rot)
@@ -36,26 +34,19 @@ public class LightingSpell : MonoBehaviour, ISpell
             {
                 if (collider.gameObject.TryGetComponent<EnemyHurt>(out EnemyHurt enemy))
                 {
-                    if (enemy != null)
+                    GameObject cloneLighting = PoolManager.instance.Release(lightprefab, enemy.transform.position + spellOffSet, Quaternion.Euler(0, 0, 40f));
+                    if (cloneLighting != null)
                     {
-                        GameObject cloneLighting = PoolManager.instance.Release(lightprefab, enemy.transform.position + spellOffSet, Quaternion.Euler(0, 0, 40f));
-                        if (cloneLighting != null)
-                        {
-                            bool isCrit = PartyController.player.playerdata.basicAttack.critChance > Random.Range(0, 101) ? true : false;
-                            if (isCrit)
-                                enemy.TakeDamage(CaculateDamage() * critDamage, isCrit);
-                            else
-                                enemy.TakeDamage(CaculateDamage(), isCrit);
-                        }
+                        var _playerSO = PartyController.player.playerdata.basicAttack;
+                        bool isCrit = _playerSO.GetCrit() > Random.Range(0, 101) ? true : false;
+                        float totalDMG = isCrit ? CaculateDamage() * _playerSO.GetCritDMG() : CaculateDamage();
+                        IDamagable damage = collider.gameObject.GetComponent<IDamagable>();
+                        if (damage != null)
+                            damage.TakeDamage(totalDMG, isCrit);
                     }
                 }
             }
             yield return new WaitForSeconds(lightInterval);
         }
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, lightRadius);
     }
 }

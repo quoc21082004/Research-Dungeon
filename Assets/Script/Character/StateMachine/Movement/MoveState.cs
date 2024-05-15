@@ -15,7 +15,7 @@ public class MoveState : BaseStateMachine
     {
         base.Enter();
         StartAnimation(player.animData.moveParameterHash);
-        speedModifier = player.playerdata.basicMovement.baseSpeed;
+        speedModifier = player.playerdata.basicMovement.GetBaseSpeed();
     }
     public override void Exit()
     {

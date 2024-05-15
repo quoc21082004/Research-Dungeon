@@ -1,5 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
@@ -23,6 +22,7 @@ public class InventoryUI : MonoBehaviour
     List<string> sort_txt_index = new List<string>() { "All", "Amount", "Rarity", "Type" };
     private string Key_CurrentSortIndex = "SortIndex";
 
+    #region Main Method
     protected virtual void Awake()
     {
         inventory = PartyController.inventoryG;
@@ -59,6 +59,9 @@ public class InventoryUI : MonoBehaviour
         InitSortDropDown();
         UpdateUI();
     }
+    #endregion
+
+    #region Resurb Method
     protected virtual void UpdateUI()
     {
         for (int i = 0; i < slots.Count; i++)
@@ -83,6 +86,7 @@ public class InventoryUI : MonoBehaviour
             selectItemDisplay.UpdateUI();
         }
     }
+    #endregion
 
     #region Sort Item ( acorrding amonut - rarity - type
     private void InitSortDropDown()
@@ -147,7 +151,8 @@ public class InventoryUI : MonoBehaviour
     public void AddGoldFree()
     {
         int random = Random.Range(500, 800);
-        PartyController.IncreaseCoin(random);
+        //PartyController.IncreaseCoin(random);
+        PartyController.inventoryG.IncreaseCoin(random);
         gold_text.text = "" + inventory.Gold;
         AudioManager.instance.PlaySfx("Purchase");
     }

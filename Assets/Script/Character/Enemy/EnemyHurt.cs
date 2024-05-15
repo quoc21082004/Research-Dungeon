@@ -15,10 +15,7 @@ public class EnemyHurt : MonoBehaviour , IDamagable , IKnockBack
     public OnEnemyEvent onEnemyEvent;
 
     #region Main Method
-    private void OnEnable()
-    {
-        enemy = GetComponent<Enemy>();
-    }
+    private void OnEnable() => enemy = GetComponent<Enemy>();
 
     #endregion
 
@@ -51,10 +48,9 @@ public class EnemyHurt : MonoBehaviour , IDamagable , IKnockBack
     }
     private void DropLootItem()
     {
-        RewardManager.instance.SpawnLoot(enemy.enemystat.Type, transform.position);
-        PartyController.IncreaseCoin(enemy.enemystat.goldReward);
-        //PartyController.inventoryG.IncreaseGold(enemy.enemystat.goldReward);
-        GameManager.instance?.AddExperience(enemy.enemystat.expReward);
+        RewardManager.instance.SpawnLoot(enemy.enemySO.Type, transform.position);
+        PartyController.inventoryG.IncreaseCoin(enemy.enemySO.GetGoldReward());
+        GameManager.instance?.AddExperience(enemy.enemySO.GetExpReward());
     }
     #endregion
 

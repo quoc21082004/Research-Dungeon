@@ -14,7 +14,6 @@ public class BaseStateMachine : IState
     protected bool shouldWalk;
     #endregion
 
-
     public BaseStateMachine(PlayerCTL _player, PlayerStateMachine _stateMachine, string _animboolName)
     {
         player = _player;
@@ -77,6 +76,7 @@ public class BaseStateMachine : IState
             ResetVelocity();
             return;
         }
+        player.dustprefab.transform.localScale = movementInput.x > 0 ? new Vector3(1f, 1f, 1f) : new Vector3(-1f, 1f, 1f);
         Vector2 movementDirection = GetMovementInputDirection();
         float movementSpeed = GetMovementSpeed();
         player.myrigid.velocity = (movementDirection * movementSpeed * Time.fixedDeltaTime);
@@ -93,7 +93,7 @@ public class BaseStateMachine : IState
     }
     protected float GetMovementSpeed()
     {
-        return player.playerdata.basicMovement.baseSpeed * speedModifier;
+        return player.playerdata.basicMovement.GetBaseSpeed() * speedModifier;
     }
     protected void FlipCharacter()  // flip according mouse
     {
@@ -101,6 +101,7 @@ public class BaseStateMachine : IState
         Vector3 playerScreenPos = Camera.main.WorldToScreenPoint(player.transform.position);
         if (mousePos.x < playerScreenPos.x)
         {
+            
             player.mySR.flipX = true;
             player.mousefollow.FaceMouse();
         }

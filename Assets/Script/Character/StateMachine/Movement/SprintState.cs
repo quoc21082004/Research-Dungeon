@@ -13,15 +13,14 @@ public class SprintState : BaseStateMachine
         playerdata = _player.playerdata;
     }
     #region IState Method
-
     public override void Enter()
     {
         base.Enter();
         StartAnimation(player.animData.sprintParameterHash);
         player.dustprefab.gameObject.SetActive(true);
         player.dustprefab.Play();
+        speedModifier = playerdata.basicMovement.GetRunSpeed();
         startTime = Time.time;
-        speedModifier = playerdata.basicMovement.runSpeed;
     }
     public override void Exit()
     {

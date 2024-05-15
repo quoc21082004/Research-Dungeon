@@ -4,26 +4,31 @@ using UnityEngine;
 public class PlayerBuilet : MonoBehaviour
 {
     private Rigidbody2D myrigd;
-    [SerializeField] public float realspeed;
-    float speed;
     public AttackSO baseAttack;
     [SerializeField] GameObject damageBurstFX;
-    float critRate, critdamage, percentageDamage, wandDamage, rand;
+
+    [SerializeField] public float realspeed;
+    float critRate, critdamage, percentageDamage, wandDamage, rand, speed;
+
+    #region Main Method
+    private void Awake() => myrigd = GetComponent<Rigidbody2D>();
     private void OnEnable()
     {
-        myrigd = GetComponent<Rigidbody2D>();
-        speed = PartyController.player.playerdata.basicAttack.builetSpeed;
+        var _playerSO = PartyController.player.playerdata;
+        speed = _playerSO.basicAttack.GetBuiletSpeed();
         rand = Random.Range(0f, 101f);
-        critRate = PartyController.player.playerdata.basicAttack.critChance;
-        critdamage = Random.Range(PartyController.player.playerdata.basicAttack.minCritDamage, PartyController.player.playerdata.basicAttack.maxCritDamage);
-        percentageDamage = PartyController.player.playerdata.basicAttack.percentDamage;
-        wandDamage = PartyController.player.playerdata.basicAttack.wandDamage + baseAttack.baseDamage;
+        critRate = _playerSO.basicAttack.GetCrit();
+        critdamage = _playerSO.basicAttack.GetCritDMG();
+        percentageDamage = _playerSO.basicAttack.GetPercentDMG();
+        wandDamage = _playerSO.basicAttack.GetDamage() + baseAttack.baseDamage;
     }
     private void FixedUpdate()
     {
         myrigd.AddForce(transform.right * speed * realspeed, ForceMode2D.Impulse);
         myrigd.velocity = Vector2.ClampMagnitude(myrigd.velocity, speed * realspeed);
     }
+    #endregion
+
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent<EnemyHurt>(out var cos))
@@ -32,13 +37,6 @@ public class PlayerBuilet : MonoBehaviour
             IDamagable damage = collision.gameObject.GetComponent<IDamagable>();
             if (damage != null)
                 damage.TakeDamage(total, rand < critRate);
-            /*if (collision.gameObject.TryGetComponent<Enemy>(out Enemy enemy))
-            {
-                if (rand < critRate)
-                    enemy.gameObject.GetComponent<EnemyHurt>().TakeDamage(totaldamage + (totaldamage * percentageDamage) / 100, true);
-                else
-                    enemy.gameObject.GetComponent<EnemyHurt>().TakeDamage(wandDamage + (wandDamage * percentageDamage) / 100, false);
-            }*/
             AssetManager.instance.assetData.SpawnBloodSfx(collision.transform);
             PoolManager.instance.Release(damageBurstFX, collision.transform.position, Quaternion.identity);
             gameObject.SetActive(false);

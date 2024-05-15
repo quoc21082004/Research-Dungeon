@@ -17,38 +17,22 @@ MonoBehaviour:
     health: 12400
     mana: 2720
     defense: 230
-    healthRegen: 2
-    manaRegen: 2
+    healthRegen: 3
+    manaRegen: 3
+    damageReduce: 3.25
   basicMovement:
     baseSpeed: 10
     runSpeed: 15
     dashSpeed: 20
-    jumpData:
-      standardForce: {x: 0, y: 0, z: 0}
-      mediumForce: {x: 0, y: 0, z: 0}
-      hardForce: {x: 0, y: 0, z: 0}
   basicAttack:
     wandDamage: 230
-    critChance: 66
-    minCritDamage: 3.499999
-    maxCritDamage: 6.2500014
-    attackSpeed: 0.5
+    critChance: 15
+    critDamage: 2
     builetSpeed: 10
-  otherStats:
-    damageReduction: 5.200002
-    skillPoint: 46
-    gold: 527200
+    attackSpeed: 0.5
+    percentDamage: 2
   upgradeLevel:
-    level: 4
-    exp: 1138
-    expToLvl: 3732
-  extraBuff:
-    extraExp: 12
-    percentDamage: 13
-    extraSpeedMove: 1.2
-  upgrade:
-    powerlevel: 0
-    magiclevel: 0
-    hastelevel: 0
-    vitalitylevel: 0
-    greedlevel: 0
+    level: 1
+    exp: 0
+    expToLvl: 2160
+    gold: 965000

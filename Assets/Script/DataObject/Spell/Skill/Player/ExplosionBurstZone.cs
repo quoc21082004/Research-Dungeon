@@ -1,7 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class ExplosionBurstZone : ExplosionBuilet
 {
@@ -21,8 +20,9 @@ public class ExplosionBurstZone : ExplosionBuilet
     }
     private float CaculateDamage()
     {
-        critDamage = Random.Range(PartyController.player.playerdata.basicAttack.minCritDamage, PartyController.player.playerdata.basicAttack.maxCritDamage);
-        float totalDamage = ((activeAbility.skillInfo.baseDamage + PartyController.player.playerdata.basicAttack.wandDamage) * Random.Range(240, 270)) / 115f;
+        var _playerSO = PartyController.player.playerdata.basicAttack;
+        critDamage = _playerSO.GetCritDMG();
+        float totalDamage = ((activeAbility.skillInfo.baseDamage + _playerSO.GetDamage()) * Random.Range(240, 270)) / 115f;
         return totalDamage;
     }
     private void Explosion(Vector2 postion)
@@ -35,16 +35,11 @@ public class ExplosionBurstZone : ExplosionBuilet
             if (collider.gameObject.TryGetComponent<EnemyHurt>(out EnemyHurt enemy))
             {
                 bool isCrit = Random.Range(30, 40) > Random.Range(0, 101) ? true : false;
-                if (isCrit)
-                    enemy.TakeDamage(CaculateDamage() * critDamage, true);
-                else
-                    enemy.TakeDamage(CaculateDamage(), false);
+                float totalDamage = isCrit ? CaculateDamage() * critDamage : CaculateDamage();
+                IDamagable damage = collider.gameObject.GetComponent<IDamagable>();
+                if (damage != null)
+                    damage.TakeDamage(totalDamage, isCrit);
             }
         }
-    }
-    private void OnDrawGizmos()
-    {
-        Gizmos.color = Color.red;
-        Gizmos.DrawWireSphere(transform.position, explosionRange);
     }
 }

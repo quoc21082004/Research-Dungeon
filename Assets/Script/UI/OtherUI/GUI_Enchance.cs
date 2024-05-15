@@ -30,6 +30,7 @@ public class GUI_Enchance : MonoBehaviour , IGUI
 
     private Coroutine updateCoroutine;
     private EquipmentUpgradeSO equipmentUpgradeSO;
+    private int currentCoin;
     private int costUpgrade;
     private int equipmentLevel;
     private bool canUpgrade;
@@ -83,6 +84,7 @@ public class GUI_Enchance : MonoBehaviour , IGUI
         cancel_btn.onClick.AddListener(OnClickCancelButton);
 
         var _currentEquipment = EquipmentManager.instance;
+        PartyController.inventoryG.OnCoinChangedEvent += OnCoinChanged;
         for (int i = 0; i < slotEquips.Count; i++)
         {
             if (_currentEquipment.currentEquipment[i] != null)
@@ -124,6 +126,7 @@ public class GUI_Enchance : MonoBehaviour , IGUI
         slotItemRequire.ForEach(x => x.gameObject.SetActive(false));
         accept_btn.onClick.RemoveListener(OnClickUpgradeButton);
         cancel_btn.onClick.RemoveListener(OnClickCancelButton);
+        PartyController.inventoryG.OnCoinChangedEvent -= OnCoinChanged;
         currentSelectEquipment.ClearSlot();
         costUpgrade = 0;
     }
@@ -198,7 +201,9 @@ public class GUI_Enchance : MonoBehaviour , IGUI
         UpgradeNoticeManager.instance.SetLevelText(currentLvl.ToString());
         UpgradeNoticeManager.instance.CreateNoticeBar(0, "Atk", (currentAtk - increaseAtk).ToString(), currentAtk.ToString());
         UpgradeNoticeManager.instance.CreateNoticeBar(1, "Defense", (currentArmor - increaseArmor).ToString(), currentArmor.ToString());
-        PartyController.IncreaseCoin(-costUpgrade);
+
+        PartyController.inventoryG.IncreaseCoin(-costUpgrade);
+        //PartyController.IncreaseCoin(-costUpgrade);
         #endregion
 
         foreach (var _lfItem in equipmentUpgradeSO.requireData[equipmentLevel - 1].requireItems)    
@@ -217,9 +222,13 @@ public class GUI_Enchance : MonoBehaviour , IGUI
     #endregion
 
     #region Set
+    private void OnCoinChanged(int _value)
+    {
+        currentCoin = _value;
+        SetCoinText();
+    }
     private void SetCoinText()
     {
-        int currentCoin = PartyController.inventoryG.Gold;
         currency_txt.color = currentCoin >= costUpgrade ? Color.white : Color.red;
         currency_txt.text = $"{currentCoin}/{costUpgrade}";
     }

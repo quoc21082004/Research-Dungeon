@@ -1,31 +1,30 @@
 using UnityEngine;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System;
 using UnityEngine.UI;
 using TMPro;
 using UnityEngine.InputSystem;
 public class GUI_Quest : MonoBehaviour , IGUI
 {
+    #region Variable
     [SerializeField] private GameObject questPanel;
-    [SerializeField] private Animator noticeQuestanim;
-    [SerializeField] private TextMeshProUGUI noticeQuest_txt;
 
+    [SerializeField] private Animator noticeQuestanim;
+
+    [SerializeField] private TextMeshProUGUI noticeQuest_txt;
     [SerializeField] private TextMeshProUGUI questTitle_txt;
     [SerializeField] private TextMeshProUGUI questDescription_txt;
     [SerializeField] private TextMeshProUGUI questInProgress_txt;
     [SerializeField] private TextMeshProUGUI questTaskNotice_txt;
+    [SerializeField] private TextMeshProUGUI coinReward_txt;
 
     [SerializeField] private Button cancel_btn;
     [SerializeField] private Button accept_btn;
     [SerializeField] private Button report_btn;
 
     [SerializeField] public InventorySlot slotsprefab;
-
     [SerializeField] private InventorySlot itemrequire;
     [SerializeField] private List<InventorySlot> itemReward;
-    [SerializeField] TextMeshProUGUI coinReward_txt;
 
     [SerializeField] private Transform contentItem;
     [SerializeField] private Transform contentItemRequire;
@@ -37,10 +36,13 @@ public class GUI_Quest : MonoBehaviour , IGUI
     [SerializeField] private Transform contentQuest;
 
     private QuestBox currentQuestBox;
+
     private bool canOpenPanel;
     private bool isAccept;
     private bool isReport;
+    #endregion
 
+    #region Main Method
     private void Start()
     {
         for (int i = 0; i < quests.Count; i++)
@@ -62,6 +64,9 @@ public class GUI_Quest : MonoBehaviour , IGUI
         RegisterEvent();
     }
     private void OnDisable() => UnRegisterEvent();
+    #endregion
+
+    #region Resurb Method
     private void Init()
     {
         questTitle_txt.text = "";
@@ -70,8 +75,6 @@ public class GUI_Quest : MonoBehaviour , IGUI
         canOpenPanel = true;
         questPanel.gameObject.SetActive(false);
     }
-    public void GetReference(GameManager _gameManager) { }
-    public void UpdateDataGUI() { }
     private void RegisterEvent()
     {
         var gui = GUI_Input.playerInput;
@@ -124,6 +127,7 @@ public class GUI_Quest : MonoBehaviour , IGUI
         InputManager.playerInput.Enable();
         GUI_Input.playerInput.UI.OpenShop.Enable();
     }
+    #endregion
 
     #region            Handle Accept - Cancel - Report
 
@@ -147,7 +151,8 @@ public class GUI_Quest : MonoBehaviour , IGUI
         if (isReport) // complete quest
         {
             isReport = false;
-            var taskRequirement = currentQuestBox.questSetUp.requireQuest;
+            //var taskRequirement = currentQuestBox.questSetUp.requireQuest;
+            var taskRequirement = currentQuestBox.questSetUp.GetRequireQuest();
             PartyController.inventoryG.Remove(taskRequirement.requireItem, taskRequirement.amount);
             QuestManager.instance.OnCompleteQuest(currentQuestBox.questSetUp);
             OnSelectQuest(currentQuestBox);
@@ -167,7 +172,7 @@ public class GUI_Quest : MonoBehaviour , IGUI
         SetProgressQuest();    
         SetButton(currentQuestBox);
         CheckQuestReport(currentQuestBox);
-        SetNoticeQuestText(currentQuestBox.questSetUp.taskQuest);
+        SetNoticeQuestText(currentQuestBox.questSetUp.GetTask());
     }
     public void OnClickCancelBtn()
     {
@@ -184,24 +189,27 @@ public class GUI_Quest : MonoBehaviour , IGUI
         ShowQuest();
         currentQuestBox = _questbox;
         var _questSetUp = _questbox.questSetUp;
-        questTitle_txt.text = _questSetUp.titleQuest;
-        questDescription_txt.text = _questSetUp.descriptionQuest;
+        questTitle_txt.text = _questSetUp.GetTitleQuest();
+        questDescription_txt.text = _questSetUp.GetDescriptionQuest();
 
         CheckCompleteColor(_questbox);
         SpawnItemReward(_questSetUp);
         SpawnItemRequire(_questSetUp);
         SetButton(_questbox);
         CheckQuestReport(_questbox);
-        SetNoticeQuestText(_questSetUp.taskQuest);
+        SetNoticeQuestText(_questSetUp.GetTask());
     }
-    void CheckCompleteColor(QuestBox _questbox)
+    private void CheckCompleteColor(QuestBox _questbox)
     {
         if (_questbox.isComplete)
             _questbox.accept_icon.color = Color.white;
         else
             _questbox.accept_icon.color = Color.red;
     }
-    #endregion 
+
+    #endregion
+
+    #region Set Quest
     private void ShowQuest()
     {
         questTitle_txt.text = "???";
@@ -224,7 +232,7 @@ public class GUI_Quest : MonoBehaviour , IGUI
     }
     private void SpawnItemReward(QuestSetUp _questSetUp)
     {
-        var reward = _questSetUp.rewardQuest;
+        var reward = _questSetUp.GetRewardQuest();
         for (int i = 0; i < reward.Count; i++)
         {
             var slots = PoolManager.instance.Release(slotsprefab.gameObject);
@@ -237,7 +245,7 @@ public class GUI_Quest : MonoBehaviour , IGUI
 
         int count = 0;
         var _items = itemReward.Where(items => items.gameObject.activeSelf).ToList();
-        coinReward_txt.text = _questSetUp.coinReward.ToString() + " <sprite=3>";
+        coinReward_txt.text = _questSetUp.GetCoinReward().ToString() + " <sprite=3>";
         foreach (var rewardSlotItem in _items)
         {
             var itemSO = reward[count].item;
@@ -254,7 +262,7 @@ public class GUI_Quest : MonoBehaviour , IGUI
         itemrequire.GetComponentInChildren<ClickItemOption>().enabled = false;
         itemrequire.GetComponentInChildren<Button>().enabled = false;
 
-        var taskRequire = _questSetUp.requireQuest;
+        var taskRequire = _questSetUp.GetRequireQuest();
         var taskRequireItem = taskRequire.requireItem;
         var taskRequireItemNumber = taskRequireItem.itemNumber;
         int hasItem = PartyController.inventoryG.GetItemAmt(taskRequireItem);
@@ -275,12 +283,18 @@ public class GUI_Quest : MonoBehaviour , IGUI
     }
     private void CheckQuestReport(QuestBox _questbox)
     {
-        var taskRequire = _questbox.questSetUp.requireQuest;
+        var taskRequire = _questbox.questSetUp.GetRequireQuest();
         int requireItemAmount = PartyController.inventoryG.GetItemAmt(taskRequire.requireItem);
         var checkComplete = taskRequire.amount <= requireItemAmount;
-        report_btn.interactable = checkComplete && !_questbox.questSetUp.taskQuest.isCompleted;
+        report_btn.interactable = checkComplete && !_questbox.questSetUp.GetTask().IsComplete();
         _questbox.SetReportQuestBox(report_btn.interactable);
     }
     private void SetProgressQuest() => questInProgress_txt.text = "In Progress :" + QuestManager.instance.currentQuest + " / " + QuestManager.instance.maxQuest;
-    private void SetNoticeQuestText(Task task) => questTaskNotice_txt.text = task.isCompleted ? "You have completed this mission" : task.isLocked ? "You can't handle this mission" : "";
+    private void SetNoticeQuestText(Task task) => questTaskNotice_txt.text = task.IsComplete() ? "You have completed this mission" : task.IsLocked() ? "You can't handle this mission" : "";
+    #endregion
+
+    #region Interface Method
+    public void GetReference(GameManager _gameManager) { }
+    public void UpdateDataGUI() { }
+    #endregion
 }

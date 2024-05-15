@@ -6,7 +6,7 @@ using TMPro;
 using System;
 using System.Linq;
 
-public class GUI_UpgradeExp : MonoBehaviour , IGUI
+public class GUI_UpgradeExp : MonoBehaviour, IGUI
 {
     [Header(("Stats Character"))]
     [SerializeField] TextMeshProUGUI charLevel_txt;
@@ -46,8 +46,8 @@ public class GUI_UpgradeExp : MonoBehaviour , IGUI
     private int increaseAtk => 5 * increaseLevel;
     private float increaseDMGx => 0.25f * increaseLevel;
 
-    private int currentCoin,totalCost, totalExp, amountUse, selectItem = 0;
-    private int smallExpAmt, mediumExpAmt, bigExpAmt, maxLvl,currentLvl, currentExp, maxExp = 0;
+    private int currentCoin, totalCost, totalExp, amountUse, selectItem = 0;
+    private int smallExpAmt, mediumExpAmt, bigExpAmt, maxLvl, currentLvl, currentExp, maxExp = 0;
     private bool canUpgrade => currentLvl < maxLvl;
 
     #region Main Method
@@ -84,6 +84,8 @@ public class GUI_UpgradeExp : MonoBehaviour , IGUI
                 OnSelectItemButton(copy);
             });
         }
+        PartyController.inventoryG.OnCoinChangedEvent += OnCoinChanged;
+
         InitValue();
         UpdateData();
     }
@@ -92,7 +94,8 @@ public class GUI_UpgradeExp : MonoBehaviour , IGUI
         GUI_Manager.RemoveGUI(this);
         upgrade_btn.onClick.RemoveListener(OnClickUpgradeButton);
         cancel_btn.onClick.RemoveListener(OnClickCancelButton);
-        itemUpgrade.ForEach(s1 => s1.GetComponentInChildren<Button>().onClick.RemoveAllListeners());          
+        itemUpgrade.ForEach(s1 => s1.GetComponentInChildren<Button>().onClick.RemoveAllListeners());
+        PartyController.inventoryG.OnCoinChangedEvent -= OnCoinChanged;
     }
     #endregion
 
@@ -181,7 +184,7 @@ public class GUI_UpgradeExp : MonoBehaviour , IGUI
         switch (selectItem)
         {
             case 1:
-                decreaseAmountUse_btn.interactable = amountUse > 0 && canUpgrade; 
+                decreaseAmountUse_btn.interactable = amountUse > 0 && canUpgrade;
                 totalCost = smallExpBuff.costUpgrade * amountUse;
                 increaseExp = smallExpBuff.value;
                 break;
@@ -220,12 +223,12 @@ public class GUI_UpgradeExp : MonoBehaviour , IGUI
     {
         #region before Upgrade
         var playerSO = GameManager.instance.playerSO;
-        var curLvl = playerSO.upgradeLevel.level + increaseLevel;
-        var curHp = playerSO.basicStats.health + increaseHp;
-        var curMp = playerSO.basicStats.mana + increaseMp;
-        var curDef = playerSO.basicStats.defense + increaseDef;
-        var curAtk = playerSO.basicAttack.wandDamage + increaseAtk;
-        var curDMGx = playerSO.basicAttack.percentDamage + increaseDMGx;
+        var curLvl = playerSO.upgradeLevel.GetLevel() + increaseLevel;
+        var curHp = playerSO.basicStats.GetHealth() + increaseHp;
+        var curMp = playerSO.basicStats.GetMana() + increaseMp;
+        var curDef = playerSO.basicStats.GetDef() + increaseDef;
+        var curAtk = playerSO.basicAttack.GetDamage() + increaseAtk;
+        var curDMGx = playerSO.basicAttack.GetPercentDMG() + increaseDMGx;
 
         #endregion      upgrade notice
 
@@ -234,29 +237,29 @@ public class GUI_UpgradeExp : MonoBehaviour , IGUI
             UpgradeNoticeManager.instance.MAX_ATTRIBUTE = 5;
             UpgradeNoticeManager.instance.SpawnNoticeUpgrade();
             UpgradeNoticeManager.instance.SetLevelText(curLvl.ToString());
-            UpgradeNoticeManager.instance.CreateNoticeBar(0, "HP", playerSO.basicStats.health.ToString(), curHp.ToString());
-            UpgradeNoticeManager.instance.CreateNoticeBar(1, "Mana", playerSO.basicStats.mana.ToString(), curMp.ToString());
-            UpgradeNoticeManager.instance.CreateNoticeBar(2, "Defense", playerSO.basicStats.defense.ToString(), curDef.ToString());
-            UpgradeNoticeManager.instance.CreateNoticeBar(3, "Atk", playerSO.basicAttack.wandDamage.ToString(), curAtk.ToString());
-            UpgradeNoticeManager.instance.CreateNoticeBar(4, "DMGx", playerSO.basicAttack.percentDamage.ToString(), curDMGx.ToString());
+            UpgradeNoticeManager.instance.CreateNoticeBar(0, "HP", playerSO.basicStats.GetHealth().ToString(), curHp.ToString());
+            UpgradeNoticeManager.instance.CreateNoticeBar(1, "Mana", playerSO.basicStats.GetMana().ToString(), curMp.ToString());
+            UpgradeNoticeManager.instance.CreateNoticeBar(2, "Defense", playerSO.basicStats.GetDef().ToString(), curDef.ToString());
+            UpgradeNoticeManager.instance.CreateNoticeBar(3, "Atk", playerSO.basicAttack.GetDamage().ToString(), curAtk.ToString());
+            UpgradeNoticeManager.instance.CreateNoticeBar(4, "DMGx", playerSO.basicAttack.GetPercentDMG().ToString(), curDMGx.ToString());
         }
-        PartyController.IncreaseCoin(-totalCost);
-
+        PartyController.inventoryG.IncreaseCoin(-totalCost);
 
         #region After Upgrade
 
-        playerSO.upgradeLevel.level = curLvl;
-        playerSO.upgradeLevel.expToLvl = upgradeDataSO.GetNextLevel(curLvl);
-        playerSO.upgradeLevel.exp = backExpSliderBar.value;
-        playerSO.basicStats.health = curHp;
-        playerSO.basicStats.mana = curMp;
-        playerSO.basicStats.defense = curDef;
-        playerSO.basicAttack.wandDamage = curDef;
-        playerSO.basicAttack.percentDamage = curDMGx;
+        playerSO.upgradeLevel.SetLevel(curLvl);
+        playerSO.upgradeLevel.SetExpToLevel(upgradeDataSO.GetNextLevel(curLvl));
+        playerSO.upgradeLevel.SetExp((int)backExpSliderBar.value);
+        playerSO.basicStats.SetHealth(curHp);
+        playerSO.basicStats.SetMana(curMp);
+        playerSO.basicStats.SetDef(curDef);
+        playerSO.basicAttack.SetDamage(curAtk);
+        playerSO.basicAttack.SetPercentDMG(curDMGx);
+
 
         var _gameManager = GameManager.instance;
         _gameManager.exp = backExpSliderBar.value;
-        _gameManager.exptolevel = playerSO.upgradeLevel.expToLvl;
+        _gameManager.exptolevel = playerSO.upgradeLevel.GetExpToLevel();
         _gameManager.level = curLvl;
 
         PartyController.player.Health.UpdateValue(Mathf.CeilToInt(curHp));
@@ -282,8 +285,8 @@ public class GUI_UpgradeExp : MonoBehaviour , IGUI
     private void GetStats()
     {
         var playerdata = PartyController.player.playerdata;
-        currentLvl = playerdata.upgradeLevel.level;
-        currentExp = (int)playerdata.upgradeLevel.exp;
+        currentLvl = playerdata.upgradeLevel.GetLevel();
+        currentExp = (int)playerdata.upgradeLevel.GetExp();
         maxExp = (int)upgradeDataSO.GetNextLevel(currentLvl);
 
         mainExpSliderBar.maxValue = maxExp;
@@ -305,7 +308,7 @@ public class GUI_UpgradeExp : MonoBehaviour , IGUI
             backExpSliderBar.value = mainExpSliderBar.value;
             return;
         }
-        var hasCharacterExp = playerSO.upgradeLevel.exp;
+        var hasCharacterExp = playerSO.upgradeLevel.GetExp();
         var totalIncreaseExp = hasCharacterExp + totalExp;
         for (var i = currentLvl - 1; i < upgradeDataSO.Data.Count; i++)
         {
@@ -315,7 +318,7 @@ public class GUI_UpgradeExp : MonoBehaviour , IGUI
                 backExpSliderBar.maxValue = upgradeDataSO.Data[i + 1].expToLvl;
                 backExpSliderBar.value = totalIncreaseExp - upgradeDataSO.Data[i].expToLvl;
                 expMinus = upgradeDataSO.Data[i].expToLvl;
-                totalIncreaseExp -= expMinus;
+                totalIncreaseExp -= (int)expMinus;
                 continue;
             }
             else
@@ -332,13 +335,18 @@ public class GUI_UpgradeExp : MonoBehaviour , IGUI
         mediumExpAmt = PartyController.inventoryG.GetItemAmt(mediumExpBuff);
         bigExpAmt = PartyController.inventoryG.GetItemAmt(bigExpBuff);
 
-        smallExpBuff_txt.text = smallExpAmt > 0 ? $"<color=white>{smallExpAmt.ToString()}" : $"<color=red>{smallExpAmt.ToString()}";
-        mediumExpBuff_txt.text = mediumExpAmt > 0 ? "<color=white>" + mediumExpAmt.ToString() : "<color=red>" + mediumExpAmt.ToString();
-        bigExpBuff_txt.text = bigExpAmt > 0 ? "<color=white>" + bigExpAmt.ToString() : "<color=red>" + bigExpAmt.ToString();
+        smallExpBuff_txt.text = smallExpAmt > 0 ? $"<color=white>{smallExpAmt}" : $"<color=red>{smallExpAmt}";
+        mediumExpBuff_txt.text = mediumExpAmt > 0 ? "<color=white>" + mediumExpAmt : "<color=red>" + mediumExpAmt;
+        bigExpBuff_txt.text = bigExpAmt > 0 ? "<color=white>" + bigExpAmt : "<color=red>" + bigExpAmt;
+    }
+    private void OnCoinChanged(int _value)
+    {
+        currentCoin = _value;
+        SetCoinText();
     }
     private void SetCoinText()
     {
-        currentCoin = PartyController.inventoryG.Gold;
+        //currentCoin = PartyController.inventoryG.Gold;
         currency_txt.color = currentCoin >= totalCost ? Color.white : Color.red;
         currency_txt.text = $"{currentCoin}/{totalCost}";
     }
@@ -370,15 +378,14 @@ public class GUI_UpgradeExp : MonoBehaviour , IGUI
         charExp_txt.text = "????";
     }
     private void SetUpgradeStateButton() => upgrade_btn.interactable = (amountUse > 0 && currentCoin >= totalCost && canUpgrade);
+    #endregion
+
+    #region Interface Method
     public void GetReference(GameManager _gameManager)
     {
         upgradeDataSO = _gameManager.upgradeSO;
-        Debug.Log("have value :" + upgradeDataSO);
     }
-    public void UpdateDataGUI()
-    {
-        Debug.Log("777");
-    }
+    public void UpdateDataGUI()    {    }
     #endregion
 
 }

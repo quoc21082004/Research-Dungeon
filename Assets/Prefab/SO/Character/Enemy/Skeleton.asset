@@ -12,17 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed2b0070e44b634187bec0e7cc79647, type: 3}
   m_Name: Skeleton
   m_EditorClassIdentifier: 
-  heath: 3000
-  damage: 500
-  defense: 12
+  HP: 8000
+  Def: 150
+  Damage: 200
   attackTimer: 1
   alertRange: 80
   range: 2
   builetSpeed: 0
-  Type: 0
-  isDead: 0
-  isAlert: 0
-  isAttack: 0
+  Type: 6
   goldReward: 300
   expReward: 300
   growstats:

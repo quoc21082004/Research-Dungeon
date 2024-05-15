@@ -1,32 +1,37 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 [CreateAssetMenu(fileName = "Shop Item", menuName = "Shop/Potion Stat")]
 public class StatsPotion : Consumable
 {
     public StatsType statsType;
     public override void Use()
     {
+        var _playerdata = PartyController.player.playerdata;
+        float _currentValue = 0;
         switch(statsType)
         {
             case StatsType.HP:
-                PartyController.player.gameObject.GetComponent<PlayerCTL>().playerdata.basicStats.health += value;
+                _currentValue = _playerdata.basicStats.GetHealth() + value;
+                _playerdata.basicStats.SetHealth((int)_currentValue);
                 break;
             case StatsType.MP:
-                PartyController.player.gameObject.GetComponent<PlayerCTL>().playerdata.basicStats.mana += value;
+                _currentValue = _playerdata.basicStats.GetMana() + value;
+                _playerdata.basicStats.SetMana((int)_currentValue);
                 break;
             case StatsType.ATK:
-                PartyController.player.gameObject.GetComponent<PlayerCTL>().playerdata.basicAttack.wandDamage += value;
+                _currentValue = _playerdata.basicAttack.GetDamage() + value;
+                _playerdata.basicAttack.SetDamage((int)_currentValue);
                 break;
             case StatsType.DEF:
-                PartyController.player.gameObject.GetComponent<PlayerCTL>().playerdata.otherStats.damageReduction += (int)value;
+                _currentValue = _playerdata.basicStats.GetDef() + value;
+                _playerdata.basicStats.SetDef((int)_currentValue);
                 break;
             case StatsType.CRIT:
-                PartyController.player.gameObject.GetComponent<PlayerCTL>().playerdata.basicAttack.critChance += value;
+                _currentValue = _playerdata.basicAttack.GetCrit() + value;
+                _playerdata.basicAttack.SetCrit(_currentValue);
                 break;
             case StatsType.CRITDMG:
-                PartyController.player.gameObject.GetComponent<PlayerCTL>().playerdata.basicAttack.maxCritDamage += value;
-                PartyController.player.gameObject.GetComponent<PlayerCTL>().playerdata.basicAttack.minCritDamage += value;
+                _currentValue = _playerdata.basicAttack.GetCritDMG() + value;
+                _playerdata.basicAttack.SetCritDMG(_currentValue);
                 break;
             default:
                 break;

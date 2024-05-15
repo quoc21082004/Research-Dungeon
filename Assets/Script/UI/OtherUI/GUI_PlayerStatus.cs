@@ -14,9 +14,7 @@ public class GUI_PlayerStatus : MonoBehaviour, IGUI
     #region Main Method
     private void Start()
     {
-        if (player == null)
-            player = PartyController.player.GetComponent<PlayerCTL>();
-        expProgress.minValue = 0;
+
     }
     private void OnEnable() => RegisterEvent();
     private void OnDisable() => UnRegisterEvent();
@@ -60,9 +58,7 @@ public class GUI_PlayerStatus : MonoBehaviour, IGUI
     public void GetReference(GameManager _gameManager)
     {
     }
-    public void UpdateDataGUI()
-    {
-    }
+    public void UpdateDataGUI() { }
     #endregion
 
 }

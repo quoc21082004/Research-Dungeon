@@ -270,6 +270,7 @@ GameObject:
   - component: {fileID: 789672746}
   - component: {fileID: 789672745}
   - component: {fileID: 789672744}
+  - component: {fileID: 789672747}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -317,8 +318,8 @@ Camera:
     width: 1
     height: 1
   near clip plane: 0.3
-  far clip plane: 20
-  field of view: 60
+  far clip plane: 23
+  field of view: 65
   orthographic: 1
   orthographic size: 8
   m_Depth: -1
@@ -351,6 +352,50 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &789672747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 789672743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a79441f348de89743a2939f4d699eac1, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_RenderShadows: 1
+  m_RequiresDepthTextureOption: 2
+  m_RequiresOpaqueTextureOption: 2
+  m_CameraType: 0
+  m_Cameras: []
+  m_RendererIndex: -1
+  m_VolumeLayerMask:
+    serializedVersion: 2
+    m_Bits: 1
+  m_VolumeTrigger: {fileID: 0}
+  m_VolumeFrameworkUpdateModeOption: 2
+  m_RenderPostProcessing: 0
+  m_Antialiasing: 0
+  m_AntialiasingQuality: 2
+  m_StopNaN: 0
+  m_Dithering: 0
+  m_ClearDepth: 1
+  m_AllowXRRendering: 1
+  m_AllowHDROutput: 1
+  m_UseScreenCoordOverride: 0
+  m_ScreenSizeOverride: {x: 0, y: 0, z: 0, w: 0}
+  m_ScreenCoordScaleBias: {x: 0, y: 0, z: 0, w: 0}
+  m_RequiresDepthTexture: 0
+  m_RequiresColorTexture: 0
+  m_Version: 2
+  m_TaaSettings:
+    quality: 3
+    frameInfluence: 0.1
+    jitterScale: 1
+    mipBias: 0
+    varianceClampScale: 0.9
+    contrastAdaptiveSharpening: 0
 --- !u!1001 &1028501682
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -441,6 +486,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6208791564059696949, guid: f064ac48cc11c7e40849b49bdb0d5dc7,
         type: 3}
+      propertyPath: textPools.Array.size
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 6208791564059696949, guid: f064ac48cc11c7e40849b49bdb0d5dc7,
+        type: 3}
       propertyPath: vFXPools.Array.data[6].prefab
       value: 
       objectReference: {fileID: 1901183424644023203, guid: db6cad101e28d5d408f374088f4d7d4e,
@@ -456,6 +506,12 @@ PrefabInstance:
       propertyPath: vFXPools.Array.data[8].prefab
       value: 
       objectReference: {fileID: 2742698114775530948, guid: b19cee16690e03344899cd87e83470d6,
+        type: 3}
+    - target: {fileID: 6208791564059696949, guid: f064ac48cc11c7e40849b49bdb0d5dc7,
+        type: 3}
+      propertyPath: textPools.Array.data[5].prefab
+      value: 
+      objectReference: {fileID: 5649763160779901217, guid: d4e763f8f7dbbe84db49cdf2bda59077,
         type: 3}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -491,7 +547,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 16
   m_IsActive: 1
 --- !u!114 &1995183140
 MonoBehaviour:
@@ -773,6 +829,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 173940628972549754, guid: a8337de90192f7b449802e29f3b0ecfa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1973715659922579616, guid: a8337de90192f7b449802e29f3b0ecfa,
         type: 3}
       propertyPath: m_SortingOrder
@@ -789,6 +850,11 @@ PrefabInstance:
       value: GUI_Account
       objectReference: {fileID: 0}
     - target: {fileID: 5859050067740317126, guid: a8337de90192f7b449802e29f3b0ecfa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6474918283530140089, guid: a8337de90192f7b449802e29f3b0ecfa,
         type: 3}
       propertyPath: m_IsActive
       value: 1
@@ -891,6 +957,16 @@ PrefabInstance:
     - target: {fileID: 7029727374051705761, guid: a8337de90192f7b449802e29f3b0ecfa,
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7341374600555418888, guid: a8337de90192f7b449802e29f3b0ecfa,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8669604270172745689, guid: a8337de90192f7b449802e29f3b0ecfa,
+        type: 3}
+      propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 9179929879596257622, guid: a8337de90192f7b449802e29f3b0ecfa,

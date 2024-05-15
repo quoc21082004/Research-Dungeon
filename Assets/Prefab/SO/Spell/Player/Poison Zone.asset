@@ -25,6 +25,6 @@ MonoBehaviour:
   baseCostMana: 50
   baseCoolDown: 10
   maxUseRange: 4
-  baseDamage: 2500
+  baseDamage: 1400
   spellPrefab: {fileID: 8536541721356179195, guid: 74daf9307c8bc914fa1198e7629b4879,
     type: 3}

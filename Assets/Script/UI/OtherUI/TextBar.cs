@@ -1,9 +1,7 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.UI;
+﻿using UnityEngine;
 using TMPro;
-public class TextBar : MonoBehaviour
+
+public class TextBar : MonoBehaviour    // use for show stats
 {
     [SerializeField] TextMeshProUGUI titleAttribute_txt;
     [SerializeField] TextMeshProUGUI valuebefore_txt;

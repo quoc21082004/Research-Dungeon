@@ -16,8 +16,8 @@ public class GameManager : Singleton<GameManager>
 
     private void OnEnable()
     {
-        level = playerSO.upgradeLevel.level;
-        exp = playerSO.upgradeLevel.exp;
+        level = playerSO.upgradeLevel.GetLevel();
+        exp = playerSO.upgradeLevel.GetExp();
         exptolevel = upgradeSO.Data[level].expToLvl;
     }
 
@@ -26,7 +26,6 @@ public class GameManager : Singleton<GameManager>
     {
         var playerdata = PartyController.player.playerdata;
         exp = exp - exptolevel;
-        playerdata.otherStats.skillPoint += 1;
         level++;
         exptolevel = upgradeSO.GetNextLevel(level);
     }
@@ -36,10 +35,8 @@ public class GameManager : Singleton<GameManager>
         exp = expToAdd + expToAdd;
         while (exp >= exptolevel)
             LevelUp();
-        //exptolevel = playerdata.upgradeLevel.expToLvl;
-        //exp = playerdata.upgradeLevel.exp;
         exptolevel = upgradeSO.Data[level].expToLvl;
-        exp = playerdata.upgradeLevel.exp;
+        exp = playerdata.upgradeLevel.GetExp();
     }
     public void RespawnAfterDie(float lostexp) => exp -= (int)((exp * lostexp) / 100);
     #endregion

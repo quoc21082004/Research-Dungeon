@@ -2,7 +2,7 @@ using UnityEngine;
 [RequireComponent(typeof(Collider2D))]
 public abstract class BaseInteractable : MonoBehaviour, IInteract
 {
-    private void OnEnable() => DialogueManager.instance.interactUI.OnPanelOpenEvent += Interact;
+    //private void OnEnable() => DialogueManager.instance.interactUI.OnPanelOpenEvent += Interact;
     private void OnDisable() => DialogueManager.instance.interactUI.OnPanelOpenEvent -= Interact;
     private void OnTriggerEnter2D(Collider2D collision)
     {

@@ -12,17 +12,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed2b0070e44b634187bec0e7cc79647, type: 3}
   m_Name: Scopoion
   m_EditorClassIdentifier: 
-  heath: 5000
-  damage: 400
-  defense: 12
+  HP: 0
+  Def: 0
+  Damage: 0
   attackTimer: 3.5
   alertRange: 80
   range: 8
   builetSpeed: 7
-  Type: 0
-  isDead: 0
-  isAlert: 0
-  isAttack: 0
+  Type: 7
   goldReward: 300
   expReward: 400
   growstats:

@@ -12,20 +12,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed2b0070e44b634187bec0e7cc79647, type: 3}
   m_Name: Bat
   m_EditorClassIdentifier: 
-  heath: 999999
-  damage: 600
-  defense: 0
+  HP: 5000
+  Def: 150
+  Damage: 225
   attackTimer: 6
   alertRange: 40
   range: 7
   builetSpeed: 7
   Type: 0
-  isDead: 0
-  isAlert: 0
-  isAttack: 0
   goldReward: 400
   expReward: 700
   growstats:
-    healthGrow: 0
-    damageGrow: 0
-    defenseGrow: 0
+    healthGrow: 250
+    damageGrow: 12
+    defenseGrow: 6

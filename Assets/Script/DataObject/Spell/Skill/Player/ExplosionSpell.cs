@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using UnityEditor.Timeline.Actions;
 using UnityEngine;
 
 public class ExplosionSpell : MonoBehaviour, ISpell
@@ -18,8 +15,9 @@ public class ExplosionSpell : MonoBehaviour, ISpell
     }
     private float CaculateDamage()
     {
-        critDamage = Random.Range(PartyController.player.playerdata.basicAttack.minCritDamage, PartyController.player.playerdata.basicAttack.maxCritDamage);
-        float totalDamage = activeAbility.skillInfo.baseDamage + PartyController.player.playerdata.basicAttack.wandDamage;
+        var _playerSO = PartyController.player.playerdata.basicAttack;
+        critDamage = _playerSO.GetCritDMG();
+        float totalDamage = activeAbility.skillInfo.baseDamage + _playerSO.GetDamage();
         return totalDamage;
     }
     public void Explore()
@@ -27,18 +25,15 @@ public class ExplosionSpell : MonoBehaviour, ISpell
         colliders = Physics2D.OverlapCircleAll(transform.position, explosionRadius, LayerMaskHelper.layerMaskEnemy);
         if (colliders.Length == 0)
             return;
-        foreach(var colli in colliders)
+        foreach(var collider in colliders)
         {
-            if (colli.gameObject.TryGetComponent<EnemyHurt>(out EnemyHurt enemy))
+            if (collider.gameObject.TryGetComponent<EnemyHurt>(out EnemyHurt enemy))
             {
-                int rate = Random.Range(0, 101);
-                bool isCrit = PartyController.player.playerdata.basicAttack.critChance > rate ? true : false;
-                float totalDamage = 0;
-                if (isCrit)
-                    totalDamage = CaculateDamage() * critDamage;
-                else
-                    totalDamage = CaculateDamage();
-                enemy.TakeDamage(totalDamage, isCrit);
+                bool isCrit = PartyController.player.playerdata.basicAttack.GetCrit() > Random.Range(0f, 101f) ? true : false;
+                float totalDMG = isCrit ? CaculateDamage() * 1.35f : CaculateDamage();
+                IDamagable damage = collider.gameObject.GetComponent<IDamagable>();
+                if (damage != null)
+                    damage.TakeDamage(totalDMG, isCrit);
             }
         }
     }

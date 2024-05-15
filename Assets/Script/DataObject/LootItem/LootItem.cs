@@ -18,7 +18,7 @@ public class LootItem : MonoBehaviour
         AudioManager.instance.PlaySfx("PickUp");
         gameObject.SetActive(false);
     }
-    public IEnumerator MoveCourtine()
+    public IEnumerator MoveCourtine()       //  item drop will move to player in range
     {
         float speedmove = Random.Range(minspeed, maxspeed);
         Vector2 dir = Vector2.left;

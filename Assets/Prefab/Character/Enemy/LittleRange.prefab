@@ -212,29 +212,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4d1cf86b4a60d524b914ee9cc1628880, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemystat: {fileID: 11400000, guid: 531f610cd10bdad47ac237f36fed3a36, type: 2}
   player: {fileID: 0}
+  myrigid: {fileID: 0}
   enemyhurt: {fileID: 0}
   mySR: {fileID: 0}
   myanim: {fileID: 0}
-  maxhealth: 0
-  health: 0
+  enemySO: {fileID: 11400000, guid: 531f610cd10bdad47ac237f36fed3a36, type: 2}
+  knockTime: 1
   damage: 0
   defense: 0
   level: 0
   isDead: 0
   turnOnAlert: 0
   mood: 0
-  alertprefab: {fileID: 6789944096774670373, guid: ec2d11781d44f924b8b4f51916404c0d,
-    type: 3}
-  alertOffSet: {x: 0, y: 0.8, z: 0}
-  knockTime: 1
-  OnTakeDamageEvent:
-    m_PersistentCalls:
-      m_Calls: []
-  OnDieEvent:
-    m_PersistentCalls:
-      m_Calls: []
   ultiprefab: {fileID: 5030088702638667209, guid: 879182d594e1fff49a6c1d8aac6d8751,
     type: 3}
   builetprefab: {fileID: 6252714843759513898, guid: 1064f83301e0fc94a8b9b95a76f48885,

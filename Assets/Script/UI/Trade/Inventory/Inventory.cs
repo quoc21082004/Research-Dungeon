@@ -6,8 +6,10 @@ public class Inventory
 {
     public event Action OnItemChangeCallBack;
     public int space = 24;
+
     public int Gold { get; set; }
-    public event Action<int> OnGoldChangeEvent;
+    public event Action<int> OnCoinChangedEvent;
+
     public List<ItemSO> items = new List<ItemSO>();
     public bool AddItem(ItemSO item, int amount)
     {
@@ -68,9 +70,10 @@ public class Inventory
     {
         return items.Find(x => x.itemNumber == itemnumber);
     }
-    public void IncreaseGold(int _amount)
+    
+    public void IncreaseCoin(int _value)
     {
-        Gold = Mathf.Clamp(Gold + _amount, 0, Int32.MaxValue);
-        OnGoldChangeEvent?.Invoke(Gold);
+        Gold = Mathf.Clamp(Gold + _value, 0, Int32.MaxValue);
+        OnCoinChangedEvent?.Invoke(_value);
     }
 }

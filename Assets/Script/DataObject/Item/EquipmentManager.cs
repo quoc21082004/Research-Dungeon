@@ -54,14 +54,18 @@ public class EquipmentManager : Singleton<EquipmentManager>
     public void AddModifier(Equipment modifier)
     {
         var playerSO = GameManager.instance.playerSO;
-        playerSO.basicStats.defense = Mathf.Max(0, playerSO.basicStats.defense + modifier.armorModifier);
-        playerSO.basicAttack.wandDamage = Mathf.Max(0, playerSO.basicAttack.wandDamage + modifier.atkModifier);
+        var _curdef = Mathf.Max(0, playerSO.basicStats.GetDef() + modifier.armorModifier);
+        var _curatk = Mathf.Max(0, playerSO.basicAttack.GetDamage() + modifier.atkModifier);
+        playerSO.basicStats.SetDef(_curdef);
+        playerSO.basicAttack.SetDamage(_curatk);
     }
     public void RemoveModifier(Equipment modifier)
     {
         var playerSO = GameManager.instance.playerSO;
-        playerSO.basicStats.defense = Mathf.Max(0, playerSO.basicStats.defense - modifier.armorModifier);
-        playerSO.basicAttack.wandDamage = Mathf.Max(0, playerSO.basicAttack.wandDamage - modifier.atkModifier);
+        var _curdef = Mathf.Max(0, playerSO.basicStats.GetDef() - modifier.armorModifier);
+        var _curatk = Mathf.Max(0, playerSO.basicAttack.GetDamage() - modifier.atkModifier);
+        playerSO.basicStats.SetDef(_curdef);
+        playerSO.basicAttack.SetDamage(_curatk);
     }
     #endregion
 }

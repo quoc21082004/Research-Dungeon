@@ -40,19 +40,19 @@ public class GUI_PlayerStats : MonoBehaviour
         var playerdata = PartyController.player.playerdata;
 
         // basic
-        hp_txt.text = playerdata.basicStats.health.ToString("F0");
-        mp_txt.text = playerdata.basicStats.mana.ToString("F0");
-        atk_txt.text = playerdata.basicAttack.wandDamage.ToString("F0");
-        def_txt.text = playerdata.basicStats.defense.ToString("F0");
-        spd_txt.text = playerdata.basicMovement.baseSpeed.ToString("F1");
-        level_txt.text = playerdata.upgradeLevel.level.ToString("F0");
+        hp_txt.text = playerdata.basicStats.GetHealth().ToString("F0");
+        mp_txt.text = playerdata.basicStats.GetMana().ToString("F0");
+        atk_txt.text = playerdata.basicAttack.GetDamage().ToString("F0");
+        def_txt.text = playerdata.basicStats.GetDef().ToString("F0");
+        spd_txt.text = playerdata.basicMovement.GetBaseSpeed().ToString("F1");
+        level_txt.text = playerdata.upgradeLevel.GetLevel().ToString("F0");
         // dmg
-        DMG_txt.text = playerdata.basicAttack.percentDamage.ToString("F2") + "%";
-        crit_txt.text = playerdata.basicAttack.critChance.ToString("F2") + "%";
-        critDMG_txt.text = playerdata.basicAttack.maxCritDamage.ToString("F2") + "%";
-        atkSpd_txt.text = playerdata.basicAttack.attackSpeed.ToString("F2");
+        DMG_txt.text = playerdata.basicAttack.GetPercentDMG().ToString("F2") + "%";
+        crit_txt.text = playerdata.basicAttack.GetCrit().ToString("F2") + "%";
+        critDMG_txt.text = playerdata.basicAttack.GetCritDMG().ToString("F2") + "%";
+        atkSpd_txt.text = playerdata.basicAttack.GetAttackSpeed().ToString("F2");
         // regen
-        hpRegen_txt.text = playerdata.basicStats.healthRegen.ToString("F2") + "%";
-        mpRegen_txt.text = playerdata.basicStats.manaRegen.ToString("F2") + "%";
+        hpRegen_txt.text = playerdata.basicStats.GetHealthRegen().ToString("F2") + "%";
+        mpRegen_txt.text = playerdata.basicStats.GetManaRegen().ToString("F2") + "%";
     }
 }

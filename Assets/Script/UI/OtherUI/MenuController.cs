@@ -5,14 +5,13 @@ public class MenuController : Singleton<MenuController>
 {
     public GameObject bag_panel;
     bool isOpenBag = false;
-    GameManager _gameManager;
-    GUI_PlayerStatus playerHUD;
+    [SerializeField] GUI_PlayerStatus playerHUD;
 
     #region Main Method
     private void Start()
     {
         isOpenBag = false;
-        playerHUD = GameObject.Find("PlayerHUD").GetComponent<GUI_PlayerStatus>();
+        playerHUD = GetComponentInChildren<GUI_PlayerStatus>();
     }
     private void OnEnable() => RegisterEvent();
     private void OnDisable() => UnRegisterEvent();
@@ -23,9 +22,6 @@ public class MenuController : Singleton<MenuController>
     {
         GUI_Input.playerInput.UI.OpenBag.performed += OpenBag;
         GUI_Input.playerInput.UI.CloseBag.performed += CloseBag;
-
-
-        GUI_Manager.SendReference(_gameManager);
         GUI_Manager.UpdateData();
     }
     private void UnRegisterEvent()

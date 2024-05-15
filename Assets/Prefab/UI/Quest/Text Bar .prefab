@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 3221064545187371373}
   - component: {fileID: 3886164465787872540}
   - component: {fileID: 7161797923941922116}
-  - component: {fileID: 6059837407015971877}
+  - component: {fileID: 2713128346270246492}
   m_Layer: 5
   m_Name: 'Text Bar '
   m_TagString: Untagged
@@ -82,7 +82,7 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
---- !u!114 &6059837407015971877
+--- !u!114 &2713128346270246492
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -91,7 +91,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 637621609403637547}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bb4add8008258754ab69d7c50a3b0e5e, type: 3}
+  m_Script: {fileID: 11500000, guid: 7501107290ccd1d42a68019f790825d5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   titleAttribute_txt: {fileID: 478124216084715261}

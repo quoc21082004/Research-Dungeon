@@ -42,10 +42,10 @@ public class PlayerCTL : MonoBehaviour
     {
         playerdata = GameManager.instance.playerSO;
 
-        var _health = Mathf.CeilToInt(playerdata.basicStats.health);
+        var _health = Mathf.CeilToInt(playerdata.basicStats.GetHealth());
         Health.InitValue(_health, _health);
 
-        var _mana = Mathf.CeilToInt(playerdata.basicStats.mana);
+        var _mana = Mathf.CeilToInt(playerdata.basicStats.GetMana());
         Mana.InitValue(_mana, _mana);
 
         stateMachine = new PlayerStateMachine();
@@ -86,7 +86,7 @@ public class PlayerCTL : MonoBehaviour
     #endregion
 
     #region PickUp
-    void PickUp()
+    private void PickUp()
     {
         pickup = Physics2D.OverlapCircleAll(transform.position, rangePickup, LayerMaskHelper.layerMaskLoot);
         if (pickup.Length == 0)

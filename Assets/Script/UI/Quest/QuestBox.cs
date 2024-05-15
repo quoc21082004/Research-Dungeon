@@ -22,14 +22,14 @@ public class QuestBox : MonoBehaviour
         transform.localScale = new Vector3(1f, 1f, 1f);
 
         questSetUp = _questSetUp;
-        titleQuest_txt.text = _questSetUp.titleQuest;
+        titleQuest_txt.text = _questSetUp.GetTitleQuest();
 
         report_icon.enabled = false;
 
-        Task questTask = questSetUp.taskQuest;
-        isReceived = questTask.isReceived;
-        isComplete = questTask.isCompleted;
-        isLocked = questTask.isLocked;
+        Task questTask = questSetUp.GetTask();
+        isReceived = questTask.IsReceived();
+        isComplete = questTask.IsComplete();
+        isLocked = questTask.IsLocked();
 
         SetReceiveQuestBox(isReceived && !isLocked);
     }
