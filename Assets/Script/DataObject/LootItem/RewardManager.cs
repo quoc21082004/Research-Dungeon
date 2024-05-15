@@ -1,6 +1,6 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class RewardManager : Singleton<RewardManager>
 {
@@ -13,6 +13,18 @@ public class RewardManager : Singleton<RewardManager>
     [Header("                       Coin Loots")]
     [SerializeField] LootOnWorld[] coinLoots;
     [SerializeField] float genrange;
+
+    private Coroutine waitCoroutine;
+    public void GetRewardFromQuest(ItemReward _reward)
+    {
+        var rewardItem = _reward.item;
+        var itemSO = Instantiate(rewardItem);
+        itemSO.currentAmt = _reward.value;
+        PartyController.inventoryG.AddItem(itemSO, itemSO.currentAmt);
+
+        NoticeManager.instance.CreateNoticeLeftItem(rewardItem.icon, $"{rewardItem.nameItem} x{_reward.value}");
+        NoticeManager.instance.EnableNoticeLeftItem();
+    }
     public void SpawnLoot(TypeEnemy type ,Vector2 position)
     {
         foreach (var loot in lootOnWorld)
@@ -44,17 +56,13 @@ public class RewardManager : Singleton<RewardManager>
             default:
                 break;
         }
-        StartCoroutine(wait());
+
+        if (waitCoroutine != null)
+            StopCoroutine(WaitCoroutine());
+        waitCoroutine = StartCoroutine(WaitCoroutine());
     }
-    IEnumerator wait()
+    private IEnumerator WaitCoroutine()
     {
         yield return new WaitForSeconds(2f);
-    }
-    public void GetRewardFromQuest(ItemReward _reward)
-    {
-        var rewardItem = _reward.item;
-        var itemSO = Instantiate(rewardItem);
-        itemSO.currentAmt = _reward.value;
-        PartyController.inventoryG.AddItem(itemSO, itemSO.currentAmt);
     }
 }
