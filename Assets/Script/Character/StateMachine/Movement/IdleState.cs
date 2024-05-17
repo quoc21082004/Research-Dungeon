@@ -1,6 +1,3 @@
-using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class IdleState : BaseStateMachine
@@ -28,9 +25,9 @@ public class IdleState : BaseStateMachine
     {
         base.HandleInput();
     }
-    public override void Update()
+    public override void Execute()
     {
-        base.Update();
+        base.Execute();
         if (movementInput == Vector2.zero)
             return;
         OnMove();

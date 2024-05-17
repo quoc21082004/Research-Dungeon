@@ -10,21 +10,21 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 0a6e732201e90004da38f07a0806030f, type: 3}
-  m_Name: Shield Zone
+  m_Name: Boss Skill Test
   m_EditorClassIdentifier: 
   skillInfo:
-    Name: Shield Zone
+    Name: 
     Description: 
-    Icon: {fileID: 1539473624, guid: 2c0a5f713c260ac4fa4cd1a09b6fb887, type: 3}
-    AbilityIcon: {fileID: 1539473624, guid: 2c0a5f713c260ac4fa4cd1a09b6fb887, type: 3}
-    Rarity: 0
-  type: 4
-  isUnlock: 0
-  learnCost: 1400
-  baseCastDelay: 1
-  baseCostMana: 150
-  baseCoolDown: 10
+    Icon: {fileID: 0}
+    AbilityIcon: {fileID: 0}
+    Rarity: 4
+  type: 5
+  isUnlock: 1
+  learnCost: 0
+  baseCastDelay: 0
+  baseCostMana: 0
+  baseCoolDown: 0
   maxUseRange: 0
-  baseDamage: 200
-  spellPrefab: {fileID: 3259117677166272708, guid: 399467871408f3042aae57b1bb75a155,
+  baseDamage: 1200
+  spellPrefab: {fileID: 2266092400104345957, guid: 9e310e80aef8c2549822dfc20f12dfd9,
     type: 3}

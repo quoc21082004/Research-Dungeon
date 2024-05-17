@@ -17,18 +17,28 @@ public class SpikeSpell : MonoBehaviour, ISpell
     [SerializeField] private float waitAfterIndicated;
     [SerializeField] private float timeSetAnimation;
     [SerializeField] private float spikeLifeTime;
+    private Coroutine spellCoroutine;
+
+    #region Main Method
     private void Awake()
     {
         myanim = GetComponentInChildren<Animator>();
         collider = GetComponent<Collider2D>();
     }
     private void OnDisable() => collider.enabled = false;
+    #endregion
+
+    #region Interface Method
     public void KickOff(ActiveAbility ability, Vector2 position, Quaternion rot)
     {
         activeAbility = ability;
         transform.position = position;
+        //StartCoroutine(SpellCourtine(ability));
+        if (spellCoroutine != null)
+            StopCoroutine(spellCoroutine);
         StartCoroutine(SpellCourtine(ability));
     }
+    #endregion
     private IEnumerator SpellCourtine(ActiveAbility ability)
     {
         damageZone.localScale = Vector3.zero;
@@ -52,15 +62,17 @@ public class SpikeSpell : MonoBehaviour, ISpell
             return;
         foreach (var collider in colliders)
         {
-            if (collider.gameObject.TryGetComponent<PlayerHurt>(out PlayerHurt target))
+            if (collider.gameObject.TryGetComponent<PlayerCTL>(out var target))
             {
-                target.TakeDamage(ability.skillInfo.baseDamage, false);
+                IDamagable damage = collider.gameObject.GetComponent<IDamagable>();
+                if (damage != null)
+                    damage.TakeDamage(activeAbility.skillInfo.baseDamage, false);
             }
         }
     }
     private void Explosion(ActiveAbility ability)
     {
-        GameObject clone = PoolManager.instance.Release(explosionprefab, damageZone.transform.position, Quaternion.identity);
+        PoolManager.instance.Release(explosionprefab, damageZone.transform.position, Quaternion.identity);
         DealDamageRange(ability, explosionRadius);
     }
     private void OnDrawGizmos()

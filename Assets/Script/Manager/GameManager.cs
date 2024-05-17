@@ -12,7 +12,6 @@ public class GameManager : Singleton<GameManager>
     public PlayerSO playerSO;
     public CharacterUpgradeSO upgradeSO;
     public EquipmentUpgradeSO equipUpgradeSO;
-    public GUI_PlayerStatus playerHUD;
 
     private void OnEnable()
     {
@@ -24,7 +23,6 @@ public class GameManager : Singleton<GameManager>
     #region Level
     public void LevelUp()
     {
-        var playerdata = PartyController.player.playerdata;
         exp = exp - exptolevel;
         level++;
         exptolevel = upgradeSO.GetNextLevel(level);

@@ -1,7 +1,5 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Rendering;
 
 public class PosionZone : MonoBehaviour, ISpell
 {
@@ -19,11 +17,11 @@ public class PosionZone : MonoBehaviour, ISpell
     }
     public void KickOff(ActiveAbility ability, Vector2 direction, Quaternion rot)
     {
-        Vector3 mousePos = Input.mousePosition;
+        Vector2 mousePos = Input.mousePosition;
         mousePos = Camera.main.ScreenToWorldPoint(mousePos) ;
         abilitySpell = ability;
         direction = Vector2.ClampMagnitude(direction, abilitySpell.MaxUseRange);
-        transform.position = mousePos - (Vector3)direction;
+        transform.position = (mousePos - direction);
         StartCoroutine(StartPrepare());
     }
     private float CaculateDamage()

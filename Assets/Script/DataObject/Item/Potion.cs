@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 [CreateAssetMenu(fileName = "Shop Item", menuName = "Shop/Potion")]
 public class Potion : Consumable
 {

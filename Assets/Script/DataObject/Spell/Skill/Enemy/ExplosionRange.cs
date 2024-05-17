@@ -14,10 +14,8 @@ public class ExplosionRange : MonoBehaviour, ISpell
     public float alertScaleDuration;
     public float lifeTime;
     public TextMeshPro explosionCountDown_txt;
-    private void Awake()
-    {
-        mycollider = GetComponent<CircleCollider2D>();
-    }
+    private Coroutine spellCoroutine;
+    private void Awake() => mycollider = GetComponent<CircleCollider2D>();
     private void OnDisable()
     {
         mycollider.enabled = false;
@@ -29,6 +27,9 @@ public class ExplosionRange : MonoBehaviour, ISpell
         activeAbility = ability;
         transform.position = direction;
         alertCircle.localScale = new Vector3(1f, 1f, 1f);
+        //StartCoroutine(SpellCoroutine());
+        if (spellCoroutine != null)
+            StopCoroutine(spellCoroutine);
         StartCoroutine(SpellCoroutine());
     }
     private IEnumerator SpellCoroutine()
@@ -51,7 +52,9 @@ public class ExplosionRange : MonoBehaviour, ISpell
     {
         if (collision.gameObject.TryGetComponent<PlayerHurt>(out var player))
         {
-            player.TakeDamage(activeAbility.skillInfo.baseDamage, false);
+            IDamagable damage = collision.GetComponent<IDamagable>();
+            if (damage != null)
+                damage.TakeDamage(activeAbility.skillInfo.baseDamage, false);
         }
     }
 

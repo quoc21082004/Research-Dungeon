@@ -6,9 +6,8 @@ public class PlayerBuilet : MonoBehaviour
     private Rigidbody2D myrigd;
     public AttackSO baseAttack;
     [SerializeField] GameObject damageBurstFX;
-
     [SerializeField] public float realspeed;
-    float critRate, critdamage, percentageDamage, wandDamage, rand, speed;
+    private float critRate, critdamage, percentageDamage, wandDamage, rand, speed;
 
     #region Main Method
     private void Awake() => myrigd = GetComponent<Rigidbody2D>();
@@ -28,7 +27,6 @@ public class PlayerBuilet : MonoBehaviour
         myrigd.velocity = Vector2.ClampMagnitude(myrigd.velocity, speed * realspeed);
     }
     #endregion
-
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent<EnemyHurt>(out var cos))

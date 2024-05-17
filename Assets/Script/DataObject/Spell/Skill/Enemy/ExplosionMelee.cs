@@ -16,10 +16,8 @@ public class ExplosionMelee : MonoBehaviour, ISpell
     public float alertScaleDuration;
     public float lifeTime;
     public TextMeshPro explosionCountDown_txt;
-    private void Awake()
-    {
-        mycollider = GetComponent<CircleCollider2D>();
-    }
+    private Coroutine spellCoroutine;
+    private void Awake() => mycollider = GetComponent<CircleCollider2D>();
     private void OnDisable()
     {
         alertCircle.gameObject.SetActive(false);
@@ -31,7 +29,10 @@ public class ExplosionMelee : MonoBehaviour, ISpell
         activeAbility = ability;
         transform.position = position;
         alertCircle.localScale = new Vector3(1f, 1f, 1f);
-        StartCoroutine(SpellCoroutine(activeAbility));
+        //StartCoroutine(SpellCoroutine(activeAbility));
+        if (spellCoroutine != null)
+            StopCoroutine(spellCoroutine);
+        StartCoroutine(SpellCoroutine(ability));
     }
     private IEnumerator SpellCoroutine(ActiveAbility ability)
     {
@@ -55,7 +56,11 @@ public class ExplosionMelee : MonoBehaviour, ISpell
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent<PlayerHurt>(out var player))
-            player.TakeDamage(activeAbility.skillInfo.baseDamage, false);
+        {
+            IDamagable damage = collision.GetComponent<IDamagable>();
+            if (damage != null)
+                damage.TakeDamage(activeAbility.skillInfo.baseDamage, false);
+        }
     }
     private void OnDrawGizmos()
     {

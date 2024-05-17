@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: 22226a9636fa9e843a3ba487c3dcea1c
+guid: 28decce2520fb2a4fa29850fae0cef72
 TextureImporter:
   internalIDToNameTable: []
   externalObjects: {}
@@ -48,7 +48,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 13
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -110,13 +110,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: bat 16x16_0
+      name: dashEffect_0
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 16
-        height: 16
+        x: 13
+        y: 199
+        width: 90
+        height: 90
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -124,20 +124,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: f8af94c2cb310d442a50cce70c2595ef
-      internalID: -1351517091
+      spriteID: 72a44e513209ab547aef49ea16982840
+      internalID: 1587622066
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bat 16x16_1
+      name: dashEffect_1
       rect:
         serializedVersion: 2
-        x: 16
-        y: 0
-        width: 16
-        height: 16
+        x: 256
+        y: 198
+        width: 129
+        height: 104
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -145,20 +145,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: a812297bd05df57429c2953738846670
-      internalID: 49840542
+      spriteID: a960f8ccaccfa2b469861370a10ad388
+      internalID: -896461108
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bat 16x16_2
+      name: dashEffect_2
       rect:
         serializedVersion: 2
-        x: 32
-        y: 0
-        width: 16
-        height: 16
+        x: 473
+        y: 200
+        width: 153
+        height: 112
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -166,20 +166,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 748cab494fd6cd942ba588927229e56b
-      internalID: -1581769862
+      spriteID: 6f29616742ae433419413966f7e14fef
+      internalID: -1876804904
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bat 16x16_3
+      name: dashEffect_3
       rect:
         serializedVersion: 2
-        x: 48
-        y: 0
-        width: 16
-        height: 16
+        x: 34
+        y: 26
+        width: 160
+        height: 122
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -187,20 +187,20 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: ae803b3041a519f46a5097f165f607ba
-      internalID: 1519534510
+      spriteID: 8d9258960b188ce45ba5c390b9d814d8
+      internalID: -1068642718
       vertices: []
       indices: 
       edges: []
       weights: []
     - serializedVersion: 2
-      name: bat 16x16_4
+      name: dashEffect_4
       rect:
         serializedVersion: 2
-        x: 64
-        y: 0
-        width: 16
-        height: 16
+        x: 275
+        y: 46
+        width: 121
+        height: 103
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -208,8 +208,29 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 8c819bdd4a3fa014aa7321a54475b22f
-      internalID: 801107066
+      spriteID: b9da79d5fe4373f41a94a98664a9eb7a
+      internalID: 1681307611
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: dashEffect_5
+      rect:
+        serializedVersion: 2
+        x: 532
+        y: 72
+        width: 73
+        height: 69
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 242d51c87f1590f4388cb8573a383379
+      internalID: -1954015775
       vertices: []
       indices: 
       edges: []
@@ -225,11 +246,12 @@ TextureImporter:
     weights: []
     secondaryTextures: []
     nameFileIdTable:
-      bat 16x16_0: -1351517091
-      bat 16x16_1: 49840542
-      bat 16x16_2: -1581769862
-      bat 16x16_3: 1519534510
-      bat 16x16_4: 801107066
+      dashEffect_0: 1587622066
+      dashEffect_1: -896461108
+      dashEffect_2: -1876804904
+      dashEffect_3: -1068642718
+      dashEffect_4: 1681307611
+      dashEffect_5: -1954015775
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

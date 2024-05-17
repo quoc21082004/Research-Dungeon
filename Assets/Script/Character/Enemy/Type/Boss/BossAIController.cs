@@ -16,18 +16,10 @@ public class BossAIController : MonoBehaviour
     [SerializeField] private float detectRange;
 
     public UnityEvent OnStartCombat;
-
     public UnityEvent OnEndCombat;
 
-    private void Awake()
-    {
-        combatHandler = GetComponent<BossAICombatHandler>();
-    }
-    private void Start()
-    {
-        StartCoroutine(BossFightCoroutine());
-    }
-
+    private void Awake() => combatHandler = GetComponent<BossAICombatHandler>();
+    private void Start() => StartCoroutine(BossFightCoroutine());
     private IEnumerator BossFightCoroutine()
     {
         yield return WaitForPlayerInRange();
@@ -35,7 +27,6 @@ public class BossAIController : MonoBehaviour
         yield return combatHandler.StartCombatState();
         yield return EndCombatState();
     }
-
     private IEnumerator WaitForPlayerInRange()
     {
         target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();

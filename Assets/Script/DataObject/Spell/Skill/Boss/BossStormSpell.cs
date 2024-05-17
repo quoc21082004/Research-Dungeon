@@ -1,5 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class BossStormSpell : MonoBehaviour, ISpell
@@ -16,6 +15,7 @@ public class BossStormSpell : MonoBehaviour, ISpell
     private ActiveAbility activeAbility;
     private float endTime;
     private Transform target;
+    private Coroutine stormCoroutine;
     private void Awake()
     {
         myanim = GetComponent<Animator>();
@@ -26,6 +26,9 @@ public class BossStormSpell : MonoBehaviour, ISpell
         activeAbility = ability;
         target = PartyController.player.transform;
         transform.position = direction;
+        //StartCoroutine(StormCouritne(ability));
+        if (stormCoroutine != null)
+            StopCoroutine(stormCoroutine);
         StartCoroutine(StormCouritne(ability));
     }
     private IEnumerator StormCouritne(ActiveAbility ability)
@@ -49,9 +52,11 @@ public class BossStormSpell : MonoBehaviour, ISpell
             colliders = Physics2D.OverlapBoxAll(transform.position, damageZoneSize, 0, LayerMaskHelper.layerMaskPlayer);
             foreach (var collider in colliders)
             {
-                if (collider.gameObject.TryGetComponent<PlayerHurt>(out PlayerHurt target))
+                if (collider.gameObject.TryGetComponent<PlayerCTL>(out var target))
                 {
-                    target.TakeDamage(ability.skillInfo.baseDamage, false);
+                    IDamagable damage = collider.gameObject.GetComponent<IDamagable>();
+                    if (damage != null)
+                        damage.TakeDamage(activeAbility.skillInfo.baseDamage, false);
                 }
             }
             yield return new WaitForSeconds(damagePerInterval);

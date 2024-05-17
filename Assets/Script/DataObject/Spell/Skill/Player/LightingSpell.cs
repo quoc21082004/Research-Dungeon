@@ -9,11 +9,9 @@ public class LightingSpell : MonoBehaviour, ISpell
     public Vector3 spellOffSet;
     private float lightInterval = 1.5f;
     Collider2D[] colliders;
-    float critDamage;
     private float CaculateDamage()
     {
         var _playerSO = PartyController.player.playerdata.basicAttack;
-        critDamage = _playerSO.GetCritDMG();
         float totalDamage = ((activeAbility.skillInfo.baseDamage + _playerSO.GetDamage() * Random.Range(150f, 200f)) / 100);
         return totalDamage;
     }

@@ -12,11 +12,12 @@ public class BossLazerSpell : MonoBehaviour, ISpell
     [SerializeField] private BehaviourSpell behaviour = BehaviourSpell.RotateAround;
     private ActiveAbility activeAbility;
     Transform target;
+    private Coroutine lazerFireCoroutine;
     private void Awake()
     {
         behaviour = BehaviourSpell.RotateAround;
         mycollider = GetComponent<Collider2D>();
-        target = GameObject.FindGameObjectWithTag("PlayerCTL").GetComponent<Transform>();
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
     public void KickOff(ActiveAbility ability, Vector2 direction, Quaternion rot)
     {
@@ -29,12 +30,11 @@ public class BossLazerSpell : MonoBehaviour, ISpell
         }
         transform.rotation = Quaternion.identity;
         RotateToDirection(direction);
-        StartCoroutine(LazerFire());
+        if (lazerFireCoroutine != null)
+            StopCoroutine(lazerFireCoroutine);
+        lazerFireCoroutine = StartCoroutine(LazerFire());
     }
-    private void RotateToDirection(Vector2 direction)
-    {
-        transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
-    }
+    private void RotateToDirection(Vector2 direction) => transform.rotation = Quaternion.Euler(0f, 0f, Mathf.Atan2(direction.y, direction.x) * Mathf.Rad2Deg);
     private IEnumerator LazerFire()
     {
         mycollider.enabled = false;
@@ -49,10 +49,7 @@ public class BossLazerSpell : MonoBehaviour, ISpell
         }
         gameObject.SetActive(false);
     }
-    public void SetBehaviour(BehaviourSpell behaviour)
-    {
-        this.behaviour = behaviour;
-    }
+    public void SetBehaviour(BehaviourSpell behaviour) => this.behaviour = behaviour;
     private void RotateBehaviour()
     {
         switch(behaviour)
@@ -89,9 +86,11 @@ public class BossLazerSpell : MonoBehaviour, ISpell
     }
     private void OnTriggerEnter2D(Collider2D collision)
     {
-        if (collision.gameObject.TryGetComponent<PlayerHurt>(out PlayerHurt target))
+        if (collision.gameObject.TryGetComponent<PlayerCTL>(out PlayerCTL target))
         {
-            target.TakeDamage(activeAbility.skillInfo.baseDamage, false);
+            IDamagable damage = collision.gameObject.GetComponent<IDamagable>();
+            if (damage != null)
+                damage.TakeDamage(activeAbility.skillInfo.baseDamage, false);
         }
     }
 }

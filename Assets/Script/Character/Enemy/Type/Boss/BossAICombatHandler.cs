@@ -2,13 +2,10 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using UnityEngine.Events;
-
 
 public class BossAICombatHandler : MonoBehaviour
 {
     private int idleHash = Animator.StringToHash("Idle");
-
     [SerializeField] private Boss bossStats;
     [SerializeField] private Animator animator;
     [SerializeField] private float updateInterval;
@@ -22,7 +19,6 @@ public class BossAICombatHandler : MonoBehaviour
     {
         animator = GetComponent<Animator>();
         bossStats = GetComponent<Boss>();
-
     }
     [Serializable]
     public class AbilityHandler
@@ -32,10 +28,8 @@ public class BossAICombatHandler : MonoBehaviour
         public float suffixWait;
         public string animationName;
         public ActiveAbility ability;
-        [HideInInspector]
-        public bool hasAnimation;
-        [HideInInspector]
-        public int animationHash;
+        [HideInInspector] public bool hasAnimation;
+        [HideInInspector] public int animationHash;
     }
 
     [Serializable]
@@ -44,7 +38,6 @@ public class BossAICombatHandler : MonoBehaviour
         public AbilityName abilityToUse;
         public float cooldown;
     }
-
     public enum AbilityName
     {
         HandFire,
@@ -53,9 +46,10 @@ public class BossAICombatHandler : MonoBehaviour
         StormSpell,
         DamageZone
     }
-
     float allowAbilityUseTime;
     int currentAbility;
+
+    #region Combat Method
     public IEnumerator StartCombatState()
     {
         yield return PreStartCombat();
@@ -63,14 +57,12 @@ public class BossAICombatHandler : MonoBehaviour
         yield return State2();
         yield return EndCombat();
     }
-
     private IEnumerator PreStartCombat()
     {
-        animator.Play("Unimmune");
+        animator.Play("Idle"); // unminue
         InitAbilities();
         yield return new WaitForSeconds(1f);
     }
-
     private IEnumerator State1()
     {
         allowAbilityUseTime = Time.time;
@@ -129,4 +121,5 @@ public class BossAICombatHandler : MonoBehaviour
         handler.ability.TryUse();
         yield return new WaitForSeconds(handler.suffixWait);
     }
+    #endregion
 }

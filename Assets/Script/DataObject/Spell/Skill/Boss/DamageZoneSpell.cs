@@ -1,6 +1,4 @@
 using System.Collections;
-using System.Collections.Generic;
-using System.ComponentModel.Design;
 using UnityEngine;
 
 public class DamageZoneSpell : MonoBehaviour, ISpell
@@ -17,15 +15,19 @@ public class DamageZoneSpell : MonoBehaviour, ISpell
     [SerializeField] private float blockTime;
     [SerializeField] private float reduceMana;
     Transform target;
+    private Coroutine spellCoroutine;
     private void Awake()
     {
         myrigid = GetComponent<Rigidbody2D>();
-        target = GameObject.FindGameObjectWithTag("PlayerCTL").GetComponent<Transform>();
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
     }
     public void KickOff(ActiveAbility ability, Vector2 position, Quaternion rot)
     {
         transform.position = position;
         indicatorprefab.gameObject.SetActive(true);
+        //StartCoroutine(SpellCourtine(ability));
+        if (spellCoroutine != null)
+            StopCoroutine(spellCoroutine);
         StartCoroutine(SpellCourtine(ability));
     }
     private IEnumerator SpellCourtine(ActiveAbility ability)
@@ -49,9 +51,11 @@ public class DamageZoneSpell : MonoBehaviour, ISpell
             yield break;
         foreach (var collider in colliders)
         {
-            if (collider.gameObject.TryGetComponent<PlayerHurt>(out PlayerHurt targets))
+            if (collider.gameObject.TryGetComponent<PlayerCTL>(out var targets))
             {
-                targets.TakeDamage(ability.skillInfo.baseDamage, false);
+                IDamagable damage = collider.gameObject.GetComponent<IDamagable>();
+                if (damage != null)
+                    damage.TakeDamage(ability.skillInfo.baseDamage, false);
                 GameObject clone = PoolManager.instance.Release(ropeprefab, targets.transform.position, Quaternion.identity);
                 if (clone != null)
                     RopeMana();

@@ -7,7 +7,7 @@ public class BossLazerSpellCenter : MonoBehaviour, ISpell
     [Range(1, 10)] public int Count;
     public GameObject lazerprefab;
     Transform lazePos;
-    private void Awake()
+    private void OnEnable()
     {
         lazePos = GameObject.Find("LazePosition").GetComponent<Transform>(); 
     }

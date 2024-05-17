@@ -32,7 +32,7 @@ public class ExplosionBurstZone : ExplosionBuilet
             return;
         foreach (var collider in colliders)
         {
-            if (collider.gameObject.TryGetComponent<EnemyHurt>(out EnemyHurt enemy))
+            if (collider.gameObject.TryGetComponent<Enemy>(out var enemy))
             {
                 bool isCrit = Random.Range(30, 40) > Random.Range(0, 101) ? true : false;
                 float totalDamage = isCrit ? CaculateDamage() * critDamage : CaculateDamage();

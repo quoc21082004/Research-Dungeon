@@ -47,7 +47,6 @@ public class ProgressBar : MonoBehaviour
 
         if (!ShowText || !progressText) return;
         SliderChangeValue(_currentValue);
-
     }
     public void OnMaxValueChange(int _maxValue)
     {
@@ -57,7 +56,6 @@ public class ProgressBar : MonoBehaviour
         if (!ShowText || !progressText) return;
         SliderChangeValue(mainProgressSlider.value);
     }
-
-    private void SliderChangeValue(float _value) => progressText.text = $"{Mathf.CeilToInt(_value)} / {mainProgressSlider.maxValue}";
+    private void SliderChangeValue(float _value) => progressText.text = $"{(int)_value} / {mainProgressSlider.maxValue}";
 
 }

@@ -22,9 +22,9 @@ public class MoveState : BaseStateMachine
         base.Exit();
         StopAnimation(player.animData.moveParameterHash);
     }
-    public override void Update()
+    public override void Execute()
     {
-        base.Update();
+        base.Execute();
         if (!shouldWalk)
             return;
         if (Time.time < startTime + runToWalkTime)

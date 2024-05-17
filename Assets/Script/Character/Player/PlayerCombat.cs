@@ -7,7 +7,7 @@ public class PlayerCombat : ActiveAbility
 {
     public static Transform muzzlePoint;
     public GameObject fireballprefab;
-    bool isAttack = false;
+    bool isAttack;
     MouseFollow mouseFollow;
     public float rangeOfAim;
     Collider2D[] findEnemy;
@@ -18,6 +18,7 @@ public class PlayerCombat : ActiveAbility
     {
         muzzlePoint = GameObject.FindGameObjectWithTag("Muzzle").GetComponent<Transform>();
         mouseFollow = GetComponentInChildren<MouseFollow>();
+        isAttack = false;
         RegisterEvent();
     }
     private void OnDisable() => UnRegisterEvent();

@@ -151,7 +151,6 @@ public class InventoryUI : MonoBehaviour
     public void AddGoldFree()
     {
         int random = Random.Range(500, 800);
-        //PartyController.IncreaseCoin(random);
         PartyController.inventoryG.IncreaseCoin(random);
         gold_text.text = "" + inventory.Gold;
         AudioManager.instance.PlaySfx("Purchase");

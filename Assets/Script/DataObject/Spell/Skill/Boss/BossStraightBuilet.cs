@@ -9,9 +9,10 @@ public class BossStraightBuilet : MonoBehaviour, ISpell
     public float lifeTime;
     protected ActiveAbility activeAbility;
     Transform target;
+    private Coroutine lifeCheckCoroutine;
     private void Awake()
     {
-        target = GameObject.FindGameObjectWithTag("PlayerCTL").GetComponent<Transform>();
+        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
         myrigid = GetComponent<Rigidbody2D>();
     }
     public void KickOff(ActiveAbility ability, Vector2 dir, Quaternion rot)
@@ -22,15 +23,10 @@ public class BossStraightBuilet : MonoBehaviour, ISpell
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 180f;
         transform.rotation = Quaternion.Euler(0, 0, angle);
         myrigid.velocity = moveSpeed * dir;
+        //StartCoroutine(LifeCheckCourtine());
+        if (lifeCheckCoroutine != null)
+            StopCoroutine(lifeCheckCoroutine);
         StartCoroutine(LifeCheckCourtine());
-    }
-    private void OnTriggerEnter2D(Collider2D collision)
-    {
-        if (collision.gameObject.TryGetComponent<PlayerHurt>(out PlayerHurt enemy))
-        {
-            enemy.TakeDamage(activeAbility.skillInfo.baseDamage, false);
-            gameObject.SetActive(false);
-        }
     }
     private IEnumerator LifeCheckCourtine()
     {
@@ -45,5 +41,15 @@ public class BossStraightBuilet : MonoBehaviour, ISpell
             yield return new WaitForSeconds(lifeTimeInterval);
         }
         gameObject.SetActive(false);
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.gameObject.TryGetComponent<PlayerCTL>(out var enemy))
+        {
+            IDamagable damage = collision.gameObject.GetComponent<IDamagable>();
+            if (damage != null)
+                damage.TakeDamage(activeAbility.skillInfo.baseDamage, false);
+            gameObject.SetActive(false);
+        }
     }
 }

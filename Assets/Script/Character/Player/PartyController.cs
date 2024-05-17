@@ -29,7 +29,6 @@ public class PartyController : Singleton<PartyController>
         player.gameObject.SetActive(true);
         GameManager.instance.RespawnAfterDie(lostRateExp);
         inventoryG.IncreaseCoin(-(int)((lostRateGold * inventoryG.Gold) / 100));
-        //inventoryG.IncreaseGold(-(int)((lostRateGold * inventoryG.Gold) / 100));
     }
     public void FullRestore()
     {
@@ -37,7 +36,6 @@ public class PartyController : Singleton<PartyController>
         player.Health.InitValue(Mathf.CeilToInt(_init.GetHealth()), Mathf.CeilToInt(_init.GetHealth()));
         player.Mana.InitValue(Mathf.CeilToInt(_init.GetMana()), Mathf.CeilToInt(_init.GetMana()));
     }
-    //public static void IncreaseCoin(int amount) => inventoryG.Gold = Mathf.Clamp(inventoryG.Gold + amount, 0, Int32.MaxValue);
     public static void AddExperience(float amount) => GameManager.instance.AddExperience(amount);
     #endregion
 }

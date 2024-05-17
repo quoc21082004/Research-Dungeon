@@ -1,19 +1,21 @@
-﻿using System;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using DG.Tweening;
 
 public class GUI_PlayerStatus : MonoBehaviour, IGUI
 {
-    [SerializeField] public PlayerCTL player;
+    [SerializeField] private PlayerCTL player;
     [SerializeField] private ProgressBar healthBar;
     [SerializeField] private ProgressBar manaBar;
     [SerializeField] private TextMeshProUGUI level_txt;
     [SerializeField] private Slider expProgress;
+
     #region Main Method
     private void Start()
     {
+        if (player == null)
+            player = PartyController.player.GetComponent<PlayerCTL>();
+        expProgress.minValue = 0;
 
     }
     private void OnEnable() => RegisterEvent();
@@ -26,6 +28,7 @@ public class GUI_PlayerStatus : MonoBehaviour, IGUI
         if (!player) return;
         var _gameManager = GameManager.instance;
         var _currentLevel = _gameManager.level;
+
         level_txt.text = $"Lv.{_currentLevel}";
         expProgress.value = _gameManager.exp;
         expProgress.maxValue = _gameManager.upgradeSO.GetNextLevel(_currentLevel);

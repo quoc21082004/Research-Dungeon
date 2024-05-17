@@ -1,6 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
-using System.Runtime.CompilerServices;
 using UnityEngine;
 
 public class ActiveAbility : MonoBehaviour , IActiveAbility 
@@ -20,8 +17,7 @@ public class ActiveAbility : MonoBehaviour , IActiveAbility
     {
         if (!IsEnoughMana())   
             return;
-        //PartyController.player.Mana.currentValue -= skillInfo.baseCostMana;
-        PartyController.player.Mana.currentValue -= Mathf.CeilToInt(skillInfo.baseCostMana);
+        PartyController.player.Mana.Decrease(Mathf.CeilToInt(skillInfo.baseCostMana));
         if (PoolManager.instance.Release(skillInfo.spellPrefab).TryGetComponent<ISpell>(out var spell))
             spell.KickOff(this, transform.position - PartyController.player.transform.position,Quaternion.identity);
     }

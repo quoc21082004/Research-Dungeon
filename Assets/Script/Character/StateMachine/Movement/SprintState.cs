@@ -17,8 +17,6 @@ public class SprintState : BaseStateMachine
     {
         base.Enter();
         StartAnimation(player.animData.sprintParameterHash);
-        player.dustprefab.gameObject.SetActive(true);
-        player.dustprefab.Play();
         speedModifier = playerdata.basicMovement.GetRunSpeed();
         startTime = Time.time;
     }
@@ -26,12 +24,11 @@ public class SprintState : BaseStateMachine
     {
         base.Exit();
         StopAnimation(player.animData.sprintParameterHash);
-        player.dustprefab.gameObject.SetActive(false);
         keepSprint = false;
     }
-    public override void Update()
+    public override void Execute()
     {
-        base.Update();
+        base.Execute();
         if (keepSprint)
             return;
         if (Time.time < startTime + sprintToRunTime)

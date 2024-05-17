@@ -24,5 +24,5 @@ MonoBehaviour:
   Rarity: 3
   Type: 1
   value: 0
-  type: 0
+  type: 4
   spell: {fileID: 11400000, guid: 609cf7060e7fe4045843e48e623ebe74, type: 2}

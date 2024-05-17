@@ -199,8 +199,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8502337589095880432}
   - component: {fileID: 2765539322252134095}
-  - component: {fileID: 8374504951106591427}
   - component: {fileID: 2058612428297039200}
+  - component: {fileID: 8374504951106591427}
   - component: {fileID: 1671870171029046850}
   m_Layer: 0
   m_Name: Spike Spell
@@ -262,30 +262,6 @@ CircleCollider2D:
   m_Offset: {x: 0.00777483, y: -0.5963663}
   serializedVersion: 2
   m_Radius: 0.9847083
---- !u!114 &8374504951106591427
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6607452625637805044}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bfc87f4a31942a54a8dc6e312c9c40c2, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  damageZone: {fileID: 5673137991639780021}
-  myanim: {fileID: 8750672800419492329}
-  collider: {fileID: 2765539322252134095}
-  explosionprefab: {fileID: 3815699161421004422, guid: 6288f15c1135ace4caf73d042903febc,
-    type: 3}
-  damageRadius: 0.97
-  explosionRadius: 1.56
-  zoneScale: 10
-  indicateDuration: 1.5
-  waitAfterIndicated: 0.5
-  timeSetAnimation: 0.2
-  spikeLifeTime: 2
 --- !u!95 &2058612428297039200
 Animator:
   serializedVersion: 5
@@ -307,6 +283,28 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &8374504951106591427
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6607452625637805044}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bfc87f4a31942a54a8dc6e312c9c40c2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  damageZone: {fileID: 5673137991639780021}
+  explosionprefab: {fileID: 3815699161421004422, guid: 6288f15c1135ace4caf73d042903febc,
+    type: 3}
+  damageRadius: 0.97
+  explosionRadius: 1.56
+  zoneScale: 10
+  indicateDuration: 1.5
+  waitAfterIndicated: 0.5
+  timeSetAnimation: 0.2
+  spikeLifeTime: 2
 --- !u!114 &1671870171029046850
 MonoBehaviour:
   m_ObjectHideFlags: 0

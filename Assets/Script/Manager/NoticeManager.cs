@@ -9,15 +9,15 @@ public class NoticeManager : Singleton<NoticeManager>
     [SerializeField] private TextMeshProUGUI title_txt;
     [SerializeField] private TextBar2 textbar;
     [SerializeField] private Transform content;
-
     private Tween titleTween;
     float tweenTitleDuration = 0.5f;
     private Coroutine disableNoticeCoroutine;
 
-    [SerializeField] private TextMeshProUGUI completeQuest_txt;
-    [SerializeField] private Animator completeQuestNotice;
+    [Space]
+    [SerializeField] private TextMeshProUGUI completeChallenge_txt;
     [SerializeField] private Animator completeChallengeNotice;
-
+    private Coroutine disableChallengeCoroutine;
+    [Space]
     [SerializeField] GameObject noticeInteractPanel;
     [SerializeField] TextMeshProUGUI noticeInteract_txt;
     #endregion
@@ -48,10 +48,20 @@ public class NoticeManager : Singleton<NoticeManager>
     #endregion
 
     #region Create Notice Complete Quest or Complete Challenge
-    public void EnableCompleteQuest() => completeQuestNotice.Play("CompleteQuest_In");
-    public void DisableCompleteQuest() => completeQuestNotice.Play("CompleteQuest_Out");
-    public void EnableCompleteChallenge() => completeChallengeNotice.Play("CompleteChallenge_In");
-    public void DisableCompleteChallenge() => completeChallengeNotice.Play("CompleteChallenge_Out");
+    public void EnableCompleteChallenge(string _completetext)
+    {
+        completeChallenge_txt.text = _completetext;
+        completeChallengeNotice.Play("CompleteChallenge_In");
+        if (disableChallengeCoroutine != null)
+            StopCoroutine(disableChallengeCoroutine);
+        disableChallengeCoroutine = StartCoroutine(DisableChallengeCoroutine());
+    }
+    private IEnumerator DisableChallengeCoroutine()
+    {
+        yield return new WaitForSeconds(2f);
+        completeChallengeNotice.Play("CompleteChallenge_Out");
+        completeChallenge_txt.text = string.Empty;
+    }
     #endregion
 
     #region Create Notice Interact          

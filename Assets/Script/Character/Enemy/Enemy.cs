@@ -1,11 +1,8 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.AI;
 
 public abstract class Enemy : MonoBehaviour
 {
-
     #region Components
     public PlayerCTL player;
     public Rigidbody2D myrigid;
@@ -27,6 +24,7 @@ public abstract class Enemy : MonoBehaviour
     [HideInInspector] public int damage, defense, level;
     [HideInInspector] public bool isDead, turnOnAlert;
     [HideInInspector] public EnemyMood mood;
+
     #endregion
 
     #region Main Method
@@ -49,13 +47,14 @@ public abstract class Enemy : MonoBehaviour
     protected virtual void OnEnable()
     {
         level = Random.Range(GameManager.instance.level + 1, GameManager.instance.level + 8);
-        Health.InitValue(enemySO.GetHP() + (level * enemySO.GetGrowStat().GetHealthGrown()), enemySO.GetDef() + (level * enemySO.GetGrowStat().GetDefenseGrown()));
+        Health.InitValue(enemySO.GetHP() + (level * enemySO.GetGrowStat().GetHealthGrown()), enemySO.GetHP() + (level * enemySO.GetGrowStat().GetHealthGrown()));
         defense = enemySO.GetDef() + (level * enemySO.GetGrowStat().GetDefenseGrown());
         damage = enemySO.GetHP() + (level * enemySO.GetGrowStat().GetDamageGrown());
         attacktimer = enemySO.GetAttackTimer();
         alertrange = enemySO.GetAlertRange();
         range = enemySO.GetRange();
         builetspeed = enemySO.GetBuiletSpeed();
+
     }
     #endregion
 
@@ -91,4 +90,5 @@ public abstract class Enemy : MonoBehaviour
     protected abstract void CheckDistance();
 
     #endregion 
+
 }

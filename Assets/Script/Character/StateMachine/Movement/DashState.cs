@@ -1,15 +1,11 @@
-using System;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
 public class DashState : BaseStateMachine
 {
-    protected float dashSpeed = 20f;
-    protected float timeConsective = 1f;
-    protected int consectiveDashLimitAmount = 2;
-    protected float dashLimitCD = 1.75f;
-    private int consectiveDashUsed = 0;
-    private float dashToSprintTime = 1f;
+    protected float dashSpeed = 3f;
+    protected float dashLimitCD = 2.5f;
+    private float dashToSprintTime = 0.3f;
     public DashState(PlayerCTL _player, PlayerStateMachine _stateMachine, string _animboolName) : base(_player, _stateMachine, _animboolName)
     {
 
@@ -18,22 +14,23 @@ public class DashState : BaseStateMachine
     public override void Enter()
     {
         base.Enter();
+        startTime = Time.time;
         StartAnimation(player.animData.dashParameterHash);
-        speedModifier = dashSpeed * 1.5f;
-        player.dustprefab.gameObject.SetActive(true);
-        player.dustprefab.Play();
-        Dash();
-        UpdateConsectiveDash();
+        speedModifier = player.playerdata.basicMovement.GetDashSpeed() * dashSpeed;
+        SetDashEffect();
+        player.dashEffect.gameObject.SetActive(true);
+        StartDash();
+        DashCoolDown();
     }
     public override void Exit()
     {
         base.Exit();
+        player.dashEffect.gameObject.SetActive(false);
         StopAnimation(player.animData.dashParameterHash);
-        player.dustprefab.gameObject.SetActive(false);
     }
-    public override void Update()
+    public override void Execute()
     {
-        base.Update();
+        base.Execute();
         if (Time.time < startTime + dashToSprintTime)
             return;
         stateMachine.ChangeState(player.sprintState);
@@ -62,30 +59,27 @@ public class DashState : BaseStateMachine
     #endregion
 
     #region Recurb Method
-    private void Dash()
+    private void StartDash()
     {
         if (movementInput != Vector2.zero)
             return;
-        Vector3 dashDirection = player.transform.forward;
-        player.myrigid.velocity = dashDirection * speedModifier;
+        player.dashEffect.gameObject.SetActive(true);
+        Vector2 dashDir = new Vector2(movementInput.x, movementInput.y);
+        player.myrigid.velocity = (dashDir * speedModifier * player.transform.right);
     }
-    private void UpdateConsectiveDash()
+    private void SetDashEffect()
     {
-        if (!IsConsective())
+        if (!player.mySR.flipX)
         {
-            consectiveDashUsed = 0;
+            player.dashEffect.transform.position = new Vector2(player.transform.position.x - 0.858f, player.transform.position.y - 0.372f);
+            player.dashEffect.GetComponent<SpriteRenderer>().flipX = false;
         }
-        ++consectiveDashUsed;
-        if (consectiveDashUsed == consectiveDashLimitAmount)
+        else
         {
-            consectiveDashLimitAmount = 0;
-            InputManager.instance.DisableActionFor(InputManager.playerInput.Player.Dash, dashLimitCD);
+            player.dashEffect.transform.position = new Vector2(player.transform.position.x + 0.88f, player.transform.position.y - 0.372f);
+            player.dashEffect.GetComponent<SpriteRenderer>().flipX = true;
         }
     }
-    private bool IsConsective()
-    {
-        return Time.time > startTime + timeConsective;
-    }
-
+    private void DashCoolDown() => InputManager.instance.DisableActionFor(InputManager.playerInput.Player.Dash, dashLimitCD);
     #endregion
 }

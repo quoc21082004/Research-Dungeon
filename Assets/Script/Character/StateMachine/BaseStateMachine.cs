@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using UnityEngine;
 using UnityEngine.InputSystem;
 public class BaseStateMachine : IState
@@ -21,13 +19,13 @@ public class BaseStateMachine : IState
     }
     #region IState Method
     public virtual void Enter() => AddInputActionsCallBack();
-    public virtual void Exit() => RemoveInputActionsCallBack();
-    public virtual void HandleInput() { }
-    public virtual void Update()
+    public virtual void Execute()
     {
         ReadMovementInput();
         FlipCharacter();
     }
+    public virtual void Exit() => RemoveInputActionsCallBack();
+    public virtual void HandleInput() { }
     public virtual void PhysicUpdate()
     {
         Move();
@@ -76,7 +74,6 @@ public class BaseStateMachine : IState
             ResetVelocity();
             return;
         }
-        player.dustprefab.transform.localScale = movementInput.x > 0 ? new Vector3(1f, 1f, 1f) : new Vector3(-1f, 1f, 1f);
         Vector2 movementDirection = GetMovementInputDirection();
         float movementSpeed = GetMovementSpeed();
         player.myrigid.velocity = (movementDirection * movementSpeed * Time.fixedDeltaTime);

@@ -1,15 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using TMPro;
+﻿using TMPro;
 using UnityEngine;
-using UnityEngine.UI;
 
 public class EnemyUI : MonoBehaviour
 {
     private Enemy enemy;
     [SerializeField] ProgressBar healthBar;
-    [SerializeField] Image maxhp_img;
-    [SerializeField] Image hp_img;
     [SerializeField] TextMeshProUGUI monsterLv_txt;
 
     #region Main Method

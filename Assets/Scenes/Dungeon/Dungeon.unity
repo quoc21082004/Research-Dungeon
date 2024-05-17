@@ -43068,6 +43068,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1554167578804684411, guid: 1b728d484c63894448b90322bb5a2671,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -19.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 1554167578804684411, guid: 1b728d484c63894448b90322bb5a2671,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720150208257191642, guid: 1b728d484c63894448b90322bb5a2671,
+        type: 3}
+      propertyPath: endChallenge
+      value: Complete Challenge
+      objectReference: {fileID: 0}
+    - target: {fileID: 2720150208257191642, guid: 1b728d484c63894448b90322bb5a2671,
+        type: 3}
+      propertyPath: startChallenge
+      value: Start Stage 2 !
+      objectReference: {fileID: 0}
     - target: {fileID: 2720150208257191642, guid: 1b728d484c63894448b90322bb5a2671,
         type: 3}
       propertyPath: OnStageEnd.m_PersistentCalls.m_Calls.Array.data[0].m_Target
@@ -43108,15 +43128,25 @@ PrefabInstance:
       propertyPath: OnStageStart.m_PersistentCalls.m_Calls.Array.data[3].m_Target
       value: 
       objectReference: {fileID: 1130090184}
+    - target: {fileID: 4097944948791220548, guid: 1b728d484c63894448b90322bb5a2671,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -21.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 4097944948791220548, guid: 1b728d484c63894448b90322bb5a2671,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -6.29
+      objectReference: {fileID: 0}
     - target: {fileID: 4788820488313957231, guid: 1b728d484c63894448b90322bb5a2671,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 14
+      value: 15.57
       objectReference: {fileID: 0}
     - target: {fileID: 4788820488313957231, guid: 1b728d484c63894448b90322bb5a2671,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: -5.6
+      value: -5.04
       objectReference: {fileID: 0}
     - target: {fileID: 8120289598122646052, guid: 1b728d484c63894448b90322bb5a2671,
         type: 3}
@@ -43136,6 +43166,31 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 513486680}
     m_Modifications:
+    - target: {fileID: 5665115271487587604, guid: feed47a4ef3e8a54588e569fbdec1067,
+        type: 3}
+      propertyPath: m_Size.x
+      value: 53.039574
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665115271487587604, guid: feed47a4ef3e8a54588e569fbdec1067,
+        type: 3}
+      propertyPath: m_Size.y
+      value: 25.893274
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665115271487587604, guid: feed47a4ef3e8a54588e569fbdec1067,
+        type: 3}
+      propertyPath: m_Offset.x
+      value: -2.518528
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665115271487587604, guid: feed47a4ef3e8a54588e569fbdec1067,
+        type: 3}
+      propertyPath: m_Offset.y
+      value: 2.044322
+      objectReference: {fileID: 0}
+    - target: {fileID: 5665115271487587604, guid: feed47a4ef3e8a54588e569fbdec1067,
+        type: 3}
+      propertyPath: m_IsTrigger
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6883432066804915608, guid: feed47a4ef3e8a54588e569fbdec1067,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -43185,6 +43240,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6998815732441093170, guid: feed47a4ef3e8a54588e569fbdec1067,
+        type: 3}
+      propertyPath: endChallenge
+      value: Complete Challenge
+      objectReference: {fileID: 0}
+    - target: {fileID: 6998815732441093170, guid: feed47a4ef3e8a54588e569fbdec1067,
+        type: 3}
+      propertyPath: startChallenge
+      value: Start Stage 1 !
       objectReference: {fileID: 0}
     - target: {fileID: 6998815732441093170, guid: feed47a4ef3e8a54588e569fbdec1067,
         type: 3}

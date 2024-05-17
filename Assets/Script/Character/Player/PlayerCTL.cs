@@ -6,7 +6,6 @@ using UnityEngine.Events;
 
 public class PlayerCTL : MonoBehaviour 
 {
-    public const string FILE_NAME = "PlayerStatus";
 
     #region Component Method
     [HideInInspector] public Rigidbody2D myrigid { get; private set; }
@@ -31,10 +30,10 @@ public class PlayerCTL : MonoBehaviour
     public StatusHandle Mana = new();
 
     public PlayerAnimationData animData;
-    public ParticleSystem dustprefab;
     Collider2D[] pickup;
     [HideInInspector] public float rangePickup = 1.2f;
     [HideInInspector] public bool isAlve = true;
+    public GameObject dashEffect;
     #endregion
 
     #region Main Method
@@ -101,16 +100,6 @@ public class PlayerCTL : MonoBehaviour
     #endregion
 
     #region save-load
-    public void SavePos()
-    {
-        Vector3 tempPos = transform.position;
-        SaveLoadHandler.SaveToJson<Vector3>(tempPos, FILE_NAME);
-    }
-    public void LoadPos()
-    {
-        Vector3 afterPos = SaveLoadHandler.LoadFromFile<Vector3>(FILE_NAME);
-        transform.position = afterPos;
-    }
     public void SetPosition(Vector3 cords, Vector2 direction)
     {
         Vector2 moveInput = transform.position;

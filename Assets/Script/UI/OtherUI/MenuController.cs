@@ -1,17 +1,15 @@
-﻿using System;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 public class MenuController : Singleton<MenuController>
 {
     public GameObject bag_panel;
     bool isOpenBag = false;
-    [SerializeField] GUI_PlayerStatus playerHUD;
-
+    GUI_PlayerStatus playerHUD;
     #region Main Method
     private void Start()
     {
         isOpenBag = false;
-        playerHUD = GetComponentInChildren<GUI_PlayerStatus>();
+        playerHUD = GameObject.Find("PlayerHUD").GetComponent<GUI_PlayerStatus>();
     }
     private void OnEnable() => RegisterEvent();
     private void OnDisable() => UnRegisterEvent();

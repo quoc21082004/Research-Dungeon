@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using System;
 [System.Serializable]
@@ -9,8 +7,9 @@ public class StatusHandle
     public event Action<int> OnMaxValueChangeEvent;
     public event Action<int, int> OnInitValueEvent;
     public event Action OnDieEvent;
-    public int currentValue { get; set; }
-    public int maxValue { get; set; }
+
+    public int currentValue;
+    public int maxValue;
 
     public void InitValue(int _currentValue, int _maxValue)
     {

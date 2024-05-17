@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
 
@@ -8,9 +6,8 @@ public class GUI_Shop : MonoBehaviour , IGUI
 {
     [SerializeField] GameObject ShopMenuUI;
     [SerializeField] GameObject BuyUI;
-    [SerializeField] GameObject SellUI;
 
-    [SerializeField] Button buybtn, sellbtn;
+    [SerializeField] Button buybtn;
      bool isShopOpen = false;
     private void OnEnable()
     {
@@ -48,12 +45,6 @@ public class GUI_Shop : MonoBehaviour , IGUI
     {
         BuyUI.SetActive(false);
         SelectBtn(buybtn);
-    }
-    public void ShowSellUI() => SellUI.SetActive(true);
-    public void HideSellUI()
-    {
-        SellUI.SetActive(false);
-        SelectBtn(sellbtn);
     }
     public void SelectBtn(Button btn)
     {

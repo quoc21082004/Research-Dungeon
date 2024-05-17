@@ -1,10 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using TMPro;
 public class DamagePopManager : Singleton<DamagePopManager>
 {
     [SerializeField] GameObject textprefab;
+    #region Create Damage Pop Up
     public void CreateDamagePop(bool isCrit, float amt, Vector3 position, Transform parent)
     {
         GameObject clone = PoolManager.instance.Release(textprefab, position, Quaternion.identity);
@@ -12,13 +11,11 @@ public class DamagePopManager : Singleton<DamagePopManager>
         {
             clone.GetComponentInChildren<TextMeshPro>().text = "-" + amt.ToString("F0");
             clone.GetComponentInChildren<TextMeshPro>().color = Color.red;
-            //clone.transform.parent = parent.transform;
         }
         else
         {
             clone.GetComponentInChildren<TextMeshPro>().text = "-" + amt.ToString("F0");
             clone.GetComponentInChildren<TextMeshPro>().color = Color.white;
-            //clone.transform.parent = parent.transform;
         }
     }
     public void CreateRecoverPop(ConsumableType type, float amt, Vector2 trans, Transform parent)
@@ -50,4 +47,5 @@ public class DamagePopManager : Singleton<DamagePopManager>
             clone.transform.SetParent(parent);
         }
     }
+    #endregion
 }

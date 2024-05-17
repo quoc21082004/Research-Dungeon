@@ -18,8 +18,8 @@ MonoBehaviour:
     Icon: {fileID: 1162703340, guid: acd9da3fff2ff15498ef9316d886c158, type: 3}
     AbilityIcon: {fileID: 1162703340, guid: acd9da3fff2ff15498ef9316d886c158, type: 3}
     Rarity: 0
-  type: 0
-  isUnlock: 0
+  type: 1
+  isUnlock: 1
   learnCost: 1400
   baseCastDelay: 0.5
   baseCostMana: 50

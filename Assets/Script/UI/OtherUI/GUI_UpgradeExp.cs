@@ -346,7 +346,6 @@ public class GUI_UpgradeExp : MonoBehaviour, IGUI
     }
     private void SetCoinText()
     {
-        //currentCoin = PartyController.inventoryG.Gold;
         currency_txt.color = currentCoin >= totalCost ? Color.white : Color.red;
         currency_txt.text = $"{currentCoin}/{totalCost}";
     }
