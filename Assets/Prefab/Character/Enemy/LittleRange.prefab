@@ -217,13 +217,15 @@ MonoBehaviour:
   enemyhurt: {fileID: 0}
   mySR: {fileID: 0}
   myanim: {fileID: 0}
+  Health:
+    currentValue: 0
+    maxValue: 0
   enemySO: {fileID: 11400000, guid: 531f610cd10bdad47ac237f36fed3a36, type: 2}
   knockTime: 1
   damage: 0
   defense: 0
   level: 0
   isDead: 0
-  turnOnAlert: 0
   mood: 0
   ultiprefab: {fileID: 5030088702638667209, guid: 879182d594e1fff49a6c1d8aac6d8751,
     type: 3}
@@ -386,6 +388,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 1012246549171505563}
     m_Modifications:
+    - target: {fileID: 1608608666628077896, guid: 518a118bc1f04584bad230fd7a1d507e,
+        type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 6155248354422599683}
     - target: {fileID: 1608608666628077896, guid: 518a118bc1f04584bad230fd7a1d507e,
         type: 3}
       propertyPath: monsterLv_txt
@@ -560,6 +567,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3635046250714954160, guid: 518a118bc1f04584bad230fd7a1d507e,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7885730827288279569, guid: 518a118bc1f04584bad230fd7a1d507e,
         type: 3}

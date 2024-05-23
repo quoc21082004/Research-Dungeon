@@ -12,12 +12,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ed2b0070e44b634187bec0e7cc79647, type: 3}
   m_Name: Scopoion
   m_EditorClassIdentifier: 
-  HP: 0
-  Def: 0
-  Damage: 0
-  attackTimer: 3.5
+  HP: 5000
+  Def: 300
+  Damage: 900
+  attackTimer: 4
   alertRange: 80
-  range: 8
+  range: 7
   builetSpeed: 7
   Type: 7
   goldReward: 300

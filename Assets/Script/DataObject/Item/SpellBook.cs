@@ -1,12 +1,10 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 [CreateAssetMenu(fileName = "Shop Item", menuName = "Shop/Spell Book")]  
 public class SpellBook : Consumable
 {
     public SpellBookType type;
     public SkillSO spell;
-    ActiveAbility ability;
+    private ActiveAbility ability;
     public override void Use()
     {
         if (ability == null)

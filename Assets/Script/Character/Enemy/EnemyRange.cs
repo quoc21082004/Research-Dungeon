@@ -6,7 +6,7 @@ public abstract class EnemyRange : Enemy
     protected float distance;
     protected float moveRange;
     public GameObject ultiprefab;
-
+    private Coroutine attackCoroutine;
     #region Main Method
     protected override void OnEnable()
     {
@@ -27,32 +27,29 @@ public abstract class EnemyRange : Enemy
     }
     protected virtual void DistanceAttack()
     {
-        #region alert - distance
         float alertDis = distance;
         timer += Time.deltaTime;
         isAlert = true ? alertDis <= alertrange : alertDis > alertrange;
-        if (!isAlert)
-            AlertOff();
-        else if (isAlert)
+
+        if (distance <= range)
         {
-            AlertOn();
-            if (distance <= range)
+            if (timer >= attacktimer)
             {
-                if (timer >= attacktimer)
-                {
-                    StartCoroutine(attackDelay());
-                    myagent.SetDestination(-player.transform.position);
-                    timer = 0;
-                }
-            }
-            else if (distance > range)
-            {
-                var newpos = player.transform.position + new Vector3(Random.Range(-1f, 1f), Random.Range(-1f, 1f)) * moveRange;
-                myagent.SetDestination(newpos);
+                if (attackCoroutine != null)
+                    StopCoroutine(attackCoroutine);
+                attackCoroutine = StartCoroutine(attackDelay());
+                myagent.SetDestination(-player.transform.position);
+                timer = 0;
             }
         }
+        else if (distance > range)
+        {
+            var newpos = player.transform.position + new Vector3(Random.Range(-2f, 2f), Random.Range(-2f, 2f)) * moveRange;
+            myagent.SetDestination(newpos);
+        }
+
         FlipCharacter(); // rotate
-        #endregion
+
         if ((mood == EnemyMood.Medium || mood == EnemyMood.Advance) && !canUse)  // < 50
         {
             UltimateEnemyRange();

@@ -15,9 +15,9 @@ MonoBehaviour:
   HP: 6000
   Def: 100
   Damage: 250
-  attackTimer: 2.5
+  attackTimer: 3
   alertRange: 80
-  range: 7
+  range: 6
   builetSpeed: 10
   Type: 4
   goldReward: 200

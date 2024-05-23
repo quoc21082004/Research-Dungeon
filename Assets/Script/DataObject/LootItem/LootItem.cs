@@ -25,7 +25,7 @@ public class LootItem : MonoBehaviour
         while(true)
         {
             if (PartyController.player.isActiveAndEnabled)
-                dir = (PartyController.player.transform.position - transform.position).normalized;
+                dir = (PartyController.player.transform.position - transform.position).normalized;      // distance item and player
             transform.Translate(dir * speedmove * Time.deltaTime);
             yield return null;
         }

@@ -326,7 +326,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e19363cabad8c6349b13c465f27124bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  noticePlayerText: '[F] Interact NPC'
+  noticePlayerText: '[E] Interact NPC'
 --- !u!1 &5148450235136154483
 GameObject:
   m_ObjectHideFlags: 0

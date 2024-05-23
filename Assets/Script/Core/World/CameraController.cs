@@ -7,10 +7,7 @@ public class CameraController : Singleton<CameraController>
     public PlayerCTL followTarget;
     private Vector3 targetPos;
     public float moveSpeed;
-    private void OnEnable()
-    {
-        followTarget = FindObjectOfType<PlayerCTL>();
-    }
+    protected void Start() => followTarget = PartyController.player.GetComponent<PlayerCTL>();
     private void FixedUpdate()
     {
         targetPos = new Vector3(followTarget.transform.position.x, followTarget.transform.position.y, -10);

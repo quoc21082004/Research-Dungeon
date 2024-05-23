@@ -21,13 +21,13 @@ public class BaseStateMachine : IState
     public virtual void Enter() => AddInputActionsCallBack();
     public virtual void Execute()
     {
-        ReadMovementInput();
         FlipCharacter();
     }
     public virtual void Exit() => RemoveInputActionsCallBack();
     public virtual void HandleInput() { }
     public virtual void PhysicUpdate()
     {
+        ReadMovementInput();
         Move();
     }
     public virtual void OnAnimationEnterEvent()

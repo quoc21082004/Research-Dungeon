@@ -360,7 +360,7 @@ NavMeshAgent:
   m_Enabled: 1
   m_AgentTypeID: 0
   m_Radius: 4.166666
-  m_Speed: 0
+  m_Speed: 0.97
   m_Acceleration: 8
   avoidancePriority: 50
   m_AngularSpeed: 120
@@ -389,14 +389,17 @@ MonoBehaviour:
   enemyhurt: {fileID: 0}
   mySR: {fileID: 0}
   myanim: {fileID: 0}
+  Health:
+    currentValue: 0
+    maxValue: 0
   enemySO: {fileID: 11400000, guid: a96398831fc17514ca456470c0622015, type: 2}
   knockTime: 0
   damage: 0
   defense: 0
   level: 0
   isDead: 0
-  turnOnAlert: 0
   mood: 0
+  ultiprefab: {fileID: 0}
   monsterprefab:
   - {fileID: 3383540492465960013, guid: 99a3b1e34c2deca4eaf64948a9a88b5e, type: 3}
   prefabPos:

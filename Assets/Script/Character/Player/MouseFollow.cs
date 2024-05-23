@@ -2,7 +2,7 @@ using UnityEngine;
 
 public class MouseFollow : MonoBehaviour
 {
-    PlayerCTL player;
+    private PlayerCTL player;
     private void OnEnable() => player = GetComponentInParent<PlayerCTL>();
     public void FaceMouse()
     {

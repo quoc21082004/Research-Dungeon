@@ -1,7 +1,5 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using System;
+﻿using UnityEngine;
+
 [CreateAssetMenu(fileName = "Shop Item", menuName = "Shop/Experience")]
 public class ExperienceSO : Consumable
 {

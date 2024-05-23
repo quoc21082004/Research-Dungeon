@@ -21,12 +21,9 @@ public enum SpellBookType
 }
 public enum TypeEnemy
 {
-    Bat,
-    Boar,
     Boss,
     FlyingMelee,
     LittleRange,
-    LittleMelee,
     Skeleton,
     Scopoion,
 }

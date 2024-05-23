@@ -271,7 +271,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.92, y: 2.56}
+    oldSize: {x: 1.9200001, y: 2.56875}
     newSize: {x: 1.92, y: 2.56}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -346,13 +346,15 @@ MonoBehaviour:
   enemyhurt: {fileID: 0}
   mySR: {fileID: 0}
   myanim: {fileID: 0}
+  Health:
+    currentValue: 0
+    maxValue: 0
   enemySO: {fileID: 11400000, guid: 83d40cc253d80284c84bb8211ab2e8ab, type: 2}
   knockTime: 0.8
   damage: 0
   defense: 0
   level: 0
   isDead: 0
-  turnOnAlert: 0
   mood: 0
   ultiprefab: {fileID: 2975369991134033567, guid: ff9abb6e3aaddc74485f34a2b38464de,
     type: 3}
@@ -396,6 +398,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 2790792036882747657}
     m_Modifications:
+    - target: {fileID: 1608608666628077896, guid: 518a118bc1f04584bad230fd7a1d507e,
+        type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 6928962354290305399}
     - target: {fileID: 1608608666628077896, guid: 518a118bc1f04584bad230fd7a1d507e,
         type: 3}
       propertyPath: monsterLv_txt

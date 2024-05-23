@@ -1,5 +1,4 @@
 using UnityEngine;
-using UnityEngine.UI;
 using Cinemachine;
 using UnityEngine.Events;
 using DG.Tweening;
@@ -89,7 +88,7 @@ public class CutSceneController : MonoBehaviour
         }
         cameraSizeCoroutine = StartCoroutine(ChangeCameraSizeCoroutine(_size));
     }
-    private IEnumerator ChangeCameraSizeCoroutine(float _size)
+    private IEnumerator ChangeCameraSizeCoroutine(float _size)  // zoom camera
     {
         while (Mathf.Abs(virtualCineCamera.m_Lens.OrthographicSize - _size) > Mathf.Epsilon)
         {

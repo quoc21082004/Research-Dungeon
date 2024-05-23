@@ -1,7 +1,4 @@
-﻿using Newtonsoft.Json;
-using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 [CreateAssetMenu(fileName = "Shop Item", menuName = "Shop/Equipment")] 
 public class Equipment : Consumable

@@ -12,8 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c062d6a840c8f343bf0658462042c10, type: 3}
   m_Name: Forest
   m_EditorClassIdentifier: 
-  name: forest
-  clip: {fileID: 8300000, guid: 21d53f95a2795234189be54c7e44933f, type: 3}
+  clip: {fileID: 8300000, guid: d208743cfc6d8744d8906c33d2b0e7f5, type: 3}
   volume: 0.5
   pitch: 1
   loop: 0

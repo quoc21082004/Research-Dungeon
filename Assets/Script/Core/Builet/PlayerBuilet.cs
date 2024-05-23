@@ -1,12 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 public class PlayerBuilet : MonoBehaviour
 {
     private Rigidbody2D myrigd;
     public AttackSO baseAttack;
     [SerializeField] GameObject damageBurstFX;
-    [SerializeField] public float realspeed;
     private float critRate, critdamage, percentageDamage, wandDamage, rand, speed;
 
     #region Main Method
@@ -23,10 +20,9 @@ public class PlayerBuilet : MonoBehaviour
     }
     private void FixedUpdate()
     {
-        myrigd.AddForce(transform.right * speed * realspeed, ForceMode2D.Impulse);
-        myrigd.velocity = Vector2.ClampMagnitude(myrigd.velocity, speed * realspeed);
+        transform.Translate(new Vector2(speed, 0f) * Time.deltaTime, Space.Self);
+        //  way 2 : myrigd.velocity = Vector3.ClampMagnitude(transform.right * speed, speed );  // transform.right * speed;
     }
-    #endregion
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.TryGetComponent<EnemyHurt>(out var cos))
@@ -45,4 +41,5 @@ public class PlayerBuilet : MonoBehaviour
             gameObject.SetActive(false);
         }
     }
+    #endregion
 }

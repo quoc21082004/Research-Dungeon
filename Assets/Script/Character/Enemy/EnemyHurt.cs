@@ -76,6 +76,7 @@ public class EnemyHurt : MonoBehaviour , IDamagable , IKnockBack
             enemy.isDead = true;
             DropLootItem();
             OnEndCombat?.Invoke();
+            enemy.myanim.Play("Death");
             enemy.mood = EnemyMood.End;
             yield return new WaitForSeconds(0.05f);
             gameObject.SetActive(false);

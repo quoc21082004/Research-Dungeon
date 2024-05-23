@@ -22,13 +22,11 @@ public class Potion : Consumable
         switch(consumableType)
         {
             case ConsumableType.HealthPotion:
-                //float recoverHP = (value * PartyController.player.GetComponent<PlayerCTL>().maxhealth) / 100;
                 float recoverHP = (value * PartyController.player.GetComponent<PlayerCTL>().Health.maxValue) / 100;
                 PartyController.player.gameObject.GetComponent<PlayerHurt>().PlayerRecoverHP(recoverHP);
                 AssetManager.instance.assetData.SpawnRecoverEffect(consumableType, PartyController.player.transform.position, PartyController.player.transform);
                 break;
             case ConsumableType.ManaPotion:
-                //float recoverMP = (value * PartyController.player.GetComponent<PlayerCTL>().maxmana) / 100;
                 float recoverMP = (value * PartyController.player.GetComponent<PlayerCTL>().Mana.maxValue) / 100;
                 PartyController.player.gameObject.GetComponent<PlayerHurt>().PlayerRecoverMP(recoverMP);
                 AssetManager.instance.assetData.SpawnRecoverEffect(consumableType, PartyController.player.transform.position, PartyController.player.transform);

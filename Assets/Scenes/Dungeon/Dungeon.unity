@@ -43311,6 +43311,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 857582869661714710, guid: be91a9860e149e84080358e934b4f09b,
         type: 3}
+      propertyPath: m_Layer
+      value: 13
+      objectReference: {fileID: 0}
+    - target: {fileID: 857582869661714710, guid: be91a9860e149e84080358e934b4f09b,
+        type: 3}
       propertyPath: m_IsActive
       value: 0
       objectReference: {fileID: 0}
@@ -43373,6 +43378,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 9196110594228590832, guid: be91a9860e149e84080358e934b4f09b,
+        type: 3}
+      propertyPath: m_Layer
+      value: 13
       objectReference: {fileID: 0}
     - target: {fileID: 9196110594228590832, guid: be91a9860e149e84080358e934b4f09b,
         type: 3}

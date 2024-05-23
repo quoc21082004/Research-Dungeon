@@ -1,13 +1,6 @@
-using System.Collections;
-using UnityEngine;
-using TMPro;
-using UnityEngine.UI;
 using UnityEngine.Events;
 using PlayFab.ClientModels;
 using PlayFab;
-using System;
-using Newtonsoft.Json;
-using PlayFab.Json;
 
 public class PlayfabHandleUserData : Singleton<PlayfabHandleUserData>
 {

@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 667144439685877685}
   - component: {fileID: 8357202247137654138}
   - component: {fileID: 4613052420828348974}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Close Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -139,7 +139,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 9137246103730216614}
-  m_Layer: 0
+  - component: {fileID: 5278384337985852800}
+  m_Layer: 13
   m_Name: Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -163,6 +164,20 @@ Transform:
   - {fileID: 2451202778637301292}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &5278384337985852800
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5086932647109713937}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: de2398a5cf0414e44a39f68735f2c747, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  closeDoor: {fileID: 857582869661714710}
+  openDoor: {fileID: 9196110594228590832}
 --- !u!1 &9196110594228590832
 GameObject:
   m_ObjectHideFlags: 0
@@ -175,7 +190,7 @@ GameObject:
   - component: {fileID: 3104976381574643227}
   - component: {fileID: 8277968473634556177}
   - component: {fileID: 5757542632058356293}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: Open Door
   m_TagString: Untagged
   m_Icon: {fileID: 0}

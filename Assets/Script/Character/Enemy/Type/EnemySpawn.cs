@@ -1,5 +1,3 @@
-using System;
-using System.Buffers;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -12,14 +10,13 @@ public class EnemySpawn : Enemy
     [SerializeField] GameObject spawnEffect;
     public float spawnDelay;
     public float spawnRange;
-    int currentMonster = 0;
-    public override void Start()
-    {
-
-    }
+    private int currentMonster = 0;
+    private Coroutine spawnCoroutine;
     public void SpawnEnemy()
     {
-        StartCoroutine(SpawnCoroutine());
+        if (spawnCoroutine != null)
+            StopCoroutine(spawnCoroutine);
+        spawnCoroutine = StartCoroutine(SpawnCoroutine());
     }
     private IEnumerator SpawnCoroutine()
     {

@@ -1,9 +1,7 @@
-using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
 using System;
-using UnityEngine.Events;
 public class SelectOption : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI select_txt;

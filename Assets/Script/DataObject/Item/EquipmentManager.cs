@@ -1,9 +1,6 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using System;
-using System.Linq;
-using Newtonsoft.Json;
+
 public class EquipmentManager : Singleton<EquipmentManager>
 {
     public const string FILE_NAME = "Equipment.json";
@@ -14,10 +11,6 @@ public class EquipmentManager : Singleton<EquipmentManager>
     {
         numOfEquipment = Enum.GetNames(typeof(EquipmentSlot)).Length;
         currentEquipment = new Equipment[numOfEquipment];
-    }
-    private void OnApplicationQuit()
-    {
-
     }
 
     #region Equip - UnEquip

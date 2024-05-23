@@ -253,7 +253,7 @@ MonoBehaviour:
   title_txt: {fileID: 7076914044224517771}
   textbar: {fileID: 5697176530158858716, guid: d4e763f8f7dbbe84db49cdf2bda59077, type: 3}
   content: {fileID: 8485782667891210086}
-  completeChallenge_txt: {fileID: 0}
+  completeChallenge_txt: {fileID: 1945911272624669966}
   completeChallengeNotice: {fileID: 3236953007831689908}
   noticeInteractPanel: {fileID: 4311972378186397668}
   noticeInteract_txt: {fileID: 7240419766216407992}
@@ -274,7 +274,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7719120511543140840
 RectTransform:
   m_ObjectHideFlags: 0
@@ -601,7 +601,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &7080011266905378649
 RectTransform:
   m_ObjectHideFlags: 0

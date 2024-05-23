@@ -4,15 +4,12 @@ using UnityEngine.Events;
 
 public class PlayerHurt : MonoBehaviour , IDamagable
 {
-    PlayerCTL player;
-    bool isHealthRegen, isManaRegen;
+    private PlayerCTL player;
     public GameObject gameOverprefab;
+
     [SerializeField] UnityEvent OnStartCombat;
     [SerializeField] UnityEvent OnEndCombat;
-    private void OnEnable()
-    {
-        player = GameObject.Find("Player").GetComponent<PlayerCTL>();
-    }
+    private void Start() => player = PartyController.player;
 
     #region Take Damage & Dead
     public void TakeDamage(float amount, bool isCrit)
@@ -41,34 +38,6 @@ public class PlayerHurt : MonoBehaviour , IDamagable
             gameOverprefab.gameObject.SetActive(true);
             Time.timeScale = 0;
         }
-    }
-    #endregion
-
-    #region Heal Regen - Mana Regen
-    public void RegenRecover()
-    {
-        if ((player.Health.currentValue < player.Health.maxValue) && !isHealthRegen) 
-            StartCoroutine(hpRegen());
-        if ((player.Mana.currentValue < player.Mana.maxValue) && !isManaRegen)
-            StartCoroutine(mpRegen());
-    }
-    IEnumerator hpRegen()
-    {
-        var _healthRegen = player.playerdata.basicStats.GetHealthRegen();
-        isHealthRegen = true;
-        player.Health.Increase((int)_healthRegen);
-        AssetManager.instance.assetData.SpawnRecoverEffect(ConsumableType.HealthPotion, transform.position, PartyController.player.transform);
-        yield return new WaitForSeconds(2.5f);
-        isHealthRegen = false;
-    }
-    IEnumerator mpRegen()
-    {
-        var _manaRegen = player.playerdata.basicStats.GetManaRegen();
-        isManaRegen = true;
-        player.Mana.Increase(Mathf.CeilToInt(_manaRegen));
-        AssetManager.instance.assetData.SpawnRecoverEffect(ConsumableType.ManaPotion, transform.position, PartyController.player.transform);
-        yield return new WaitForSeconds(2.5f);
-        isManaRegen = false;
     }
     #endregion
 

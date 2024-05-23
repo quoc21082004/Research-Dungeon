@@ -4,20 +4,15 @@ using UnityEngine;
 
 public class AutoDeactivate : MonoBehaviour
 {
-    [SerializeField] bool destroyGameObject;
-    [SerializeField] float lifeTime;
-    WaitForSeconds waitTime;
-    private void Awake()
-    {
-        waitTime = new WaitForSeconds(lifeTime);
-    }
+    [SerializeField] private bool destroyGameObject;
+    [SerializeField] private float lifeTime;
     private void OnEnable()
     {
         StartCoroutine(DeactivateCourtine());
     }
     private IEnumerator DeactivateCourtine()
     {
-        yield return waitTime;
+        yield return new WaitForSeconds(lifeTime);
         gameObject.SetActive(false);
     }
 }

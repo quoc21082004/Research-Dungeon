@@ -339,7 +339,6 @@ MonoBehaviour:
   defense: 0
   level: 0
   isDead: 0
-  turnOnAlert: 0
   mood: 0
   monsterList:
   - {fileID: 1012246549171505564, guid: 684ee23dece17414eabcff823f2efcf3, type: 3}
@@ -370,6 +369,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3383540492465960048}
     m_Modifications:
+    - target: {fileID: 1608608666628077896, guid: 518a118bc1f04584bad230fd7a1d507e,
+        type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 4894451160103222931}
     - target: {fileID: 1608608666628077896, guid: 518a118bc1f04584bad230fd7a1d507e,
         type: 3}
       propertyPath: monsterLv_txt
@@ -544,6 +548,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3635046250714954160, guid: 518a118bc1f04584bad230fd7a1d507e,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7885730827288279569, guid: 518a118bc1f04584bad230fd7a1d507e,
         type: 3}

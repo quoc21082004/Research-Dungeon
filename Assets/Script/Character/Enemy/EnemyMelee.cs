@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 public abstract class EnemyMelee : Enemy
 {
@@ -28,35 +27,29 @@ public abstract class EnemyMelee : Enemy
     }
     protected virtual void DistanceAttack()
     {
-        #region             alert - distance
-        if (!isAlert)
-            AlertOff();
-        else if (isAlert)
+        if (distance <= range)
         {
-            AlertOn();
-            if (distance <= range)
+            isWithIn = true;
+            timer += Time.deltaTime;
+            if (timer >= attacktimer)
             {
-                isWithIn = true;
-                timer += Time.deltaTime;
-                if (timer >= attacktimer)
-                {
-                    StartCoroutine(attackDelay());
-                    timer = 0;
-                }
-            }
-            else if (distance > range && !isAttack)
-            {
-                isWithIn = false;
-                myagent.SetDestination(player.transform.position);
+                StartCoroutine(attackDelay());
+                timer = 0;
             }
         }
+        else if (distance > range && !isAttack)
+        {
+            isWithIn = false;
+            myagent.SetDestination(player.transform.position);
+        }
+
         if (!isWithIn)
             myanim.SetBool("Run", true);
         else
             myanim.SetBool("Run", false);
         FlipCharacter();
-        #endregion
-        if ((mood == EnemyMood.End) && !canUse) 
+
+        if ((mood == EnemyMood.End) && !canUse)
         {
             UntimateEnemyMelee();
             canUse = true;
@@ -69,5 +62,4 @@ public abstract class EnemyMelee : Enemy
             spell.KickOff(ability, transform.position , Quaternion.identity);
     }
     #endregion
-
 }

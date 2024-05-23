@@ -2,11 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class DestroyOverTime : MonoBehaviour
+public class DestroyOverTime : MonoBehaviour    // use for pool object when object can't set (false)
 {
     public float timeToDestroy;
-
-
     private void Update()
     {
         timeToDestroy -= Time.deltaTime;

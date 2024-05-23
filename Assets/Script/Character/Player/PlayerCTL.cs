@@ -26,10 +26,11 @@ public class PlayerCTL : MonoBehaviour
     #endregion
 
     #region Variable 
+
     public StatusHandle Health = new();
     public StatusHandle Mana = new();
 
-    public PlayerAnimationData animData;
+    public PlayerAnimationData animData = new();
     Collider2D[] pickup;
     [HideInInspector] public float rangePickup = 1.2f;
     [HideInInspector] public bool isAlve = true;
@@ -73,7 +74,6 @@ public class PlayerCTL : MonoBehaviour
         if (isAlve)
         {
             PickUp();
-            playerhurt.RegenRecover();
             playercombat.FindEnemy();
         }
     }

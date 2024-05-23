@@ -14,7 +14,7 @@ public class ExpandTool : MonoBehaviour
 
     bool isDefaultExpand = true;
     private bool isNormal = true;
-    Tweener tween;
+    private Tweener tween;
     void Start()
     {
         if (isDefaultExpand)

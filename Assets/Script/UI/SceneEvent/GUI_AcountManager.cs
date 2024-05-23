@@ -2,9 +2,6 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using UnityEngine.SceneManagement;
-using System.Runtime.CompilerServices;
-using UnityEditor;
 using DG.Tweening;
 public class GUI_AcountManager : MonoBehaviour
 {
@@ -30,14 +27,8 @@ public class GUI_AcountManager : MonoBehaviour
         Init();
         RegisterEvent();
     }
-    private void OnEnable()
-    {
-        RegisterEvent();
-    }
-    private void OnDisable()
-    {
-        UnRegisterEvent();
-    }
+    private void OnEnable() => RegisterEvent();
+    private void OnDisable() => UnRegisterEvent();
     private void Init()
     {
         FadeManager.instance.OnFadeOutComplete();

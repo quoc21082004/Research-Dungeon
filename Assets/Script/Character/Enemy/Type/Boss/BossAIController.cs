@@ -29,7 +29,7 @@ public class BossAIController : MonoBehaviour
     }
     private IEnumerator WaitForPlayerInRange()
     {
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        target = PartyController.player.GetComponent<Transform>();
         while (true)
         {
             var distanceToPlayer = Vector2.Distance(transform.position, target.position);

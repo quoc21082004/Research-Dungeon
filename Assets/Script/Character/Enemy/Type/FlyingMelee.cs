@@ -1,11 +1,11 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.AI;
 
 public class FlyingMelee : EnemyMelee
 {
-    bool isDMG;
+    private bool isDMG;
+    private Coroutine damageCoroutine;
     protected override void Awake()
     {
         base.Awake();
@@ -47,12 +47,14 @@ public class FlyingMelee : EnemyMelee
                     {
                         isDMG = true;
                         _damage.TakeDamage(damage, false);
-                        StartCoroutine(dmgCD());
+                        if (damageCoroutine != null)
+                            StopCoroutine(damageCoroutine);
+                        damageCoroutine = StartCoroutine(dmgCD());
                     }
             }
         }
     }
-    IEnumerator dmgCD()
+    private IEnumerator dmgCD()
     {
         yield return new WaitForSeconds(0.3f);
         isDMG = false;

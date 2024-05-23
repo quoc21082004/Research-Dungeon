@@ -12,7 +12,7 @@ public abstract class Enemy : MonoBehaviour
     public StatusHandle Health = new();
     protected NavMeshAgent myagent;
     protected ActiveAbility ability;
-    EnemyUI enemyUI;
+
     #endregion
 
     #region Variable
@@ -22,7 +22,7 @@ public abstract class Enemy : MonoBehaviour
     public float knockTime;
     protected bool canUse;
     [HideInInspector] public int damage, defense, level;
-    [HideInInspector] public bool isDead, turnOnAlert;
+    [HideInInspector] public bool isDead;
     [HideInInspector] public EnemyMood mood;
 
     #endregion
@@ -40,7 +40,6 @@ public abstract class Enemy : MonoBehaviour
         player = PartyController.player;
         myanim = GetComponent<Animator>();
         mySR = GetComponent<SpriteRenderer>();
-        enemyUI = GetComponentInChildren<EnemyUI>();
         myrigid = GetComponent<Rigidbody2D>();
         enemyhurt = GetComponent<EnemyHurt>();
     }
@@ -50,11 +49,12 @@ public abstract class Enemy : MonoBehaviour
         Health.InitValue(enemySO.GetHP() + (level * enemySO.GetGrowStat().GetHealthGrown()), enemySO.GetHP() + (level * enemySO.GetGrowStat().GetHealthGrown()));
         defense = enemySO.GetDef() + (level * enemySO.GetGrowStat().GetDefenseGrown());
         damage = enemySO.GetHP() + (level * enemySO.GetGrowStat().GetDamageGrown());
+
+
         attacktimer = enemySO.GetAttackTimer();
         alertrange = enemySO.GetAlertRange();
         range = enemySO.GetRange();
         builetspeed = enemySO.GetBuiletSpeed();
-
     }
     #endregion
 
@@ -65,27 +65,6 @@ public abstract class Enemy : MonoBehaviour
             mySR.flipX = false;
         else if (transform.position.x < player.transform.position.x)
             mySR.flipX = true;
-    }
-    public void AlertOn()
-    {
-        if (!isAlert)
-            return;
-        if (isAlert)
-        {
-            turnOnAlert = true;
-            if (enemyUI != null)
-            {
-                enemyUI.gameObject.SetActive(true);
-                enemyUI.enabled = true;
-            }
-        }
-    }
-    public void AlertOff()
-    {
-        if (isAlert)
-            return;
-        enemyUI.gameObject.SetActive(false);
-        enemyUI.enabled = false;
     }
     protected abstract void CheckDistance();
 

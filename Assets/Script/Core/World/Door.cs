@@ -28,6 +28,7 @@ public class Door : MonoBehaviour , IInteract
 
     public void Interact()
     {
-
+        Debug.Log("Door");
+        closeDoor.gameObject.SetActive(false);
     }
 }

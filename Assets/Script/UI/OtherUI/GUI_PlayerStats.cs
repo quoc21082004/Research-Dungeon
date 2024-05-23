@@ -25,12 +25,6 @@ public class GUI_PlayerStats : MonoBehaviour
     [SerializeField] TextMeshProUGUI hpRegen_txt;
     [SerializeField] TextMeshProUGUI mpRegen_txt;
 
-    [Header("Upgrade")]
-    [SerializeField] TextMeshProUGUI power_txt;
-    [SerializeField] TextMeshProUGUI magic_txt;
-    [SerializeField] TextMeshProUGUI vitality_txt;
-    [SerializeField] TextMeshProUGUI haste_txt;
-    [SerializeField] TextMeshProUGUI greed_txt;
     private void OnEnable()
     {
         UpdateStatsText();
@@ -51,8 +45,6 @@ public class GUI_PlayerStats : MonoBehaviour
         crit_txt.text = playerdata.basicAttack.GetCrit().ToString("F2") + "%";
         critDMG_txt.text = playerdata.basicAttack.GetCritDMG().ToString("F2") + "%";
         atkSpd_txt.text = playerdata.basicAttack.GetAttackSpeed().ToString("F2");
-        // regen
-        hpRegen_txt.text = playerdata.basicStats.GetHealthRegen().ToString("F2") + "%";
-        mpRegen_txt.text = playerdata.basicStats.GetManaRegen().ToString("F2") + "%";
+
     }
 }

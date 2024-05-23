@@ -1,7 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
-using UnityEngine.SceneManagement;
+﻿using UnityEngine;
 
 public class TransferPlayer : MonoBehaviour
 {
@@ -12,10 +9,8 @@ public class TransferPlayer : MonoBehaviour
 
     public static string nextTransferSpot;
     public static Vector3 nextDirection;
-    private void OnEnable()
-    {
-        player = GameObject.Find("Player").GetComponent<PlayerCTL>();
-    }
+    private void OnEnable() => player = GameObject.Find("Player").GetComponent<PlayerCTL>();
+   
     private void OnTriggerEnter2D(Collider2D collision)
     {
         if (collision.gameObject.CompareTag("Player"))

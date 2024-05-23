@@ -53,19 +53,11 @@ public class BasicAttack
     public void SetPercentDMG(float _value) => percentDamage = _value;
 }
 [System.Serializable]
-public class OtherStats
-{
-    //public float damageReduction;
-    //public int gold;
-}
-[System.Serializable]
 public class BasicStats
 {
     [SerializeField] private int health;
     [SerializeField] private int mana;
     [SerializeField] private int defense;
-    [SerializeField] private float healthRegen;
-    [SerializeField] private float manaRegen;
     [SerializeField] private float damageReduce;
     public int GetHealth() => health;
     public void SetHealth(int _value) => health = _value;
@@ -73,11 +65,6 @@ public class BasicStats
     public void SetMana(int _value) => mana = _value;
     public int GetDef() => defense;
     public void SetDef(int _value) => defense = _value;
-    public float GetHealthRegen() => healthRegen;
-    public void SetHealthRegen(int _value) => healthRegen = _value;
-    public float GetManaRegen() => manaRegen;
-    public void SetManaRegen(int _value) => manaRegen = _value;
-
     public float GetDamageReduce() => damageReduce;
     public void SetDamageReduce(float _value) => damageReduce = _value;
 

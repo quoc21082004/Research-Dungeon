@@ -79,6 +79,5 @@ public class StateTrigger : MonoBehaviour
         isActive = false;
         OnStageEnd?.Invoke();
         NoticeManager.instance.EnableCompleteChallenge(endChallenge);
-
     }
 }

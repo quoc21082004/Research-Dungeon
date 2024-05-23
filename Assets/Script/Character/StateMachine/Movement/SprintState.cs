@@ -1,8 +1,6 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
-
+using UnityEngine.InputSystem;
 public class SprintState : BaseStateMachine
 {
     private PlayerSO playerdata;
@@ -48,11 +46,7 @@ public class SprintState : BaseStateMachine
         base.RemoveInputActionsCallBack();
         InputManager.playerInput.Player.Sprint.performed -= OnSprintperformed;
     }
-
-    private void OnSprintperformed(UnityEngine.InputSystem.InputAction.CallbackContext context)
-    {
-        keepSprint = true;
-    }
+    private void OnSprintperformed(InputAction.CallbackContext context) => keepSprint = true;
 
     #endregion
 

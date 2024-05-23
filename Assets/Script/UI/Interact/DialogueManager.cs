@@ -1,10 +1,7 @@
-
 using System;
 using System.Collections;
-using System.Linq;
 using TMPro;
 using UnityEngine;
-using UnityEngine.Events;
 using UnityEngine.EventSystems;
 
 public class DialogueManager : Singleton<DialogueManager>, IPointerClickHandler

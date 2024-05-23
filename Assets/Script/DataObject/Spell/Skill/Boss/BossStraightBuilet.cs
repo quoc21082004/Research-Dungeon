@@ -10,9 +10,9 @@ public class BossStraightBuilet : MonoBehaviour, ISpell
     protected ActiveAbility activeAbility;
     Transform target;
     private Coroutine lifeCheckCoroutine;
-    private void Awake()
+    private void OnEnable()
     {
-        target = GameObject.FindGameObjectWithTag("Player").GetComponent<Transform>();
+        target = PartyController.player.GetComponent<Transform>();
         myrigid = GetComponent<Rigidbody2D>();
     }
     public void KickOff(ActiveAbility ability, Vector2 dir, Quaternion rot)
@@ -23,7 +23,6 @@ public class BossStraightBuilet : MonoBehaviour, ISpell
         float angle = Mathf.Atan2(dir.y, dir.x) * Mathf.Rad2Deg - 180f;
         transform.rotation = Quaternion.Euler(0, 0, angle);
         myrigid.velocity = moveSpeed * dir;
-        //StartCoroutine(LifeCheckCourtine());
         if (lifeCheckCoroutine != null)
             StopCoroutine(lifeCheckCoroutine);
         StartCoroutine(LifeCheckCourtine());

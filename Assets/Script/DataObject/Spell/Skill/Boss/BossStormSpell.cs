@@ -26,7 +26,6 @@ public class BossStormSpell : MonoBehaviour, ISpell
         activeAbility = ability;
         target = PartyController.player.transform;
         transform.position = direction;
-        //StartCoroutine(StormCouritne(ability));
         if (stormCoroutine != null)
             StopCoroutine(stormCoroutine);
         StartCoroutine(StormCouritne(ability));

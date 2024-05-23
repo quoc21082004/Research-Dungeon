@@ -1,5 +1,4 @@
 ﻿using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -12,21 +11,22 @@ public class PlayerCombat : ActiveAbility
     public float rangeOfAim;
     Collider2D[] findEnemy;
     public Transform aimPos, muzzleFind;
+    private Coroutine waitCoroutine;
 
     #region Main Method
-    private void OnEnable()
+    private void Awake()
     {
         muzzlePoint = GameObject.FindGameObjectWithTag("Muzzle").GetComponent<Transform>();
         mouseFollow = GetComponentInChildren<MouseFollow>();
-        isAttack = false;
-        RegisterEvent();
     }
+    private void OnEnable() => RegisterEvent();
     private void OnDisable() => UnRegisterEvent();
     #endregion
 
     #region Resurb Method
     private void RegisterEvent()
     {
+        isAttack = false;
         var abilityInput = InputManager.playerInput.PlayerAbility;
         abilityInput.Consume1.performed += ConsumeItemX;
         abilityInput.Consume2.performed += ConsumeItemC;
@@ -68,6 +68,8 @@ public class PlayerCombat : ActiveAbility
         {
             isAttack = true;
             PoolManager.instance.Release(fireballprefab, muzzlePoint.transform.position, mouseFollow.transform.rotation);
+            if (waitCoroutine != null)
+                StopCoroutine(waitCoroutine);
             StartCoroutine(waitCD(attackCD));
         }
     }

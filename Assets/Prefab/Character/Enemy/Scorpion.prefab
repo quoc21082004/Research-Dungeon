@@ -301,7 +301,6 @@ MonoBehaviour:
   defense: 0
   level: 0
   isDead: 0
-  turnOnAlert: 0
   mood: 0
   ultiprefab: {fileID: 2975369991134033567, guid: ff9abb6e3aaddc74485f34a2b38464de,
     type: 3}
@@ -326,19 +325,7 @@ MonoBehaviour:
   thurst: 8
   OnStartCombat:
     m_PersistentCalls:
-      m_Calls:
-      - m_Target: {fileID: 0}
-        m_TargetAssemblyTypeName: UnityEngine.GameObject, UnityEngine
-        m_MethodName: SetActive
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
+      m_Calls: []
   OnEndCombat:
     m_PersistentCalls:
       m_Calls: []
@@ -354,7 +341,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f2a20ab545092b040bdde7da4c01df5e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  skillInfo: {fileID: 0}
+  skillInfo: {fileID: 11400000, guid: ff496783452434048942ee1591c4b821, type: 2}
 --- !u!1 &3181062639591875356
 GameObject:
   m_ObjectHideFlags: 0
@@ -510,6 +497,11 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 3181062639407850174}
     m_Modifications:
+    - target: {fileID: 1608608666628077896, guid: 518a118bc1f04584bad230fd7a1d507e,
+        type: 3}
+      propertyPath: enemy
+      value: 
+      objectReference: {fileID: 3181062639407850173}
     - target: {fileID: 1608608666628077896, guid: 518a118bc1f04584bad230fd7a1d507e,
         type: 3}
       propertyPath: monsterLv_txt
@@ -689,6 +681,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3635046250714954160, guid: 518a118bc1f04584bad230fd7a1d507e,
+        type: 3}
+      propertyPath: m_PresetInfoIsWorld
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7885730827288279569, guid: 518a118bc1f04584bad230fd7a1d507e,
         type: 3}

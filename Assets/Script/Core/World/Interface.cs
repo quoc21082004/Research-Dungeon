@@ -1,8 +1,4 @@
-using System;
-using System.Collections;
 using UnityEngine;
-using UnityEngine.Events;
-
 public interface IItem      
 {
     void Destroy();
@@ -29,13 +25,6 @@ public interface IHotKey
 public interface IInteract
 {
     void Interact();
-}
-public interface ISkill
-{
-    void UseSkill1();
-    void UseSkill2();
-    void UseSkill3();
-    void UseSkill4();
 }
 public interface IGUI
 {

@@ -16,10 +16,6 @@ public class PartyController : Singleton<PartyController>
         if (inventoryG == null)
             inventoryG = new Inventory { Gold = player.playerdata.upgradeLevel.GetGold() };
     }
-    private void OnApplicationQuit()
-    {
-        player.playerdata.upgradeLevel.SetGold(inventoryG.Gold);
-    }
     #endregion
 
     #region Resurb Method

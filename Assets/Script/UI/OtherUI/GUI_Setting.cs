@@ -1,11 +1,10 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
-using System.Runtime.CompilerServices;
 public class GUI_Setting : MonoBehaviour , IGUI
 {
+    #region Variable
     [SerializeField] Button controls_btn;
     [SerializeField] Button graphic_btn;
     [SerializeField] Button audio_btn;
@@ -33,19 +32,18 @@ public class GUI_Setting : MonoBehaviour , IGUI
     };
     public List<string> _settingfps = new List<string> { "30", "36", "45", "60", "120", "144", "Unlimit" };
 
-    private const string Key_CurrentResolutionIndex = "ResolutionIndex"; // 
+    private const string Key_CurrentResolutionIndex = "ResolutionIndex"; 
     private const string Key_CurrentFpsIndex = "FpsIndex";
-    private void Start()
-    {
-        Initialized();
-    }
+    #endregion
+
+    #region Main Method
+    private void Start() => Initialized();
     private void OnEnable()
     {
         GUI_Manager.AddGUI(this);
         controls_btn.onClick.AddListener(Controls_Button);
         graphic_btn.onClick.AddListener(Graphic_Button);
         audio_btn.onClick.AddListener(Audio_Button);
-
     }
     private void OnDisable()
     {
@@ -54,6 +52,9 @@ public class GUI_Setting : MonoBehaviour , IGUI
         graphic_btn.onClick.RemoveListener(Graphic_Button);
         audio_btn.onClick.RemoveListener(Audio_Button);
     }
+    #endregion
+
+    #region Resurb Method
     private void Initialized()
     {
         controls_panel.gameObject.SetActive(false);
@@ -88,6 +89,12 @@ public class GUI_Setting : MonoBehaviour , IGUI
     }
     public void GetReference(GameManager _gameManager) { }
     public void UpdateDataGUI() { }
+    public void QuitGame()
+    {
+        Debug.Log("Quit");
+        Application.Quit();
+    }
+    #endregion
 
     #region Button Setting
     private void Controls_Button()

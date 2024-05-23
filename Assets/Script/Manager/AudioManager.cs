@@ -13,7 +13,7 @@ public class AudioManager : Singleton<AudioManager>
         sourceClone.clip = sound.clip;
         sourceClone.Play();
         musicSource = sourceClone;
-        return sourceClone;        
+        return musicSource;        
     }
     public AudioSource PlaySfx(string name)
     {
@@ -24,7 +24,7 @@ public class AudioManager : Singleton<AudioManager>
         sourceClone.clip = sound.clip;
         sourceClone.PlayOneShot(sound.clip);
         sfxSource = sourceClone;
-        return sourceClone;
+        return sfxSource;
     }
     // Adjust music 
     public void ToggleMusic() => musicSource.mute = !musicSource.mute;
