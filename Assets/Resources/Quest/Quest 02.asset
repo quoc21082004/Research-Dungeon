@@ -17,9 +17,9 @@ MonoBehaviour:
     isLocked: 0
     isReceived: 0
   titleQuest: Quest 02
-  descriptionQuest: Collect 5 Bat Item
+  descriptionQuest: Collect 5 Scorpion Tail
   requireQuest:
-    requireItem: {fileID: 11400000, guid: c6ef2b5495a4c0f43ae7b0f894fe9dd0, type: 2}
+    requireItem: {fileID: 11400000, guid: 73185c993e19b984792eacee75c21492, type: 2}
     amount: 5
   rewardQuest:
   - item: {fileID: 11400000, guid: 193aebf4c58aecb43b9d6be044e1daea, type: 2}

@@ -19,7 +19,7 @@ public class BossAIController : MonoBehaviour
     public UnityEvent OnEndCombat;
 
     private void Awake() => combatHandler = GetComponent<BossAICombatHandler>();
-    private void Start() => StartCoroutine(BossFightCoroutine());
+    private void OnEnable() => StartCoroutine(BossFightCoroutine());
     private IEnumerator BossFightCoroutine()
     {
         yield return WaitForPlayerInRange();

@@ -15,7 +15,7 @@ public class BossAICombatHandler : MonoBehaviour
     [SerializeField] private List<AbilityWorkFlowNode> workFlowState1;
     [SerializeField] private List<AbilityWorkFlowNode> workFlowState2;
 
-    private void Awake()
+    private void OnEnable()
     {
         animator = GetComponent<Animator>();
         bossStats = GetComponent<Boss>();

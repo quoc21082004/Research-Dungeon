@@ -14,18 +14,16 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   MAX_LEVEL: 99
   basicStats:
-    health: 35000
+    health: 15000
     mana: 1000
-    defense: 500
-    healthRegen: 3
-    manaRegen: 3
+    defense: 1000
     damageReduce: 5
   basicMovement:
     baseSpeed: 10
     runSpeed: 15
     dashSpeed: 20
   basicAttack:
-    wandDamage: 800
+    wandDamage: 1400
     critChance: 15
     critDamage: 2
     builetSpeed: 12

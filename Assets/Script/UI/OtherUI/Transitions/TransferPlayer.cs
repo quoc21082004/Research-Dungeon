@@ -9,7 +9,6 @@ public class TransferPlayer : MonoBehaviour
 
     public static string nextTransferSpot;
     public static Vector3 nextDirection;
-    private void OnEnable() => player = GameObject.Find("Player").GetComponent<PlayerCTL>();
    
     private void OnTriggerEnter2D(Collider2D collision)
     {
@@ -27,6 +26,6 @@ public class TransferPlayer : MonoBehaviour
     }
     public static void Teleport(Vector3 newcord, Vector2 direction)
     {
-        player.gameObject.GetComponent<PlayerCTL>().SetPosition(newcord, direction);
+        PartyController.player.GetComponent<PlayerCTL>().SetPosition(newcord, direction);
     }
 }
